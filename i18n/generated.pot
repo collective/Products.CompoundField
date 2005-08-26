@@ -1,0 +1,89 @@
+# ArchGenXML generated POT File
+# unknown author <unknown@email.address>, 2005.
+msgid ""
+msgstr ""
+"Project-Id-Version: CompoundField\n"
+"POT-Creation-Date: Sat Jun  4 10:56:56 2005\n"
+"PO-Revision-Date: Sat Jun  4 10:56:56 2005\n"
+"Last-Translator: unknown author <unknown@email.address>\n"
+"Language-Team: unknown author <unknown@email.address>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ascii\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: latin1 utf-8\n"
+"Domain: CompoundField\n"
+
+#: testClasses/XPointField.py
+#. Enter a value for attribut_1.
+msgid "CompoundField_help_attribut_1"
+msgstr "Enter a value for attribut_1."
+
+
+#: testClasses/CompoundFieldTest.py
+#. Enter a value for box.
+msgid "CompoundField_help_box"
+msgstr "Enter a value for box."
+
+
+#: testClasses/CompoundFieldTest.py
+#. Enter a value for point.
+msgid "CompoundField_help_point"
+msgstr "Enter a value for point."
+
+
+#: testClasses/CompoundFieldTest.py
+#. Enter a value for point2.
+msgid "CompoundField_help_point2"
+msgstr "Enter a value for point2."
+
+
+#: testClasses/XPointField.py
+#. Enter a value for x.
+msgid "CompoundField_help_x"
+msgstr "Enter a value for x."
+
+
+#: testClasses/XPointField.py
+#. Enter a value for y.
+msgid "CompoundField_help_y"
+msgstr "Enter a value for y."
+
+
+#: testClasses/XPointField.py
+#. Attribut_1
+msgid "CompoundField_label_attribut_1"
+msgstr "Attribut_1"
+
+
+#: testClasses/CompoundFieldTest.py
+#. Box
+msgid "CompoundField_label_box"
+msgstr "Box"
+
+
+#: testClasses/CompoundFieldTest.py
+#. Point
+msgid "CompoundField_label_point"
+msgstr "Point"
+
+
+#: testClasses/CompoundFieldTest.py
+#. Point2
+msgid "CompoundField_label_point2"
+msgstr "Point2"
+
+
+#: testClasses/XPointField.py
+#. X
+msgid "CompoundField_label_x"
+msgstr "X"
+
+
+#: testClasses/XPointField.py
+#. Y
+msgid "CompoundField_label_y"
+msgstr "Y"
+
