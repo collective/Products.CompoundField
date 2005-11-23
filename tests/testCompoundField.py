@@ -234,6 +234,7 @@ class testCompoundField(CompoundFieldTestCase):
         #print instance.getBox()
         #print instance.getPoint()
         self.assertEqual(instance.getPoint(),self.pointdict_get)
+        #import pdb;pdb.set_trace()
         self.assertEqual(instance.getPoint2(),XPoint(1,2))
         self.assertEqual(instance.getBox(),self.boxdict_get)
     # Manually created methods
