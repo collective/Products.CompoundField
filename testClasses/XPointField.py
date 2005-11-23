@@ -38,6 +38,7 @@ from Products.CompoundField import config
 ##/code-section module-header
 
 from Products.CompoundField.CompoundField import CompoundField
+from XPointWidget import XPointWidget
 from XPoint import XPoint
 
 
@@ -80,6 +81,7 @@ class XPointField(CompoundField):
     _properties = CompoundField._properties.copy()
     _properties.update({
         'type': 'xpointfield',
+        'widget':XPointWidget,
         'value_class':XPoint,
         ##code-section field-properties #fill in your manual code here
         ##/code-section field-properties
