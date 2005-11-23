@@ -28,7 +28,7 @@ from Products.Archetypes import config as atconfig
 from Products.Archetypes.Widget import *
 from Products.generator import i18n
 
-from Products.testClasses import config
+from Products.CompoundField import config
 
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header
