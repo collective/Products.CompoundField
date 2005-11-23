@@ -79,5 +79,5 @@ try how processForm works after a grow resize
 >>> myobj.getNames()
 ['n1', 'n2', 'n3', 'n4', 'n5', 'n6']
 
->>> myobj.getPoints1()
-
+>>> print myobj.getPoints1()
+{'polypoints': [XPoint(...
