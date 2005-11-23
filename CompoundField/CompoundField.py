@@ -1,7 +1,7 @@
 # File: CompoundField.py
 # 
 # Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-beta2 devel 
+# Generator: ArchGenXML Version 1.4.0-RC1 devel 
 #            http://plone.org/products/archgenxml
 #
 # This software is released under the German Free Software License (D-FSL).
@@ -11,6 +11,11 @@
 __author__  = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
 <jens.klein@jensquadrat.com>'''
 __docformat__ = 'plaintext'
+
+#CompoundField
+
+
+
 
 from types import ListType, TupleType, StringTypes
 from AccessControl import ClassSecurityInfo
@@ -40,6 +45,7 @@ from Products.CompoundField import ClassGen
 
 from ICompoundField import ICompoundField
 from CompoundWidget import CompoundWidget
+
 
 
 
@@ -119,6 +125,7 @@ class CompoundField(ObjectField):
         return res
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
     def setSchema(self,schema):
+        
         self.schema=schema
         self.calcFieldNames()
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
@@ -139,7 +146,7 @@ class CompoundField(ObjectField):
             f.__name__=config.COMPOUND_FIELD_SEPERATOR.join([getattr(field,'old_name',field.getName()) for field in path+[self]+[f]])
             #del _fields[old_name]
             _fields[f.__name__]=f
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+            
     def getAccessor(self,instance):
         ''' hook to post-generate the accessors for the subfields
             its a little bit hacky, because we need a special ClassGen here
@@ -155,10 +162,7 @@ class CompoundField(ObjectField):
         ObjectField.__init__(self,name,**kwargs)
             
         if not schema:
-            try:
-                schema=self.schema.copy()
-            except:
-                raise ValueError, 'nested CompoundFields only supported in Zope 2.8+'
+            schema=self.schema.copy()
             
         self.setSchema(schema)
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              

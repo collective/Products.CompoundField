@@ -1,7 +1,7 @@
 # File: testArrayField.py
 # 
 # Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-beta2 devel 
+# Generator: ArchGenXML Version 1.4.0-RC1 devel 
 #            http://plone.org/products/archgenxml
 #
 # This software is released under the German Free Software License (D-FSL).
@@ -11,6 +11,10 @@
 __author__  = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
 <jens.klein@jensquadrat.com>'''
 __docformat__ = 'plaintext'
+
+import os, sys
+if __name__ == '__main__':
+    execfile(os.path.join(sys.path[0], 'framework.py'))
 
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header
@@ -38,18 +42,6 @@ class testArrayField(PloneTestCase):
         pass
 
 
-    # from class ArrayFieldTest:
-    def test_arrayfield_test(self):
-        """ 
-        """
-        #Uncomment one of the following lines as needed
-        ##self.loginAsPortalOwner()
-        ##o=ArrayFieldTest('temp_ArrayFieldTest')
-        ##self.folder._setObject('temp_ArrayFieldTest', o)
-        pass
-        
-
-
     # Manually created methods
 
 
@@ -64,11 +56,11 @@ def test_suite():
     ))
 
 
-if __name__ == '__main__':
-    execfile(os.path.join(sys.path[0], 'framework.py'))
-
 ##code-section module-footer #fill in your manual code here
 ##/code-section module-footer
 
+
+if __name__ == '__main__':
+    framework()
 
 

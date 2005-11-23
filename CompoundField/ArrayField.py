@@ -1,7 +1,7 @@
 # File: ArrayField.py
 # 
 # Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-beta2 devel 
+# Generator: ArchGenXML Version 1.4.0-RC1 devel 
 #            http://plone.org/products/archgenxml
 #
 # This software is released under the German Free Software License (D-FSL).
@@ -11,6 +11,11 @@
 __author__  = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
 <jens.klein@jensquadrat.com>'''
 __docformat__ = 'plaintext'
+
+#ArrayField
+
+
+
 
 from types import ListType, TupleType, StringTypes
 from AccessControl import ClassSecurityInfo
@@ -45,6 +50,7 @@ from Products.CompoundField.CompoundField import CompoundField
 schema=Schema((
 ),
 )
+
 
 
 
@@ -100,7 +106,8 @@ class ArrayField(CompoundField):
                         
     def getSize(self,instance=None):
         if instance:
-            lf=self.Schema()['size']
+            lf=self.Schema().fields()[0] #field 0 is always size. has to be adressed by index because fields get renamed during nesting
+                
             size=lf.get(instance)
             if size is None:
                 size=self.size
@@ -112,32 +119,6 @@ class ArrayField(CompoundField):
         else:
             return self.size
                             
-    def __init__(self,field,size=5,*a,**kw):
-        self.args=a
-        self.kwargs=kw
-        self.field=field
-        CompoundField.__init__(self,self.field.getName(),*self.args,**self.kwargs)
-        self.resize(size)
-                        
-    def getPhysicalSize(self):
-        """ returns the physical amount of subfields"""
-        return getattr(self,'physicalSize',0)
-                            
-    def copy(self):
-        """
-        Return a copy of field instance, consisting of field name and
-        properties dictionary.
-        """
-        cdict = dict(vars(self))
-        # Widget must be copied separatedly
-        widget = cdict['widget']
-        del cdict['widget']
-        del cdict['schema']
-        del cdict['field']
-        properties = deepcopy(cdict)
-        properties['widget'] = widget.copy()
-        return self.__class__(self.field,**properties)
-                        
     def resize(self,size ,instance=None):
 
         oldsize=self.getPhysicalSize()
@@ -164,6 +145,37 @@ class ArrayField(CompoundField):
         else:
             self.size=size
                             
+    def getPhysicalSize(self):
+        """ returns the physical amount of subfields"""
+        return getattr(self,'physicalSize',0)
+                            
+    def copy(self):
+        """
+        Return a copy of field instance, consisting of field name and
+        properties dictionary.
+        """
+ 
+        cdict = dict(vars(self))
+        # Widget must be copied separatedly
+        widget = cdict['widget']
+        del cdict['widget']
+        del cdict['schema']
+        del cdict['field']
+        properties = deepcopy(cdict)
+        properties['widget'] = widget.copy()
+        res=self.__class__(self.field,**properties)
+        res.schema=self.Schema().copy()
+        
+        return res
+                        
+    def __init__(self,field,size=5,*a,**kw):
+            
+        self.args=a
+        self.kwargs=kw
+        self.field=field
+        CompoundField.__init__(self,self.field.getName(),*self.args,**self.kwargs)
+        self.resize(size)
+                        
 
 registerField(ArrayField,
               title='ArrayField',

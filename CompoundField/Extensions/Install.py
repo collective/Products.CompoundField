@@ -3,7 +3,7 @@
 # Copyright (c) 2005 by eduplone Open Source Business Network EEIG
 #
 # Generated: 
-# Generator: ArchGenXML Version 1.4.0-beta2 devel
+# Generator: ArchGenXML Version 1.4.0-RC1 devel
 #            http://plone.org/products/archgenxml
 #
 # This software is released under the German Free Software License (D-FSL).
@@ -75,6 +75,50 @@ def install(self):
         print >>out,'no workflow install'
 
 
+    # enable portal_factory for given types
+    factory_tool = getToolByName(self,'portal_factory')
+    factory_types=[
+        ] + factory_tool.getFactoryTypes().keys()
+    factory_tool.manage_setPortalFactoryTypes(listOfTypeIds=factory_types)
+
+    # For plone 2.1, allow the easy registering of stylesheets
+    from Products.CompoundField.config import HAS_PLONE21
+    if HAS_PLONE21:
+        try:
+            from Products.CompoundField.config import STYLESHEETS
+        except:
+            STYLESHEETS = []
+        try:
+            from Products.CompoundField.config import JAVASCRIPTS
+        except:
+            JAVASCRIPTS = []
+        portal_css = getToolByName(portal, 'portal_css')
+        portal_javascripts = getToolByName(portal, 'portal_javascripts')
+        for stylesheet in STYLESHEETS:
+            try:
+                portal_css.unregisterResource(stylesheet['id'])
+            except:
+                pass
+            defaulttitle = '%s %s' % (PROJECTNAME, stylesheet['id'])
+            defaults = {'id': '',
+            'expression': None,
+            'media': 'all',
+            'title': defaulttitle,
+            'enabled': True}
+            defaults.update(stylesheet)
+            portal_css.manage_addStylesheet(**defaults)
+        for javascript in JAVASCRIPTS:
+            try:
+                portal_javascripts.unregisterResource(stylesheet['id'])
+            except:
+                pass
+            defaults = {'id': '',
+            'expression': '', 
+            'inline': False,
+            'enabled': True,
+            'cookable': True}
+            defaults.update(javascript)
+            portal_javascripts.registerScript(**defaults)
 
     # try to call a custom install method
     # in 'AppInstall.py' method 'install'

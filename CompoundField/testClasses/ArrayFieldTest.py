@@ -1,7 +1,7 @@
 # File: ArrayFieldTest.py
 # 
 # Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-beta2 devel 
+# Generator: ArchGenXML Version 1.4.0-RC1 devel 
 #            http://plone.org/products/archgenxml
 #
 # This software is released under the German Free Software License (D-FSL).
@@ -12,10 +12,11 @@ __author__  = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
 <jens.klein@jensquadrat.com>'''
 __docformat__ = 'plaintext'
 
+
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
-
 from Products.CompoundField.ArrayField import ArrayField
+from XPolygonField import XPolygonField
 from XBoxField import XBoxField
 from XPointField import XPointField
 from Products.CompoundField.ArrayField import ArrayField
@@ -34,18 +35,28 @@ ArrayField(        StringField('names',
                 i18n_domain='CompoundField',
             )
         ),
-        ),
+    ),
 ArrayField(        XPointField('points',
         
         ),
-        ),
+    ),
 ArrayField(        XBoxField('boxes',
         
         ),
-        ),
+    ),
+    XPolygonField('points1',
+    
+    ),
+
 ),
 )
 
+
+##code-section after-local-schema #fill in your manual code here
+##/code-section after-local-schema
+
+ArrayFieldTest_schema = BaseSchema + \
+    schema
 
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
@@ -58,34 +69,34 @@ class ArrayFieldTest(BaseContent):
     # This name appears in the 'add' box
     archetype_name             = 'ArrayFieldTest'
 
-    meta_type                  = 'ArrayFieldTest' 
-    portal_type                = 'ArrayFieldTest' 
-    allowed_content_types      = [] 
+    meta_type                  = 'ArrayFieldTest'
+    portal_type                = 'ArrayFieldTest'
+    allowed_content_types      = []
     filter_content_types       = 0
     global_allow               = 1
     allow_discussion           = 0
     #content_icon               = 'ArrayFieldTest.gif'
     immediate_view             = 'base_view'
     default_view               = 'base_view'
+    suppl_views                = ()
     typeDescription            = "ArrayFieldTest"
     typeDescMsgId              = 'description_edit_arrayfieldtest'
 
     actions =  (
 
 
-       {'action':      "string:$object_url/arrayfield_test",
+       {'action':      "string:${object_url}/arrayfield_test",
         'category':    "object",
         'id':          'arrayfield_test',
         'name':        'arrayfield_test',
         'permissions': ("View",),
         'condition'  : 'python:1'
        },
-        
+
 
     )
 
-    schema = BaseSchema + \
-             schema
+    schema = ArrayFieldTest_schema
 
     ##code-section class-header #fill in your manual code here
     ##/code-section class-header
