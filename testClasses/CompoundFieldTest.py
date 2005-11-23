@@ -1,7 +1,7 @@
 # File: CompoundFieldTest.py
 # 
 # Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-beta2 devel 
+# Generator: ArchGenXML Version 1.4.0-RC1 devel 
 #            http://plone.org/products/archgenxml
 #
 # This software is released under the German Free Software License (D-FSL).
@@ -12,9 +12,9 @@ __author__  = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
 <jens.klein@jensquadrat.com>'''
 __docformat__ = 'plaintext'
 
+
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
-
 from Products.CompoundField.CompoundField import CompoundField
 from XPointField import XPointField
 
@@ -27,18 +27,24 @@ schema=Schema((
     CompoundField('point',
         schema=Schema((IntegerField('x'),IntegerField('y')))
     ),
-    
+
     CompoundField('box',
     
     ),
-    
+
     XPointField('point2',
     
     ),
-    
+
 ),
 )
 
+
+##code-section after-local-schema #fill in your manual code here
+##/code-section after-local-schema
+
+CompoundFieldTest_schema = BaseSchema + \
+    schema
 
 ##code-section after-schema #fill in your manual code here
 
@@ -69,20 +75,20 @@ class CompoundFieldTest(BaseContent):
     # This name appears in the 'add' box
     archetype_name             = 'CompoundFieldTest'
 
-    meta_type                  = 'CompoundFieldTest' 
-    portal_type                = 'CompoundFieldTest' 
-    allowed_content_types      = [] 
+    meta_type                  = 'CompoundFieldTest'
+    portal_type                = 'CompoundFieldTest'
+    allowed_content_types      = []
     filter_content_types       = 0
     global_allow               = 0
     allow_discussion           = 0
     #content_icon               = 'CompoundFieldTest.gif'
     immediate_view             = 'base_view'
     default_view               = 'base_view'
+    suppl_views                = ()
     typeDescription            = "CompoundFieldTest"
     typeDescMsgId              = 'description_edit_compoundfieldtest'
 
-    schema = BaseSchema + \
-             schema
+    schema = CompoundFieldTest_schema
 
     ##code-section class-header #fill in your manual code here
     ##/code-section class-header

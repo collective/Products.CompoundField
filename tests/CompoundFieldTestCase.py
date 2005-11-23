@@ -1,7 +1,7 @@
 # File: CompoundFieldTestCase.py
 # 
 # Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-beta2 devel 
+# Generator: ArchGenXML Version 1.4.0-RC1 devel 
 #            http://plone.org/products/archgenxml
 #
 # This software is released under the German Free Software License (D-FSL).
@@ -12,30 +12,43 @@ __author__  = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
 <jens.klein@jensquadrat.com>'''
 __docformat__ = 'plaintext'
 
-##code-section module-header #fill in your manual code here
-##/code-section module-header
-
 #
 # Base TestCase for CompoundField
 #
+import os, sys
+if __name__ == '__main__':
+    execfile(os.path.join(sys.path[0], 'framework.py'))
+
+##code-section module-header #fill in your manual code here
+##/code-section module-header
+
 from Testing import ZopeTestCase
 from Products.PloneTestCase import PloneTestCase
+from Products.CompoundField.config import HAS_PLONE21
+from Products.CompoundField.config import PRODUCT_DEPENDENCIES
+from Products.CompoundField.config import DEPENDENCIES
 
-ZopeTestCase.installProduct('Archetypes')
-ZopeTestCase.installProduct('PortalTransforms', quiet=1)
-ZopeTestCase.installProduct('MimetypesRegistry', quiet=1)
-ZopeTestCase.installProduct('CompoundField')
-# If the products's config includes DEPENDENCIES, install them too
-try:
-    from Products.CompoundField.config import DEPENDENCIES
-except:
-    DEPENDENCIES = []
-for dependency in DEPENDENCIES:
+# add common dependencies
+if not HAS_PLONE21:
+    DEPENDENCIES.append('Archetypes')
+    PRODUCT_DEPENDENCIES.append('MimetypesRegistry')
+PRODUCT_DEPENDENCIES.append('CompoundField')
+    
+# install all (product-) dependencies, install them too
+for dependency in PRODUCT_DEPENDENCIES + DEPENDENCIES:
     ZopeTestCase.installProduct(dependency)
 
-PRODUCTS = ('Archetypes', 'CompoundField')
+ZopeTestCase.installProduct('CompoundField')
+
+PRODUCTS = list()
+PRODUCTS += DEPENDENCIES
+PRODUCTS.append('CompoundField')
 
 testcase = PloneTestCase.PloneTestCase
+##code-section module-before-plone-site-setup #fill in your manual code here
+##/code-section module-before-plone-site-setup
+
+
 PloneTestCase.setupPloneSite(products=PRODUCTS)
 
 class CompoundFieldTestCase(testcase):
@@ -50,8 +63,17 @@ class CompoundFieldTestCase(testcase):
     #    """
     #    pass
 
+def test_suite():
+    from unittest import TestSuite, makeSuite
+    suite = TestSuite()
+    suite.addTest(makeSuite(CompoundFieldTestCase))
+    return suite
+
 ##code-section module-footer #fill in your manual code here
 ##/code-section module-footer
 
+
+if __name__ == '__main__':
+    framework()
 
 

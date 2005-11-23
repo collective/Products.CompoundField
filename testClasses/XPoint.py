@@ -1,7 +1,7 @@
 # File: XPoint.py
 # 
 # Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-beta2 devel 
+# Generator: ArchGenXML Version 1.4.0-RC1 devel 
 #            http://plone.org/products/archgenxml
 #
 # This software is released under the German Free Software License (D-FSL).
@@ -55,9 +55,9 @@ class XPoint:
         self.y=None 
                         
 
-    def __eq__(self,other):
-        return self.x==other.x and self.y==other.y
-                                                                                                                                                                                                                                                                                                    
+    def setX(self,value):
+        self.x=value
+                                                                                                                                                                                                                                                                                                
 
     def __str__(self):
         return 'XPoint(%s,%s)' % (self.x,self.y)
@@ -75,9 +75,9 @@ class XPoint:
         return str(self)
                             
 
-    def setX(self,value):
-        self.x=value
-                                                                                                                                                                                                                                                                                                
+    def __eq__(self,other):
+        return self.x==other.x and self.y==other.y
+                                                                                                                                                                                                                                                                                                    
 
     def setY(self,value):
         self.y=value

@@ -1,7 +1,7 @@
 # File: XBoxField.py
 # 
 # Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-beta2 devel 
+# Generator: ArchGenXML Version 1.4.0-RC1 devel 
 #            http://plone.org/products/archgenxml
 #
 # This software is released under the German Free Software License (D-FSL).
@@ -11,6 +11,11 @@
 __author__  = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
 <jens.klein@jensquadrat.com>'''
 __docformat__ = 'plaintext'
+
+#XBoxField
+
+
+
 
 from types import ListType, TupleType, StringTypes
 from AccessControl import ClassSecurityInfo
@@ -42,13 +47,14 @@ schema=Schema((
     XPointField('p1',
     
     ),
-    
+
     XPointField('p2',
     
     ),
-    
+
 ),
 )
+
 
 
 
