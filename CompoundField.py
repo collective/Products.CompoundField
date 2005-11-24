@@ -94,6 +94,10 @@ class CompoundField(ObjectField):
         if not value:
             return
         
+        if type(value) in (type(''),type(u'')):
+            #if the value comes as string eval it to a dict
+            value=eval(value)
+        
         if getattr(self,'value_class',None):
             if isinstance(value,self.value_class):
                 value=self.valueClass2Raw(value)
@@ -101,7 +105,7 @@ class CompoundField(ObjectField):
         for f in self.Schema().fields():
             if value.has_key(f.old_name):
                 v=value[f.old_name]
-                if len(v)>1:
+                if v and len(v)>1:
                     kw=v[1]
                 else:
                     kw={}
