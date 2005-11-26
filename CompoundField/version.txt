@@ -1,1 +1,1 @@
-1.0-beta build 241
+1.0-beta1
