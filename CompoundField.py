@@ -105,10 +105,15 @@ class CompoundField(ObjectField):
         for f in self.Schema().fields():
             if value.has_key(f.old_name):
                 v=value[f.old_name]
-                if v and len(v)>1:
-                    kw=v[1]
-                else:
-                    kw={}
+                try :
+                    if v and len(v)>1:
+                        kw=v[1]
+                    else:
+                        kw={}
+                except:
+                    if type(v) == type(1):
+                        f.set(instance,v) # hoffmas hoit / let us hope @@@
+                        v = False
         
                 if v:
                     f.set(instance,v[0],**kw)
