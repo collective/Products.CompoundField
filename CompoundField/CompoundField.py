@@ -38,6 +38,7 @@ from Products.CompoundField import config
 import types
 from Products.Archetypes.Schema import *
 from Products.CompoundField import ClassGen
+ListTypes=(type(()),type([]))
 
 #uugh, we need a special generator for the subfields
 
@@ -91,6 +92,8 @@ class CompoundField(ObjectField):
         return res
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
     def set(self, instance, value, **kwargs):
+        #print 'COMPOUNDFIELD:SET:',value
+        #import pdb;pdb.set_trace()
         if not value:
             return
         
@@ -105,19 +108,18 @@ class CompoundField(ObjectField):
         for f in self.Schema().fields():
             if value.has_key(f.old_name):
                 v=value[f.old_name]
-                try :
-                    if v and len(v)>1:
-                        kw=v[1]
-                    else:
-                        kw={}
-                except:
-                    if type(v) == type(1):
-                        f.set(instance,v) # hoffmas hoit / let us hope @@@
-                        v = False
-        
+                isarray=type(v) in ListTypes and len(v)==2 and type(v[1]) == type({})
+                if v and isarray:
+                    kw=v[1]
+                else:
+                    kw={}
+                    
                 if v:
-                    f.set(instance,v[0],**kw)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                    if isarray or (type(v) in ListTypes and len(v) ==1):
+                        f.set(instance,v[0],**kw)
+                    else:
+                        f.set(instance,v,**kw)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
     def get(self, instance, **kwargs):
         res={}
         for f in self.Schema().fields():

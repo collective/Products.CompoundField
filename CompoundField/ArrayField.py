@@ -84,6 +84,8 @@ class ArrayField(CompoundField):
         return CompoundField.getRaw(self,instance,**kwargs)
                                                                                                                                                                                                                         
     def set(self, instance, value, **kwargs):
+        #print 'Arrayfield:set: %s' % value
+        #import pdb;pdb.set_trace()
         if type(value)==DictType:
             return CompoundField.set(self,instance,value,**kwargs)
         
