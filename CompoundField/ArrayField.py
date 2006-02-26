@@ -86,6 +86,10 @@ class ArrayField(CompoundField):
     def set(self, instance, value, **kwargs):
         #print 'Arrayfield:set: %s' % value
         #import pdb;pdb.set_trace()
+        if type(value) in (type(''),type(u'')):
+            #if the value comes as string eval it to a dict
+            value=eval(value)
+
         if type(value)==DictType:
             return CompoundField.set(self,instance,value,**kwargs)
         
@@ -95,7 +99,7 @@ class ArrayField(CompoundField):
         for f in self.Schema().fields()[1:self.getSize(instance)+1]:
             if i>=len(value):
                 break
-                    
+
             f.set(instance,value[i],**kwargs)
             i+=1
                                                                                                                                     
