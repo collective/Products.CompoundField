@@ -1,23 +1,22 @@
 # File: ArrayField.py
-# 
-# Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-RC1 devel 
+#
+# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
+# Generator: ArchGenXML Version 1.5.0 svn/devel
 #            http://plone.org/products/archgenxml
 #
-# This software is released under the German Free Software License (D-FSL).
-# The full text of this license is delivered with this product or is available
-# at http://www.dipp.nrw.de/d-fsl
+# German Free Software License (D-FSL)
 #
-__author__  = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
-<jens.klein@jensquadrat.com>'''
+# This Program may be used by anyone in accordance with the terms of the 
+# German Free Software License
+# The License may be obtained under <http://www.d-fsl.org>.
+#
+
+__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
+<jens.klein@jensquadrat.com>"""
 __docformat__ = 'plaintext'
 
 #ArrayField
 
-
-
-
-from types import ListType, TupleType, StringTypes
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
 
@@ -30,7 +29,10 @@ from Products.Archetypes import config as atconfig
 from Products.Archetypes.Widget import *
 from Products.Archetypes.Field  import *
 from Products.Archetypes.Schema import Schema
-from Products.generator import i18n
+try:
+    from Products.generator import i18n
+except ImportError:
+    from Products.Archetypes.generator import i18n
 
 from Products.CompoundField import config
 
@@ -40,23 +42,23 @@ from types import DictType
 from copy import deepcopy
 ##/code-section module-header
 
-from CompoundField import CompoundField
-from IArrayField import IArrayField
-from ArrayWidget import ArrayWidget
+from Products.CompoundField.CompoundField import CompoundField
+from Products.CompoundField.IArrayField import IArrayField
+from Products.CompoundField.ArrayWidget import ArrayWidget
 
 
 from Products.CompoundField.CompoundField import CompoundField
 ######CompoundField
-schema=Schema((
+schema = Schema((
+
 ),
 )
 
 
 
-
 class ArrayField(CompoundField):
-    ''' '''
-
+    """
+    """
     ##code-section class-header #fill in your manual code here
     ##/code-section class-header
 
@@ -102,7 +104,7 @@ class ArrayField(CompoundField):
 
             f.set(instance,value[i],**kwargs)
             i+=1
-                                                                                                                                    
+               
     def get(self, instance, **kwargs):
         res=[]
         for f in self.Schema().fields()[1:self.getSize(instance)+1]:
@@ -125,32 +127,14 @@ class ArrayField(CompoundField):
         else:
             return self.size
                             
-    def resize(self,size ,instance=None):
-
-        oldsize=self.getPhysicalSize()
-        
-        #only do a physical resize when growing
-        if size>oldsize:
-            self.already_bootstrapped=False
-            schema=Schema(())
-            schema.addField(IntegerField('size'))
-            fn=self.field.getName()
+    def __init__(self,field,size=5,*a,**kw):
             
-            for i in range(size):
-                f1=self.field.copy()
-                f1.__name__='%s:%03d' % (fn,i)
-                schema.addField(f1)
-                
-            #import pdb;pdb.set_trace()
-            self.setSchema(schema=schema)
-            self.physicalSize=size
-
-        if instance:
-            lf=self.Schema()['size']
-            lf.set(instance,size)
-        else:
-            self.size=size
-                            
+        self.args=a
+        self.kwargs=kw
+        self.field=field
+        CompoundField.__init__(self,self.field.getName(),*self.args,**self.kwargs)
+        self.resize(size)
+                        
     def getPhysicalSize(self):
         """ returns the physical amount of subfields"""
         return getattr(self,'physicalSize',0)
@@ -174,14 +158,31 @@ class ArrayField(CompoundField):
         
         return res
                         
-    def __init__(self,field,size=5,*a,**kw):
+    def resize(self, size, instance=None):
+
+        oldsize=self.getPhysicalSize()
+        
+        #only do a physical resize when growing
+        if size>oldsize:
+            self.already_bootstrapped=False
+            schema=Schema(())
+            schema.addField(IntegerField('size'))
+            fn=self.field.getName()
             
-        self.args=a
-        self.kwargs=kw
-        self.field=field
-        CompoundField.__init__(self,self.field.getName(),*self.args,**self.kwargs)
-        self.resize(size)
-                        
+            for i in range(size):
+                f1=self.field.copy()
+                f1.__name__='%s:%03d' % (fn,i)
+                schema.addField(f1)
+                
+            self.setSchema(schema=schema)
+            self.physicalSize=size
+
+        if instance:
+            lf=self.Schema()['size']
+            lf.set(instance,size)
+        else:
+            self.size=size
+                            
 
 registerField(ArrayField,
               title='ArrayField',

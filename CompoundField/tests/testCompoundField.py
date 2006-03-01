@@ -1,15 +1,18 @@
 # File: testCompoundField.py
-# 
-# Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-RC1 devel 
+#
+# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
+# Generator: ArchGenXML Version 1.5.0 svn/devel
 #            http://plone.org/products/archgenxml
 #
-# This software is released under the German Free Software License (D-FSL).
-# The full text of this license is delivered with this product or is available
-# at http://www.dipp.nrw.de/d-fsl
+# German Free Software License (D-FSL)
 #
-__author__  = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
-<jens.klein@jensquadrat.com>'''
+# This Program may be used by anyone in accordance with the terms of the 
+# German Free Software License
+# The License may be obtained under <http://www.d-fsl.org>.
+#
+
+__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
+<jens.klein@jensquadrat.com>"""
 __docformat__ = 'plaintext'
 
 import os, sys
@@ -20,12 +23,14 @@ if __name__ == '__main__':
 ##/code-section module-header
 
 #
-# test-cases for class(es) CompoundFieldTest
+# Test-cases for class(es) CompoundFieldTest
 #
-import os, sys
+
 from Testing import ZopeTestCase
+from Products.CompoundField.config import *
 from Products.CompoundField.tests.CompoundFieldTestCase import CompoundFieldTestCase
-# import the tested classes
+
+# Import the tested classes
 from Products.CompoundField.testClasses.CompoundFieldTest import CompoundFieldTest
 from Products.CompoundField.CompoundWidget import CompoundWidget
 from Products.CompoundField.CompoundField import CompoundField
@@ -136,7 +141,6 @@ class testCompoundField(CompoundFieldTestCase):
         pt.constructContent('CompoundFieldTest',self.folder,'cft')
         pt.constructContent('CompoundFieldTest',self.folder,'cft1')
 
-
     def test_nestedCompoundField(self):
         """
         """
@@ -147,7 +151,6 @@ class testCompoundField(CompoundFieldTestCase):
         self.assertEqual({'x':1,'y':2},r['point1'])
         self.assertEqual({'x':3,'y':4},r['point2'])
  
-
     def test_simpleCompoundField(self):
         """
         """
@@ -173,7 +176,6 @@ class testCompoundField(CompoundFieldTestCase):
         o.update(point2=XPoint(-1,0))
         self.assertEqual(o.getPoint2(),XPoint(-1,0))
         
-
     def test_simpleCompoundWidget(self):
         """
         """
@@ -192,7 +194,6 @@ class testCompoundField(CompoundFieldTestCase):
 
         self.assertEqual(instance.Schema()['point2'].value_class,XPoint)
  
-
     def test_nestedCompoundWidget(self):
         """
         """
@@ -212,9 +213,8 @@ class testCompoundField(CompoundFieldTestCase):
  
         self.assertEqual(result[0],self.boxdict_process_form)
     
-
-
     # Manually created methods
+
     def test_nestedCompoundFieldFull(self):
         instance=self.folder.cft1
         
@@ -247,7 +247,6 @@ def test_suite():
 
 ##code-section module-footer #fill in your manual code here
 ##/code-section module-footer
-
 
 if __name__ == '__main__':
     framework()

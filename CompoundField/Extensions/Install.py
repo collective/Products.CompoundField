@@ -1,24 +1,25 @@
-""" Extensions/Install.py """
-
-# Copyright (c) 2005 by eduplone Open Source Business Network EEIG
+# File: Install.py
 #
-# Generated: 
-# Generator: ArchGenXML Version 1.4.0-RC1 devel
+# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
+# Generator: ArchGenXML Version 1.5.0 svn/devel
 #            http://plone.org/products/archgenxml
 #
-# This software is released under the German Free Software License (D-FSL).
-# The full text of this license is delivered with this product or is available
-# at http://www.dipp.nrw.de/d-fsl
+# German Free Software License (D-FSL)
 #
-__author__    = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
-<jens.klein@jensquadrat.com>'''
+# This Program may be used by anyone in accordance with the terms of the 
+# German Free Software License
+# The License may be obtained under <http://www.d-fsl.org>.
+#
+
+__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
+<jens.klein@jensquadrat.com>"""
 __docformat__ = 'plaintext'
-__version__   = '$ Revision 0.0 $'[11:-2]
+
 
 import os.path
 import sys
 from StringIO import StringIO
-
+from sets import Set
 from App.Common import package_home
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.utils import manage_addTool
@@ -27,10 +28,8 @@ from zExceptions import NotFound, BadRequest
 
 from Products.Archetypes.Extensions.utils import installTypes
 from Products.Archetypes.Extensions.utils import install_subskin
-try:
-    from Products.Archetypes.lib.register import listTypes
-except ImportError:
-    from Products.Archetypes.public import listTypes
+from Products.Archetypes.config import TOOL_NAME as ARCHETYPETOOLNAME
+from Products.Archetypes.atapi import listTypes
 from Products.CompoundField.config import PROJECTNAME
 from Products.CompoundField.config import product_globals as GLOBALS
 
@@ -63,7 +62,9 @@ def install(self):
     # try to call a workflow install method
     # in 'InstallWorkflows.py' method 'installWorkflows'
     try:
-        installWorkflows = ExternalMethod('temp','temp',PROJECTNAME+'.InstallWorkflows', 'installWorkflows').__of__(self)
+        installWorkflows = ExternalMethod('temp', 'temp',
+                                          PROJECTNAME+'.InstallWorkflows',
+                                          'installWorkflows').__of__(self)
     except NotFound:
         installWorkflows = None
 
@@ -81,49 +82,42 @@ def install(self):
         ] + factory_tool.getFactoryTypes().keys()
     factory_tool.manage_setPortalFactoryTypes(listOfTypeIds=factory_types)
 
-    # For plone 2.1, allow the easy registering of stylesheets
-    from Products.CompoundField.config import HAS_PLONE21
-    if HAS_PLONE21:
-        try:
-            from Products.CompoundField.config import STYLESHEETS
-        except:
-            STYLESHEETS = []
-        try:
-            from Products.CompoundField.config import JAVASCRIPTS
-        except:
-            JAVASCRIPTS = []
+    from Products.CompoundField.config import STYLESHEETS
+    try:
         portal_css = getToolByName(portal, 'portal_css')
-        portal_javascripts = getToolByName(portal, 'portal_javascripts')
         for stylesheet in STYLESHEETS:
             try:
                 portal_css.unregisterResource(stylesheet['id'])
             except:
                 pass
-            defaulttitle = '%s %s' % (PROJECTNAME, stylesheet['id'])
             defaults = {'id': '',
-            'expression': None,
             'media': 'all',
-            'title': defaulttitle,
             'enabled': True}
             defaults.update(stylesheet)
             portal_css.manage_addStylesheet(**defaults)
+    except:
+        # No portal_css registry
+        pass
+    from Products.CompoundField.config import JAVASCRIPTS
+    try:
+        portal_javascripts = getToolByName(portal, 'portal_javascripts')
         for javascript in JAVASCRIPTS:
             try:
-                portal_javascripts.unregisterResource(stylesheet['id'])
+                portal_javascripts.unregisterResource(javascript['id'])
             except:
                 pass
-            defaults = {'id': '',
-            'expression': '', 
-            'inline': False,
-            'enabled': True,
-            'cookable': True}
+            defaults = {'id': ''}
             defaults.update(javascript)
             portal_javascripts.registerScript(**defaults)
+    except:
+        # No portal_javascripts registry
+        pass
 
     # try to call a custom install method
     # in 'AppInstall.py' method 'install'
     try:
-        install = ExternalMethod('temp','temp',PROJECTNAME+'.AppInstall', 'install')
+        install = ExternalMethod('temp', 'temp',
+                                 PROJECTNAME+'.AppInstall', 'install')
     except NotFound:
         install = None
 
@@ -144,21 +138,24 @@ def uninstall(self):
     # try to call a workflow uninstall method
     # in 'InstallWorkflows.py' method 'uninstallWorkflows'
     try:
-        installWorkflows = ExternalMethod('temp','temp',PROJECTNAME+'.InstallWorkflows', 'uninstallWorkflows').__of__(self)
+        uninstallWorkflows = ExternalMethod('temp', 'temp',
+                                            PROJECTNAME+'.InstallWorkflows',
+                                            'uninstallWorkflows').__of__(self)
     except NotFound:
-        installWorkflows = None
+        uninstallWorkflows = None
 
-    if installWorkflows:
-        print >>out,'Workflow Uninstall:'
-        res = uninstallWorkflows(self,out)
-        print >>out,res or 'no output'
+    if uninstallWorkflows:
+        print >>out, 'Workflow Uninstall:'
+        res = uninstallWorkflows(self, out)
+        print >>out, res or 'no output'
     else:
         print >>out,'no workflow uninstall'
 
     # try to call a custom uninstall method
     # in 'AppInstall.py' method 'uninstall'
     try:
-        uninstall = ExternalMethod('temp','temp',PROJECTNAME+'.AppInstall', 'uninstall')
+        uninstall = ExternalMethod('temp', 'temp',
+                                   PROJECTNAME+'.AppInstall', 'uninstall')
     except:
         uninstall = None
 

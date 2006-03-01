@@ -1,15 +1,18 @@
 # File: testArrayField.py
-# 
-# Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-RC1 devel 
+#
+# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
+# Generator: ArchGenXML Version 1.5.0 svn/devel
 #            http://plone.org/products/archgenxml
 #
-# This software is released under the German Free Software License (D-FSL).
-# The full text of this license is delivered with this product or is available
-# at http://www.dipp.nrw.de/d-fsl
+# German Free Software License (D-FSL)
 #
-__author__  = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
-<jens.klein@jensquadrat.com>'''
+# This Program may be used by anyone in accordance with the terms of the 
+# German Free Software License
+# The License may be obtained under <http://www.d-fsl.org>.
+#
+
+__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
+<jens.klein@jensquadrat.com>"""
 __docformat__ = 'plaintext'
 
 import os, sys
@@ -20,14 +23,16 @@ if __name__ == '__main__':
 ##/code-section module-header
 
 #
-# test-cases for class(es) ArrayFieldTest
+# Test-cases for class(es) ArrayFieldTest
 #
-import os, sys
+
 from Testing import ZopeTestCase
 from Products.PloneTestCase.PloneTestCase import PloneTestCase
-# import the tested classes
+
+# Import the tested classes
 from Products.CompoundField.testClasses.ArrayFieldTest import ArrayFieldTest
 from Products.CompoundField.ArrayField import ArrayField
+
 
 class testArrayField(PloneTestCase):
     """ test-cases for class(es) 
@@ -41,7 +46,6 @@ class testArrayField(PloneTestCase):
         """
         pass
 
-
     # Manually created methods
 
 
@@ -49,16 +53,18 @@ def test_suite():
     from unittest import TestSuite
     from Testing.ZopeTestCase.zopedoctest import ZopeDocFileSuite
 
+    ##code-section test-suite-in-between #fill in your manual code here
+##/code-section test-suite-in-between
+
+
     return TestSuite((
         ZopeDocFileSuite('testArrayField.txt',
                          package='Products.CompoundField.doc',
                          test_class=testArrayField),
     ))
 
-
 ##code-section module-footer #fill in your manual code here
 ##/code-section module-footer
-
 
 if __name__ == '__main__':
     framework()

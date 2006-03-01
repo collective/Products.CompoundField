@@ -1,23 +1,22 @@
 # File: XBoxField.py
-# 
-# Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-RC1 devel 
+#
+# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
+# Generator: ArchGenXML Version 1.5.0 svn/devel
 #            http://plone.org/products/archgenxml
 #
-# This software is released under the German Free Software License (D-FSL).
-# The full text of this license is delivered with this product or is available
-# at http://www.dipp.nrw.de/d-fsl
+# German Free Software License (D-FSL)
 #
-__author__  = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
-<jens.klein@jensquadrat.com>'''
+# This Program may be used by anyone in accordance with the terms of the 
+# German Free Software License
+# The License may be obtained under <http://www.d-fsl.org>.
+#
+
+__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
+<jens.klein@jensquadrat.com>"""
 __docformat__ = 'plaintext'
 
 #XBoxField
 
-
-
-
-from types import ListType, TupleType, StringTypes
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
 
@@ -30,25 +29,31 @@ from Products.Archetypes import config as atconfig
 from Products.Archetypes.Widget import *
 from Products.Archetypes.Field  import *
 from Products.Archetypes.Schema import Schema
-from Products.generator import i18n
+try:
+    from Products.generator import i18n
+except ImportError:
+    from Products.Archetypes.generator import i18n
 
 from Products.CompoundField import config
 
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header
 
-from XPointField import XPointField
-from XBox import XBox
+from Products.CompoundField.testClasses.XPointField import XPointField
+from Products.CompoundField.testClasses.XBox import XBox
 
 
 from Products.CompoundField.CompoundField import CompoundField
 ######CompoundField
-schema=Schema((
-    XPointField('p1',
+schema = Schema((
+
+    XPointField(
+        name='p1',
     
     ),
 
-    XPointField('p2',
+    XPointField(
+        name='p2',
     
     ),
 
@@ -57,10 +62,9 @@ schema=Schema((
 
 
 
-
 class XBoxField(CompoundField):
-    ''' '''
-
+    """
+    """
     ##code-section class-header #fill in your manual code here
     ##/code-section class-header
 

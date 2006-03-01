@@ -1,50 +1,54 @@
 # File: CompoundFieldTest.py
-# 
-# Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-RC1 devel 
+#
+# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
+# Generator: ArchGenXML Version 1.5.0 svn/devel
 #            http://plone.org/products/archgenxml
 #
-# This software is released under the German Free Software License (D-FSL).
-# The full text of this license is delivered with this product or is available
-# at http://www.dipp.nrw.de/d-fsl
+# German Free Software License (D-FSL)
 #
-__author__  = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
-<jens.klein@jensquadrat.com>'''
-__docformat__ = 'plaintext'
+# This Program may be used by anyone in accordance with the terms of the 
+# German Free Software License
+# The License may be obtained under <http://www.d-fsl.org>.
+#
 
+__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
+<jens.klein@jensquadrat.com>"""
+__docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
 from Products.CompoundField.CompoundField import CompoundField
-from XPointField import XPointField
-
-
+from Products.CompoundField.testClasses.XPointField import XPointField
 from Products.CompoundField.config import *
+
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header
 
-schema=Schema((
-    CompoundField('point',
+schema = Schema((
+
+    CompoundField(
+        name='point',
         schema=Schema((IntegerField('x'),IntegerField('y')))
     ),
 
-    CompoundField('box',
+    CompoundField(
+        name='box',
     
     ),
 
-    XPointField('point2',
+    XPointField(
+        name='point2',
     
     ),
 
 ),
 )
 
-
 ##code-section after-local-schema #fill in your manual code here
 ##/code-section after-local-schema
 
-CompoundFieldTest_schema = BaseSchema + \
-    schema
+CompoundFieldTest_schema = BaseSchema.copy() + \
+    schema.copy()
 
 ##code-section after-schema #fill in your manual code here
 
@@ -71,32 +75,31 @@ class CompoundFieldTest(BaseContent):
     security = ClassSecurityInfo()
     __implements__ = (getattr(BaseContent,'__implements__',()),)
 
-
     # This name appears in the 'add' box
-    archetype_name             = 'CompoundFieldTest'
+    archetype_name = 'CompoundFieldTest'
 
-    meta_type                  = 'CompoundFieldTest'
-    portal_type                = 'CompoundFieldTest'
-    allowed_content_types      = []
-    filter_content_types       = 0
-    global_allow               = 0
-    allow_discussion           = 0
-    #content_icon               = 'CompoundFieldTest.gif'
-    immediate_view             = 'base_view'
-    default_view               = 'base_view'
-    suppl_views                = ()
-    typeDescription            = "CompoundFieldTest"
-    typeDescMsgId              = 'description_edit_compoundfieldtest'
+    meta_type = 'CompoundFieldTest'
+    portal_type = 'CompoundFieldTest'
+    allowed_content_types = []
+    filter_content_types = 0
+    global_allow = 0
+    allow_discussion = False
+    #content_icon = 'CompoundFieldTest.gif'
+    immediate_view = 'base_view'
+    default_view = 'base_view'
+    suppl_views = ()
+    typeDescription = "CompoundFieldTest"
+    typeDescMsgId = 'description_edit_compoundfieldtest'
 
     schema = CompoundFieldTest_schema
 
     ##code-section class-header #fill in your manual code here
     ##/code-section class-header
 
+    # Methods
 
-    #Methods
 
-registerType(CompoundFieldTest,PROJECTNAME)
+registerType(CompoundFieldTest, PROJECTNAME)
 # end of class CompoundFieldTest
 
 ##code-section module-footer #fill in your manual code here
