@@ -16,74 +16,110 @@ msgstr ""
 "Preferred-Encodings: latin1 utf-8\n"
 "Domain: CompoundField\n"
 
-#: testClasses/XPointField.py
+#. Default: "Enter a value for attribut_1."
 #. Enter a value for attribut_1.
+#: testClasses/XPointField.py
 msgid "CompoundField_help_attribut_1"
-msgstr "Enter a value for attribut_1."
+msgstr ""
 
-
-#: testClasses/CompoundFieldTest.py
+#. Default: "Enter a value for box."
 #. Enter a value for box.
+#: testClasses/CompoundFieldTest.py
 msgid "CompoundField_help_box"
-msgstr "Enter a value for box."
+msgstr ""
 
-
-#: testClasses/CompoundFieldTest.py
+#. Default: "Enter a value for point."
 #. Enter a value for point.
+#: testClasses/CompoundFieldTest.py
 msgid "CompoundField_help_point"
-msgstr "Enter a value for point."
+msgstr ""
 
-
-#: testClasses/CompoundFieldTest.py
+#. Default: "Enter a value for point2."
 #. Enter a value for point2.
+#: testClasses/CompoundFieldTest.py
 msgid "CompoundField_help_point2"
-msgstr "Enter a value for point2."
+msgstr ""
 
-
-#: testClasses/XPointField.py
+#. Default: "Enter a value for x."
 #. Enter a value for x.
+#: testClasses/XPointField.py
 msgid "CompoundField_help_x"
-msgstr "Enter a value for x."
+msgstr ""
 
-
-#: testClasses/XPointField.py
+#. Default: "Enter a value for y."
 #. Enter a value for y.
+#: testClasses/XPointField.py
 msgid "CompoundField_help_y"
-msgstr "Enter a value for y."
+msgstr ""
 
-
-#: testClasses/XPointField.py
+#. Default: "Attribut_1"
 #. Attribut_1
+#: testClasses/XPointField.py
 msgid "CompoundField_label_attribut_1"
-msgstr "Attribut_1"
+msgstr ""
 
-
-#: testClasses/CompoundFieldTest.py
+#. Default: "Box"
 #. Box
+#: testClasses/CompoundFieldTest.py
 msgid "CompoundField_label_box"
-msgstr "Box"
+msgstr ""
 
+#. Default: "Boxes"
+#: testClasses/ArrayFieldTest.py
+msgid "CompoundField_label_boxes"
+msgstr ""
 
-#: testClasses/CompoundFieldTest.py
+#. Default: "Names"
+#: testClasses/ArrayFieldTest.py
+msgid "CompoundField_label_names"
+msgstr ""
+
+#. Default: "P1"
+#: testClasses/XBoxField.py
+msgid "CompoundField_label_p1"
+msgstr ""
+
+#. Default: "P2"
+#: testClasses/XBoxField.py
+msgid "CompoundField_label_p2"
+msgstr ""
+
+#. Default: "Point"
 #. Point
-msgid "CompoundField_label_point"
-msgstr "Point"
-
-
 #: testClasses/CompoundFieldTest.py
+msgid "CompoundField_label_point"
+msgstr ""
+
+#. Default: "Point2"
 #. Point2
+#: testClasses/CompoundFieldTest.py
 msgid "CompoundField_label_point2"
-msgstr "Point2"
+msgstr ""
 
+#. Default: "Points"
+#: testClasses/ArrayFieldTest.py
+msgid "CompoundField_label_points"
+msgstr ""
 
-#: testClasses/XPointField.py
+#. Default: "Points1"
+#: testClasses/ArrayFieldTest.py
+msgid "CompoundField_label_points1"
+msgstr ""
+
+#. Default: "Polypoints"
+#: testClasses/XPolygonField.py
+msgid "CompoundField_label_polypoints"
+msgstr ""
+
+#. Default: "X"
 #. X
-msgid "CompoundField_label_x"
-msgstr "X"
-
-
 #: testClasses/XPointField.py
+msgid "CompoundField_label_x"
+msgstr ""
+
+#. Default: "Y"
 #. Y
+#: testClasses/XPointField.py
 msgid "CompoundField_label_y"
-msgstr "Y"
+msgstr ""
 

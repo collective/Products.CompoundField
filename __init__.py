@@ -1,15 +1,30 @@
+# File: CompoundField.py
 #
-# Initialise the product's module. There are three ways to inject custom code
-# here:
+# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
+# Generator: ArchGenXML Version 1.5.0 svn/devel
+#            http://plone.org/products/archgenxml
 #
-#   - To set global configuration variables, create a file AppConfig.py. This
-#       will be imported in config.py, which in turn is imported in each
-#       generated class and in this file.
-#   - To perform custom initialisation after types have been registered, use
-#       the protected code section at the bottom of initialize().
+# German Free Software License (D-FSL)
+#
+# This Program may be used by anyone in accordance with the terms of the 
+# German Free Software License
+# The License may be obtained under <http://www.d-fsl.org>.
+#
+
+__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
+<jens.klein@jensquadrat.com>"""
+__docformat__ = 'plaintext'
+
+
+# There are three ways to inject custom code here:
+#
+#   - To set global configuration variables, create a file AppConfig.py.
+#       This will be imported in config.py, which in turn is imported in
+#       each generated class and in this file.
+#   - To perform custom initialisation after types have been registered,
+#       use the protected code section at the bottom of initialize().
 #   - To register a customisation policy, create a file CustomizationPolicy.py
-#       with a method register(context) to register the policy
-#
+#       with a method register(context) to register the policy.
 
 from zLOG import LOG, INFO
 
@@ -18,14 +33,14 @@ LOG('CompoundField',INFO, 'Installing Product')
 try:
     import CustomizationPolicy
 except ImportError:
-    CustomizationPolicy=None
+    CustomizationPolicy = None
 
 from Globals import package_home
 from Products.CMFCore import utils as cmfutils
 from Products.CMFCore import CMFCorePermissions
 from Products.CMFCore import DirectoryView
 from Products.CMFPlone.PloneUtilities import ToolInit
-from Products.Archetypes.public import *
+from Products.Archetypes.atapi import *
 from Products.Archetypes import listTypes
 from Products.Archetypes.utils import capitalize
 
@@ -55,7 +70,7 @@ def initialize(context):
     import ICompoundField
     import IArrayField
 
-    # initialize portal content
+    # Initialize portal content
     content_types, constructors, ftis = process_types(
         listTypes(PROJECTNAME),
         PROJECTNAME)
@@ -68,7 +83,7 @@ def initialize(context):
         fti                = ftis,
         ).initialize(context)
 
-    # apply customization-policy, if theres any
+    # Apply customization-policy, if theres any
     if CustomizationPolicy and hasattr(CustomizationPolicy, 'register'):
         CustomizationPolicy.register(context)
         print 'Customization policy for CompoundField installed'

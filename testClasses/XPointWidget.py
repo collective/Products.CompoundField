@@ -1,32 +1,30 @@
 # File: XPointWidget.py
-# 
-# Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-RC1 devel 
+#
+# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
+# Generator: ArchGenXML Version 1.5.0 svn/devel
 #            http://plone.org/products/archgenxml
 #
-# This software is released under the German Free Software License (D-FSL).
-# The full text of this license is delivered with this product or is available
-# at http://www.dipp.nrw.de/d-fsl
+# German Free Software License (D-FSL)
 #
-__author__  = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
-<jens.klein@jensquadrat.com>'''
+# This Program may be used by anyone in accordance with the terms of the 
+# German Free Software License
+# The License may be obtained under <http://www.d-fsl.org>.
+#
+
+__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
+<jens.klein@jensquadrat.com>"""
 __docformat__ = 'plaintext'
 
-from AccessControl import ClassSecurityInfo
-from Products.Archetypes.Widget import TypesWidget
-
-from types import ListType, TupleType, StringTypes
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
 
 from Products.CMFCore.utils import getToolByName
 
-from Products.Archetypes.Field import ObjectField,encode,decode
-from Products.Archetypes.Registry import registerField
+from Products.Archetypes.Registry import registerWidget
 from Products.Archetypes.utils import DisplayList
 from Products.Archetypes import config as atconfig
 from Products.Archetypes.Widget import *
-from Products.generator import i18n
+from Products.Archetypes.Widget import TypesWidget
 
 from Products.CompoundField import config
 
@@ -36,8 +34,8 @@ from Products.CompoundField import config
 
 
 class XPointWidget(TypesWidget):
-    ''' '''
-
+    """
+    """
     ##code-section class-header #fill in your manual code here
     ##/code-section class-header
 
@@ -57,13 +55,13 @@ class XPointWidget(TypesWidget):
 
 
 
-
+registerWidget(XPointWidget,
+               title='XPointWidget',
+               description=('no description given'),
+               used_for=('Products.Archetypes.Field.StringField',)
+               )
 ##code-section module-footer #fill in your manual code here
 ##/code-section module-footer
-
-
-
-
 
 
 

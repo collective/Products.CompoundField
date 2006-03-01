@@ -1,12 +1,34 @@
+# File: CompoundField.py
 #
-# Product configuration. This contents of this module will be imported into
-# __init__.py and every content type module.
+# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
+# Generator: ArchGenXML Version 1.5.0 svn/devel
+#            http://plone.org/products/archgenxml
 #
-# If you wish to perform custom configuration, you may put a file AppConfig.py
-# in your product's root directory. This will be included in this file if
-# found.
+# German Free Software License (D-FSL)
 #
+# This Program may be used by anyone in accordance with the terms of the 
+# German Free Software License
+# The License may be obtained under <http://www.d-fsl.org>.
+#
+
+__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
+<jens.klein@jensquadrat.com>"""
+__docformat__ = 'plaintext'
+
+
+# Product configuration.
+#
+# The contents of this module will be imported into __init__.py, the
+# workflow configuration and every content type module.
+#
+# If you wish to perform custom configuration, you may put a file
+# AppConfig.py in your product's root directory. This will be included
+# in this file if found.
+
 from Products.CMFCore.CMFCorePermissions import setDefaultRoles
+##code-section config-head #fill in your manual code here
+##/code-section config-head
+
 
 PROJECTNAME = "CompoundField"
 
@@ -17,12 +39,12 @@ except ImportError:
     HAS_PLONE21 = False
 else:
     HAS_PLONE21 = True
-    
+
 # Permissions
 DEFAULT_ADD_CONTENT_PERMISSION = "Add portal content"
 setDefaultRoles(DEFAULT_ADD_CONTENT_PERMISSION, ('Manager', 'Owner'))
 
-product_globals=globals()
+product_globals = globals()
 
 # Dependencies of Products to be installed by quick-installer
 # override in custom configuration
@@ -32,20 +54,21 @@ DEPENDENCIES = []
 # override in custom configuration
 PRODUCT_DEPENDENCIES = []
 
+# You can overwrite these two in an AppConfig.py:
+# STYLESHEETS = [{'id': 'my_global_stylesheet.css'},
+#                {'id': 'my_contenttype.css',
+#                 'expression': 'python:object.getTypeInfo().getId() == "MyType"'}]
+# You can do the same with JAVASCRIPTS.
+STYLESHEETS = []
+JAVASCRIPTS = []
+
 ##code-section config-bottom #fill in your manual code here
 COMPOUND_FIELD_SEPERATOR='|'
 ##/code-section config-bottom
 
 
-# load custom configuration not managed by ArchGenXML
+# Load custom configuration not managed by ArchGenXML
 try:
     from Products.CompoundField.AppConfig import *
 except ImportError:
     pass
-
-# End of config.py
-# Things you can do in an AppConfig.py:
-# STYLESHEETS = [{'id': 'my_global_stylesheet.css'},
-#                {'id': 'my_contenttype.css',
-#                 'expression': 'python:object.getTypeInfo().getId() == "MyType"}]
-# You can do the same with JAVASCRIPTS.

@@ -1,23 +1,22 @@
 # File: XPointField.py
-# 
-# Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-RC1 devel 
+#
+# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
+# Generator: ArchGenXML Version 1.5.0 svn/devel
 #            http://plone.org/products/archgenxml
 #
-# This software is released under the German Free Software License (D-FSL).
-# The full text of this license is delivered with this product or is available
-# at http://www.dipp.nrw.de/d-fsl
+# German Free Software License (D-FSL)
 #
-__author__  = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
-<jens.klein@jensquadrat.com>'''
+# This Program may be used by anyone in accordance with the terms of the 
+# German Free Software License
+# The License may be obtained under <http://www.d-fsl.org>.
+#
+
+__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
+<jens.klein@jensquadrat.com>"""
 __docformat__ = 'plaintext'
 
 #XPointField
 
-
-
-
-from types import ListType, TupleType, StringTypes
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
 
@@ -30,7 +29,10 @@ from Products.Archetypes import config as atconfig
 from Products.Archetypes.Widget import *
 from Products.Archetypes.Field  import *
 from Products.Archetypes.Schema import Schema
-from Products.generator import i18n
+try:
+    from Products.generator import i18n
+except ImportError:
+    from Products.Archetypes.generator import i18n
 
 from Products.CompoundField import config
 
@@ -38,27 +40,28 @@ from Products.CompoundField import config
 ##/code-section module-header
 
 from Products.CompoundField.CompoundField import CompoundField
-from XPointWidget import XPointWidget
-from XPoint import XPoint
+from Products.CompoundField.testClasses.XPointWidget import XPointWidget
+from Products.CompoundField.testClasses.XPoint import XPoint
 
 
 from Products.CompoundField.CompoundField import CompoundField
 ######CompoundField
-schema=Schema((
-    IntegerField('x',
+schema = Schema((
+
+    IntegerField(
+        name='x',
         widget=IntegerWidget(
             label='X',
             label_msgid='CompoundField_label_x',
-            description_msgid='CompoundField_help_x',
             i18n_domain='CompoundField',
         )
     ),
 
-    IntegerField('y',
+    IntegerField(
+        name='y',
         widget=IntegerWidget(
             label='Y',
             label_msgid='CompoundField_label_y',
-            description_msgid='CompoundField_help_y',
             i18n_domain='CompoundField',
         )
     ),
@@ -68,10 +71,9 @@ schema=Schema((
 
 
 
-
 class XPointField(CompoundField):
-    ''' '''
-
+    """
+    """
     ##code-section class-header #fill in your manual code here
     ##/code-section class-header
 

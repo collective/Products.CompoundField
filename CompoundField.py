@@ -1,23 +1,22 @@
 # File: CompoundField.py
-# 
-# Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-RC1 devel 
+#
+# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
+# Generator: ArchGenXML Version 1.5.0 svn/devel
 #            http://plone.org/products/archgenxml
 #
-# This software is released under the German Free Software License (D-FSL).
-# The full text of this license is delivered with this product or is available
-# at http://www.dipp.nrw.de/d-fsl
+# German Free Software License (D-FSL)
 #
-__author__  = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
-<jens.klein@jensquadrat.com>'''
+# This Program may be used by anyone in accordance with the terms of the 
+# German Free Software License
+# The License may be obtained under <http://www.d-fsl.org>.
+#
+
+__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
+<jens.klein@jensquadrat.com>"""
 __docformat__ = 'plaintext'
 
 #CompoundField
 
-
-
-
-from types import ListType, TupleType, StringTypes
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
 
@@ -30,7 +29,10 @@ from Products.Archetypes import config as atconfig
 from Products.Archetypes.Widget import *
 from Products.Archetypes.Field  import *
 from Products.Archetypes.Schema import Schema
-from Products.generator import i18n
+try:
+    from Products.generator import i18n
+except ImportError:
+    from Products.Archetypes.generator import i18n
 
 from Products.CompoundField import config
 
@@ -44,15 +46,15 @@ ListTypes=(type(()),type([]))
 
 ##/code-section module-header
 
-from ICompoundField import ICompoundField
-from CompoundWidget import CompoundWidget
+from Products.CompoundField.ICompoundField import ICompoundField
+from Products.CompoundField.CompoundWidget import CompoundWidget
 
 
 
 
 class CompoundField(ObjectField):
-    ''' '''
-
+    """
+    """
     ##code-section class-header #fill in your manual code here
     security  = ClassSecurityInfo()
     security.declarePublic('getFields')
@@ -169,16 +171,6 @@ class CompoundField(ObjectField):
             self.already_bootstrapped=True
         return ObjectField.getAccessor(self,instance)
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
-    def valueClass2Raw(self,value):
-        res={}
-        for k in value.__dict__:
-            res[k]=(getattr(value,k),)
-            
-        return res
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-    def getFields(self,):
-        return self.Schema().fields()
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
     def __init__(self, name=None, schema=None, **kwargs):
         ObjectField.__init__(self,name,**kwargs)
             
@@ -187,6 +179,16 @@ class CompoundField(ObjectField):
             
         self.setSchema(schema)
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+    def getFields(self,):
+        return self.Schema().fields()
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+    def valueClass2Raw(self,value):
+        res={}
+        for k in value.__dict__:
+            res[k]=(getattr(value,k),)
+            
+        return res
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 
 registerField(CompoundField,
               title='CompoundField',

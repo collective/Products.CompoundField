@@ -1,27 +1,27 @@
 # File: XBox.py
-# 
-# Copyright (c) 2005 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.4.0-RC1 devel 
+#
+# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
+# Generator: ArchGenXML Version 1.5.0 svn/devel
 #            http://plone.org/products/archgenxml
 #
-# This software is released under the German Free Software License (D-FSL).
-# The full text of this license is delivered with this product or is available
-# at http://www.dipp.nrw.de/d-fsl
+# German Free Software License (D-FSL)
 #
-__author__  = '''Phil Auersperg <phil@bluedynamics.com>, Jens Klein
-<jens.klein@jensquadrat.com>'''
-__docformat__ = 'plaintext'
+# This Program may be used by anyone in accordance with the terms of the 
+# German Free Software License
+# The License may be obtained under <http://www.d-fsl.org>.
+#
 
+__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
+<jens.klein@jensquadrat.com>"""
+__docformat__ = 'plaintext'
 
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header
 
-
-from XPoint import XPoint
-
+from Products.CompoundField.testClasses.XPoint import XPoint
 class XBox:
-    ''' '''
-    __implements__ = ()
+    """
+    """
 
     ##code-section class-header_XBox #fill in your manual code here
     ##/code-section class-header_XBox
@@ -37,7 +37,6 @@ class XBox:
         #attributes
         self.p1=None
         self.p1=None
-
         # automatically set attributes where mutators exist
         for key in kwargs.keys():
             # camel case: variable -> setVariable
@@ -45,9 +44,6 @@ class XBox:
             mutator = getattr(self, mutatorName)
             if mutator is not None and callable(mutator):
                 mutator(kwargs[key])
-
-
-
 
     def getP1(self):
         return self.p1
@@ -69,6 +65,5 @@ class XBox:
 
 ##code-section module-footer #fill in your manual code here
 ##/code-section module-footer
-
 
 
