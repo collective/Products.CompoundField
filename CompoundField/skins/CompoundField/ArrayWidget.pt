@@ -6,28 +6,37 @@
   <head><title></title></head>
   <body>
 
-    <!-- String Widgets -->
-    <metal:view_macro define-macro="view"
-		      tal:replace="structure accessor" />
+    <metal:view_macro define-macro="view">
 
-    <metal:define define-macro="edit">
+      <tal:block tal:define="fsize python:field.getSize(here)+1;ssize python:field.getSize(here)-1">
+        <fieldset>
+          <tal:block tal:repeat="f python:field.getFields()[1:fsize]">
+            <input metal:use-macro="python:here.widget(f.getName(), field=f, mode='view')" />
+          </tal:block>
+        </fieldset>
+      </tal:block>
+
+    </metal:view_macro>
+
+    <metal:edit_macro define-macro="edit">
       <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
-    <div metal:fill-slot="widget_body">
-<tal:block tal:define="fsize python:field.getSize(here)+1;ssize python:field.getSize(here)-1">
-<fieldset>
-<tal:block tal:repeat="f python:field.getFields()[1:fsize]">
+        <div metal:fill-slot="widget_body">
 
-<input metal:use-macro="python:here.widget(f.getName(),field=f,mode='edit')"  />
-</tal:block>
-</fieldset>
-<a tal:attributes="href string:${here/absolute_url}/arrayfield_resize?fieldname=${field/getName}&size=$fsize" >+</a>
-<a tal:attributes="href string:${here/absolute_url}/arrayfield_resize?fieldname=${field/getName}&size=$ssize" >-</a>
-</tal:block>
-    </div>
+          <tal:block tal:define="fsize python:field.getSize(here)+1;ssize python:field.getSize(here)-1">
+            <fieldset>
+              <tal:block tal:repeat="f python:field.getFields()[1:fsize]">
+                <input metal:use-macro="python:here.widget(f.getName(), field=f, mode='edit')" />
+              </tal:block>
+            </fieldset>
 
-    </metal:use>
-    </metal:define>
+            <a tal:attributes="href string:${here/absolute_url}/arrayfield_resize?fieldname=${field/getName}&size=$fsize" >+</a>
+            <a tal:attributes="href string:${here/absolute_url}/arrayfield_resize?fieldname=${field/getName}&size=$ssize" >-</a>
 
+          </tal:block>
+
+        </div>
+      </metal:use>
+    </metal:edit_macro>
 
     <div metal:define-macro="search">
       <div metal:use-macro="here/widgets/string/macros/edit">
