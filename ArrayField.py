@@ -6,7 +6,7 @@
 #
 # German Free Software License (D-FSL)
 #
-# This Program may be used by anyone in accordance with the terms of the 
+# This Program may be used by anyone in accordance with the terms of the
 # German Free Software License
 # The License may be obtained under <http://www.d-fsl.org>.
 #
@@ -62,7 +62,9 @@ class ArrayField(CompoundField):
     ##code-section class-header #fill in your manual code here
     ##/code-section class-header
 
-    __implements__ = (getattr(CompoundField,'__implements__',()),) + (getattr(CompoundField,'__implements__',()),) + (IArrayField,)
+    __implements__ = (getattr(CompoundField,'__implements__',()),) + \
+                   (getattr(CompoundField,'__implements__',()),) + \
+                   (IArrayField,)
 
 
     _properties = CompoundField._properties.copy()
@@ -84,7 +86,7 @@ class ArrayField(CompoundField):
 
     def getRaw(self, instance, **kwargs):
         return CompoundField.getRaw(self,instance,**kwargs)
-                                                                                                                                                                                                                        
+
     def set(self, instance, value, **kwargs):
         #print 'Arrayfield:set: %s' % value
         #import pdb;pdb.set_trace()
@@ -94,7 +96,7 @@ class ArrayField(CompoundField):
 
         if type(value)==DictType:
             return CompoundField.set(self,instance,value,**kwargs)
-        
+
         if not value:
             return
         i=0
@@ -104,47 +106,47 @@ class ArrayField(CompoundField):
 
             f.set(instance,value[i],**kwargs)
             i+=1
-               
+
     def get(self, instance, **kwargs):
         res=[]
         for f in self.Schema().fields()[1:self.getSize(instance)+1]:
             res.append(f.get(instance))
-                        
+
         return res
-                        
+
     def getSize(self,instance=None):
         if instance:
             lf=self.Schema().fields()[0] #field 0 is always size. has to be adressed by index because fields get renamed during nesting
-                
+
             size=lf.get(instance)
             if size is None:
                 size=self.size
-                
+
             if size > self.getPhysicalSize():
                 self.resize(size,instance)
-                
+
             return size
         else:
             return self.size
-                            
+
     def __init__(self,field,size=5,*a,**kw):
-            
+
         self.args=a
         self.kwargs=kw
         self.field=field
         CompoundField.__init__(self,self.field.getName(),*self.args,**self.kwargs)
         self.resize(size)
-                        
+
     def getPhysicalSize(self):
         """ returns the physical amount of subfields"""
         return getattr(self,'physicalSize',0)
-                            
+
     def copy(self):
         """
         Return a copy of field instance, consisting of field name and
         properties dictionary.
         """
- 
+
         cdict = dict(vars(self))
         # Widget must be copied separatedly
         widget = cdict['widget']
@@ -155,25 +157,25 @@ class ArrayField(CompoundField):
         properties['widget'] = widget.copy()
         res=self.__class__(self.field,**properties)
         res.schema=self.Schema().copy()
-        
+
         return res
-                        
+
     def resize(self, size, instance=None):
 
         oldsize=self.getPhysicalSize()
-        
+
         #only do a physical resize when growing
         if size>oldsize:
             self.already_bootstrapped=False
             schema=Schema(())
             schema.addField(IntegerField('size'))
             fn=self.field.getName()
-            
+
             for i in range(size):
                 f1=self.field.copy()
                 f1.__name__='%s:%03d' % (fn,i)
                 schema.addField(f1)
-                
+
             self.setSchema(schema=schema)
             self.physicalSize=size
 
@@ -182,7 +184,7 @@ class ArrayField(CompoundField):
             lf.set(instance,size)
         else:
             self.size=size
-                            
+
 
 registerField(ArrayField,
               title='ArrayField',
