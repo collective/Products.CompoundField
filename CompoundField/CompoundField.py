@@ -6,7 +6,7 @@
 #
 # German Free Software License (D-FSL)
 #
-# This Program may be used by anyone in accordance with the terms of the 
+# This Program may be used by anyone in accordance with the terms of the
 # German Free Software License
 # The License may be obtained under <http://www.d-fsl.org>.
 #
@@ -90,7 +90,7 @@ class CompoundField(ObjectField):
         res={}
         for f in self.Schema().fields():
             res[f.old_name]=(f.getRaw(instance,schema=self.schema))
-                
+
         return res
 
     def set(self, instance, value, **kwargs):
@@ -98,17 +98,17 @@ class CompoundField(ObjectField):
         #import pdb;pdb.set_trace()
         if not value:
             return
-        
+
         if type(value) in types.StringTypes:
             #if the value comes as string eval it to a dict
             # XXX attention: use restricted environment instead!
             # this is a potential security hole.
             value = eval(value)
-        
+
         if getattr(self, 'value_class', None):
             if isinstance(value, self.value_class):
                 value = self.valueClass2Raw(value)
-        
+
         for f in self.Schema().fields():
             if value.has_key(f.old_name):
                 v = value[f.old_name]
@@ -117,7 +117,7 @@ class CompoundField(ObjectField):
                     kw=v[1]
                 else:
                     kw={}
-                    
+
                 if v:
                     if isarray or (type(v) in ListTypes and len(v) ==1):
                         f.set(instance, v[0], **kw)
@@ -128,10 +128,10 @@ class CompoundField(ObjectField):
         res={}
         for f in self.Schema().fields():
             res[f.old_name]=f.get(instance)
-            
+
         if getattr(self,'value_class',None):
             res=self.raw2ValueClass(res)
-        
+
         return res
 
     def raw2ValueClass(self,dict):
@@ -145,27 +145,27 @@ class CompoundField(ObjectField):
 
     def calcFieldNames(self, path=[]):
         ''' prefixes the field names with the parent field name '''
-        
+
         _fields = self.Schema()._fields
-        
+
         for f in self.Schema().fields():
             old_name = f.getName()
             if ICompoundField.isImplementedBy(f):
                 f.calcFieldNames(path=path+[self])
-                
+
             if not getattr(f,'prefixed',False):
                 f.old_name = f.getName()
                 f.prefixed = 1
-            
+
             f.__name__ = config.COMPOUND_FIELD_SEPERATOR.join([getattr(field,'old_name',field.getName()) for field in path+[self]+[f]])
             #del _fields[old_name]
             _fields[f.__name__]=f
-            
+
     def getAccessor(self,instance):
         ''' hook to post-generate the accessors for the subfields
             its a little bit hacky, because we need a special ClassGen here
         '''
-        
+
         if not getattr(self,'already_bootstrapped',False):
             fields=self.getFields()
             ClassGen.generateMethods(instance.__class__,self.Schema())
@@ -174,10 +174,10 @@ class CompoundField(ObjectField):
 
     def __init__(self, name=None, schema=None, **kwargs):
         ObjectField.__init__(self,name,**kwargs)
-            
+
         if not schema:
             schema=self.schema.copy()
-            
+
         self.setSchema(schema)
 
     def getFields(self,):
@@ -187,7 +187,7 @@ class CompoundField(ObjectField):
         res={}
         for k in value.__dict__:
             res[k]=(getattr(value,k),)
-            
+
         return res
 
 
