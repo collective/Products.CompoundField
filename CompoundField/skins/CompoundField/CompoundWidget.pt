@@ -7,7 +7,7 @@
   <body>
     <!-- String Widgets -->
     <metal:view_macro define-macro="view"
-		      tal:replace="structure accessor" />
+                      tal:replace="structure accessor" />
     <metal:define define-macro="edit">
         <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
             <div metal:fill-slot="widget_body">
