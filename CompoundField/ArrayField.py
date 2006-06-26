@@ -173,7 +173,7 @@ class ArrayField(CompoundField):
 
             for i in range(size):
                 f1=self.field.copy()
-                f1.__name__='%s:%03d' % (fn,i)
+                f1.__name__='%s%s%03d' % (fn, config.ARRAY_FIELD_SEPERATOR, i)
                 schema.addField(f1)
 
             self.setSchema(schema=schema)
