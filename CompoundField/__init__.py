@@ -61,7 +61,11 @@ def initialize(context):
     ##/code-section custom-init-top
 
     # imports packages and types for registration
-    import testClasses
+    try:
+        import testClasses
+    except TypeError:
+        # Not available in Zope < 2.8
+        pass
 
     import CompoundField
     import CompoundWidget
