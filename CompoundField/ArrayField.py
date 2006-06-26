@@ -35,6 +35,7 @@ except ImportError:
     from Products.Archetypes.generator import i18n
 
 from Products.CompoundField import config
+from Products.CompoundField import utils
 
 ##code-section module-header #fill in your manual code here
 from Products.Archetypes.Schema import Schema
@@ -92,7 +93,10 @@ class ArrayField(CompoundField):
         #import pdb;pdb.set_trace()
         if type(value) in (type(''),type(u'')):
             #if the value comes as string eval it to a dict
-            value=eval(value)
+            # XXX attention: use restricted environment instead!
+            # this is a potential security hole.
+            # reval function should fix this in 90% case
+            value = utils.reval(value)
 
         if type(value)==DictType:
             return CompoundField.set(self,instance,value,**kwargs)

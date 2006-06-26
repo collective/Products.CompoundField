@@ -35,6 +35,7 @@ except ImportError:
     from Products.Archetypes.generator import i18n
 
 from Products.CompoundField import config
+from Products.CompoundField import utils
 
 ##code-section module-header #fill in your manual code here
 import types
@@ -103,7 +104,8 @@ class CompoundField(ObjectField):
             #if the value comes as string eval it to a dict
             # XXX attention: use restricted environment instead!
             # this is a potential security hole.
-            value = eval(value)
+            # reval function should fix this in 90% case
+            value = utils.reval(value)
 
         if getattr(self, 'value_class', None):
             if isinstance(value, self.value_class):
