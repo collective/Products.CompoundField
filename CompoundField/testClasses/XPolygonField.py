@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 # File: XPolygonField.py
 #
 # Copyright (c) 2006 by eduplone Open Source Business Network EEIG
@@ -47,13 +49,14 @@ from Products.CompoundField.CompoundField import CompoundField
 ######CompoundField
 schema = Schema((
 
-ArrayField(        XPointField(
-            name='polypoints',
+ArrayField(            XPointField(
+                name='polypoints',
+            
+            ),
         
-        ),
-    ),
-),
+        ),),
 )
+
 
 
 

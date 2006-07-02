@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 # File: CompoundFieldTest.py
 #
 # Copyright (c) 2006 by eduplone Open Source Business Network EEIG
@@ -18,6 +20,7 @@ __docformat__ = 'plaintext'
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
 from Products.CompoundField.CompoundField import CompoundField
+from Products.CompoundField.testClasses.XBoxField import XBoxField
 from Products.CompoundField.testClasses.XPointField import XPointField
 from Products.CompoundField.config import *
 
@@ -31,7 +34,7 @@ schema = Schema((
         schema=Schema((IntegerField('x'),IntegerField('y')))
     ),
 
-    CompoundField(
+    XBoxField(
         name='box',
     
     ),
@@ -72,6 +75,8 @@ schema['box'].setSchema(Schema((
 ##/code-section after-schema
 
 class CompoundFieldTest(BaseContent):
+    """
+    """
     security = ClassSecurityInfo()
     __implements__ = (getattr(BaseContent,'__implements__',()),)
 
@@ -83,13 +88,14 @@ class CompoundFieldTest(BaseContent):
     allowed_content_types = []
     filter_content_types = 0
     global_allow = 0
-    allow_discussion = False
     #content_icon = 'CompoundFieldTest.gif'
     immediate_view = 'base_view'
     default_view = 'base_view'
     suppl_views = ()
     typeDescription = "CompoundFieldTest"
     typeDescMsgId = 'description_edit_compoundfieldtest'
+
+    _at_rename_after_creation = True
 
     schema = CompoundFieldTest_schema
 

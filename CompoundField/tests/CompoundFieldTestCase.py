@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 # File: CompoundFieldTestCase.py
 #
 # Copyright (c) 2006 by eduplone Open Source Business Network EEIG
@@ -52,6 +54,7 @@ PRODUCTS.append('CompoundField')
 testcase = PloneTestCase.PloneTestCase
 
 ##code-section module-before-plone-site-setup #fill in your manual code here
+from Globals import package_home
 ##/code-section module-before-plone-site-setup
 
 PloneTestCase.setupPloneSite(products=PRODUCTS)
@@ -60,6 +63,13 @@ class CompoundFieldTestCase(testcase):
     """Base TestCase for CompoundField."""
 
     ##code-section class-header_CompoundFieldTestCase #fill in your manual code here
+    def getInputDir(name,templdir=''):
+        samples=os.path.join(package_home(globals()),'input')
+        dir=samples
+        if templdir:
+            dir=os.path.join(dir,templdir)
+
+        return dir
     ##/code-section class-header_CompoundFieldTestCase
 
     # Commented out for now, it gets blasted at the moment anyway.

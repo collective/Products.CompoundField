@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<metadata xmlns="http://plone.org/ns/archetypes/" 
+    xmlns:cmf="http://cmf.zope.org/namespaces/default/" 
+    xmlns:dc="http://purl.org/dc/elements/1.1/" 
+    xmlns:xmp="adobe:ns:meta"
+    xmlns:cf="http://plone.org/ns/archetypes/compoundfield"
+    >
+	<dc:title>
+		compoundtest
+	</dc:title>
+	<dc:creator>
+		phil
+	</dc:creator>
+	<xmp:CreateDate>
+		2006-06-30T12:27:08Z
+	</xmp:CreateDate>
+	<xmp:ModifyDate>
+		2006-06-30T13:18:45Z
+	</xmp:ModifyDate>
+	<field id="allowDiscussion">
+		None
+	</field>
+	<field id="id">
+		myobj
+	</field>
+	<uid>
+		d61f7941f0dbfa486bc8074dd24437eb
+	</uid>
+	<cmf:type>
+		CompoundFieldTest
+	</cmf:type>
+    <cf:compound id="point">
+        <field id="x"> 281 </field>
+        <field id="y"> 405 </field>
+    </cf:compound>
+
+    <cf:compound id="point2">
+        <field id="x"> 220 </field>
+        <field id="y"> 330 </field>
+    </cf:compound>
+
+    <cf:compound id="box">
+        <cf:compound id="p1">
+            <field id="x"> 111 </field>
+            <field id="y"> 222 </field>
+        </cf:compound>
+        <cf:compound id="p2">
+            <field id="x"> 333 </field>
+            <field id="y"> 444 </field>
+        </cf:compound>
+    </cf:compound>
+    
+
+	<cmf:workflow_history>
+		<cmf:workflow cmf:id="plone_workflow">
+			<cmf:history>
+				<cmf:var cmf:id="action" cmf:type="None" cmf:value="None"/>
+				<cmf:var cmf:id="actor" cmf:type="str" cmf:value="phil"/>
+				<cmf:var cmf:id="comments" cmf:type="str" cmf:value=""/>
+				<cmf:var cmf:id="review_state" cmf:type="str" cmf:value="visible"/>
+				<cmf:var cmf:id="time" cmf:type="date" cmf:value="2006-06-30 14:27:09"/>
+			</cmf:history>
+		</cmf:workflow>
+	</cmf:workflow_history>
+	<cmf:security>
+		<cmf:local_role cmf:role="Owner" cmf:user_id="phil"/>
+	</cmf:security>
+</metadata>

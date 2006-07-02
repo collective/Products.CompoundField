@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 # File: XBox.py
 #
 # Copyright (c) 2006 by eduplone Open Source Business Network EEIG
@@ -19,6 +21,7 @@ __docformat__ = 'plaintext'
 ##/code-section module-header
 
 from Products.CompoundField.testClasses.XPoint import XPoint
+
 class XBox:
     """
     """

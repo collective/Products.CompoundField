@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 # File: ArrayFieldTest.py
 #
 # Copyright (c) 2006 by eduplone Open Source Business Network EEIG
@@ -29,26 +31,26 @@ from Products.CompoundField.config import *
 
 schema = Schema((
 
-ArrayField(        StringField(
-            name='names',
-            widget=StringWidget(
-                label='Names',
-                label_msgid='CompoundField_label_names',
-                i18n_domain='CompoundField',
-            )
-        ),
-    ),
-ArrayField(        XPointField(
-            name='points',
+ArrayField(            StringField(
+                name='names',
+                widget=StringWidget(
+                    label='Names',
+                    label_msgid='CompoundField_label_names',
+                    i18n_domain='CompoundField',
+                )
+            ),
         
-        ),
-    ),
-ArrayField(        XBoxField(
-            name='boxes',
+        ),ArrayField(            XPointField(
+                name='points',
+            
+            ),
         
-        ),
-    ),
-    XPolygonField(
+        ),ArrayField(            XBoxField(
+                name='boxes',
+            
+            ),
+        
+        ),    XPolygonField(
         name='points1',
     
     ),
@@ -66,6 +68,8 @@ ArrayFieldTest_schema = BaseSchema.copy() + \
 ##/code-section after-schema
 
 class ArrayFieldTest(BaseContent):
+    """
+    """
     security = ClassSecurityInfo()
     __implements__ = (getattr(BaseContent,'__implements__',()),)
 
@@ -77,13 +81,13 @@ class ArrayFieldTest(BaseContent):
     allowed_content_types = []
     filter_content_types = 0
     global_allow = 1
-    allow_discussion = False
     #content_icon = 'ArrayFieldTest.gif'
     immediate_view = 'base_view'
     default_view = 'base_view'
     suppl_views = ()
     typeDescription = "ArrayFieldTest"
     typeDescMsgId = 'description_edit_arrayfieldtest'
+
 
     actions =  (
 
@@ -98,6 +102,8 @@ class ArrayFieldTest(BaseContent):
 
 
     )
+
+    _at_rename_after_creation = True
 
     schema = ArrayFieldTest_schema
 

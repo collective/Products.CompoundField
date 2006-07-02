@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ims:metadata xmlns:xmp="adobe:ns:meta" xmlns:at="http://plone.org/ns/archetypes/"
+    xmlns:cf="http://plone.org/ns/archetypes/compoundfield"
     xmlns:arg="http://zuccaro.biblhertz.it/xsd/arguments.xsd"
     xmlns:rel="http://zuccaro.biblhertz.it/xsd/xmlforest.xsd"
     xmlns:zuc="ns://zuccaro.biblhertz.it/export" xmlns:fm="http://www.filemaker.com/fmpdsoresult"

@@ -1,0 +1,170 @@
+<?xml version="1.0" ?>
+<metadata 
+    xmlns="http://plone.org/ns/archetypes/" 
+    xmlns:cmf="http://cmf.zope.org/namespaces/default/" 
+    xmlns:dc="http://purl.org/dc/elements/1.1/" 
+    xmlns:xmp="adobe:ns:meta"
+    xmlns:cf="http://plone.org/ns/archetypes/compoundfield"
+    >
+
+	<dc:creator>
+		phil
+	</dc:creator>
+	<xmp:CreateDate>
+		2006-07-02T01:05:24Z
+	</xmp:CreateDate>
+	<xmp:ModifyDate>
+		2006-07-02T01:05:24Z
+	</xmp:ModifyDate>
+    <cf:compound id="points1">
+        <cf:array id="polypoints">
+            <cf:item>
+                <cf:compound>
+                    <field id="x"> 1 </field>
+                    <field id="y"> 11 </field>
+                </cf:compound>
+            </cf:item>
+            <cf:item>
+                <cf:compound>
+                    <field id="x"> 2 </field>
+                    <field id="y"> 22 </field>
+                </cf:compound>
+            </cf:item>
+            <cf:item>
+                <cf:compound>
+                    <field id="x"> 3 </field>
+                    <field id="y"> 33 </field>
+                </cf:compound>
+            </cf:item>
+            <cf:item>
+                <cf:compound>
+                    <field id="x"> 4 </field>
+                    <field id="y"> 44 </field>
+                </cf:compound>
+            </cf:item>
+            <cf:item>
+                <cf:compound>
+                    <field id="x"> 5 </field>
+                    <field id="y"> 55 </field>
+                </cf:compound>
+            </cf:item>
+            <cf:item>
+                <cf:compound>
+                    <field id="x"> 6 </field>
+                    <field id="y"> 66 </field>
+                </cf:compound>
+            </cf:item>
+        </cf:array>
+    </cf:compound>
+
+    <cf:array id="boxes">
+        <cf:item>
+            <cf:compound>
+                <cf:compound id="p1">
+                    <field id="x"> 1 </field>
+                    <field id="y"> 11 </field>
+                </cf:compound>
+                <cf:compound id="p2">
+                    <field id="x"> 2 </field>
+                    <field id="y"> 22 </field>
+                </cf:compound>
+            </cf:compound>
+        </cf:item>
+        <cf:item>
+            <cf:compound>
+                <cf:compound id="p1">
+                    <field id="x"> 3 </field>
+                    <field id="y"> 33 </field>
+                </cf:compound>
+                <cf:compound id="p2">
+                    <field id="x"> 4 </field>
+                    <field id="y">  44</field>
+                </cf:compound>
+            </cf:compound>
+        </cf:item>
+    </cf:array>
+
+    <cf:array id="points">
+        <cf:item>
+            <cf:compound>
+                <field id="x"> 1 </field>
+                <field id="y"> 11 </field>
+            </cf:compound>
+        </cf:item>
+        <cf:item>
+            <cf:compound>
+                <field id="x"> 2 </field>
+                <field id="y"> 22 </field>
+            </cf:compound>
+        </cf:item>
+        <cf:item>
+            <cf:compound>
+                <field id="x"> 3 </field>
+                <field id="y"> 33 </field>
+            </cf:compound>
+        </cf:item>
+        <cf:item>
+            <cf:compound>
+                <field id="x"> 4 </field>
+                <field id="y"> 44 </field>
+            </cf:compound>
+        </cf:item>
+        <cf:item>
+            <cf:compound>
+                <field id="x"> 5 </field>
+                <field id="y"> 55 </field>
+            </cf:compound>
+        </cf:item>
+        <cf:item>
+            <cf:compound>
+                <field id="x"> 6 </field>
+                <field id="y"> 66 </field>
+            </cf:compound>
+        </cf:item>
+    </cf:array>
+
+    <cf:array id="names">
+        <cf:item>
+            <field>bla1</field>
+        </cf:item>
+        <cf:item>
+            <field>bla2</field>
+        </cf:item>
+        <cf:item>
+            <field>bla3</field>
+        </cf:item>
+        <cf:item>
+            <field>bla4</field>
+        </cf:item>
+        <cf:item>
+            <field>bla5</field>
+        </cf:item>
+    </cf:array>
+
+	<field id="allowDiscussion">
+		0
+	</field>
+	<field id="id">
+		array
+	</field>
+	<uid>
+		813e95de5d1a1d898efddf1c8fcfecba
+	</uid>
+	<cmf:type>
+		ArrayFieldTest
+	</cmf:type>
+	<cmf:workflow_history>
+		<cmf:workflow cmf:id="plone_workflow">
+			<cmf:history>
+				<cmf:var cmf:id="action" cmf:type="None" cmf:value="None"/>
+				<cmf:var cmf:id="actor" cmf:type="str" cmf:value="phil"/>
+				<cmf:var cmf:id="comments" cmf:type="str" cmf:value=""/>
+				<cmf:var cmf:id="review_state" cmf:type="str" cmf:value="visible"/>
+				<cmf:var cmf:id="time" cmf:type="date" cmf:value="2006-07-02 03:05:24"/>
+			</cmf:history>
+		</cmf:workflow>
+	</cmf:workflow_history>
+	<cmf:security>
+		<cmf:local_role cmf:role="Owner" cmf:user_id="phil"/>
+	</cmf:security>
+</metadata>

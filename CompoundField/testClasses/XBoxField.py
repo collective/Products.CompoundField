@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 # File: XBoxField.py
 #
 # Copyright (c) 2006 by eduplone Open Source Business Network EEIG
@@ -59,6 +61,7 @@ schema = Schema((
 
 ),
 )
+
 
 
 

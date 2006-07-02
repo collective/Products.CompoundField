@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 # File: XPoint.py
 #
 # Copyright (c) 2006 by eduplone Open Source Business Network EEIG
@@ -17,6 +19,7 @@ __docformat__ = 'plaintext'
 
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header
+
 
 
 class XPoint:
