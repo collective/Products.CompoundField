@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 # File: Install.py
 #
 # Copyright (c) 2006 by eduplone Open Source Business Network EEIG
@@ -79,6 +81,10 @@ def install(self):
     # enable portal_factory for given types
     factory_tool = getToolByName(self,'portal_factory')
     factory_types=[
+        "CompoundFieldTest",
+        "XPoint",
+        "ArrayFieldTest",
+        "XBox",
         ] + factory_tool.getFactoryTypes().keys()
     factory_tool.manage_setPortalFactoryTypes(listOfTypeIds=factory_types)
 
@@ -170,3 +176,50 @@ def uninstall(self):
         print >>out,'no custom uninstall'
 
     return out.getvalue()
+
+def beforeUninstall(self, reinstall, product, cascade):
+    """ try to call a custom beforeUninstall method in 'AppInstall.py'
+        method 'beforeUninstall'
+    """
+    out = StringIO()
+    try:
+        beforeuninstall = ExternalMethod('temp', 'temp',
+                                   PROJECTNAME+'.AppInstall', 'beforeUninstall')
+    except:
+        beforeuninstall = []
+
+    if beforeuninstall:
+        print >>out, 'Custom beforeUninstall:'
+        res = beforeuninstall(self, reinstall=reinstall
+                                  , product=product
+                                  , cascade=cascade)
+        if res:
+            print >>out, res
+        else:
+            print >>out, 'no output'
+    else:
+        print >>out, 'no custom beforeUninstall'
+    return (out,cascade)
+
+def afterInstall(self, reinstall, product):
+    """ try to call a custom afterInstall method in 'AppInstall.py' method
+        'afterInstall'
+    """
+    out = StringIO()
+    try:
+        afterinstall = ExternalMethod('temp', 'temp',
+                                   PROJECTNAME+'.AppInstall', 'afterInstall')
+    except:
+        afterinstall = None
+
+    if afterinstall:
+        print >>out, 'Custom afterInstall:'
+        res = afterinstall(self, product=None
+                               , reinstall=None)
+        if res:
+            print >>out, res
+        else:
+            print >>out, 'no output'
+    else:
+        print >>out, 'no custom afterInstall'
+    return out

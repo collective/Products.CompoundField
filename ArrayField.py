@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 # File: ArrayField.py
 #
 # Copyright (c) 2006 by eduplone Open Source Business Network EEIG
@@ -6,7 +8,7 @@
 #
 # German Free Software License (D-FSL)
 #
-# This Program may be used by anyone in accordance with the terms of the
+# This Program may be used by anyone in accordance with the terms of the 
 # German Free Software License
 # The License may be obtained under <http://www.d-fsl.org>.
 #
@@ -56,15 +58,14 @@ schema = Schema((
 
 
 
+
 class ArrayField(CompoundField):
     """
     """
     ##code-section class-header #fill in your manual code here
     ##/code-section class-header
 
-    __implements__ = (getattr(CompoundField,'__implements__',()),) + \
-                   (getattr(CompoundField,'__implements__',()),) + \
-                   (IArrayField,)
+    __implements__ = (getattr(CompoundField,'__implements__',()),) + (getattr(CompoundField,'__implements__',()),) + (IArrayField,)
 
 
     _properties = CompoundField._properties.copy()

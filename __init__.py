@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 # File: CompoundField.py
 #
 # Copyright (c) 2006 by eduplone Open Source Business Network EEIG
@@ -26,9 +28,9 @@ __docformat__ = 'plaintext'
 #   - To register a customisation policy, create a file CustomizationPolicy.py
 #       with a method register(context) to register the policy.
 
-from zLOG import LOG, INFO
+from zLOG import LOG, INFO, DEBUG
 
-LOG('CompoundField',INFO, 'Installing Product')
+LOG('CompoundField', DEBUG, 'Installing Product')
 
 try:
     import CustomizationPolicy
@@ -53,6 +55,17 @@ DirectoryView.registerDirectory('skins/CompoundField',
                                     product_globals)
 
 ##code-section custom-init-head #fill in your manual code here
+try:
+    from Products.Marshall.handlers.atxml import registerNamespace
+    from Products.CompoundField.cfns import CompoundFieldNS
+    registerNamespace( CompoundFieldNS ) 
+    HAS_MARSHALLER=True
+
+except ImportError:
+    HAS_MARSHALLER=False
+    
+
+
 ##/code-section custom-init-head
 
 

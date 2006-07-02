@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 # File: CompoundField.py
 #
 # Copyright (c) 2006 by eduplone Open Source Business Network EEIG
@@ -64,6 +66,7 @@ JAVASCRIPTS = []
 
 ##code-section config-bottom #fill in your manual code here
 COMPOUND_FIELD_SEPERATOR='|'
+HAS_MARSHALLER=False
 ##/code-section config-bottom
 
 

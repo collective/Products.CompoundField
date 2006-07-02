@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 # File: IArrayField.py
 #
 # Copyright (c) 2006 by eduplone Open Source Business Network EEIG
