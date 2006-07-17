@@ -74,7 +74,7 @@ def initialize(context):
     ##/code-section custom-init-top
 
     # imports packages and types for registration
-    import testClasses
+    #import testClasses
 
     import CompoundField
     import CompoundWidget

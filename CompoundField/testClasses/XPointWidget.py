@@ -31,11 +31,13 @@ from Products.Archetypes.Widget import TypesWidget
 from Products.CompoundField import config
 
 ##code-section module-header #fill in your manual code here
+from Products.CompoundField.CompoundWidget import CompoundWidget
+
 ##/code-section module-header
 
 
 
-class XPointWidget(TypesWidget):
+class XPointWidget(CompoundWidget):
     """
     """
     ##code-section class-header #fill in your manual code here
