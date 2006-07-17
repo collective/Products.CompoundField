@@ -56,19 +56,15 @@ class XPoint:
 
     def __eq__(self,other):
         return self.x==other.x and self.y==other.y
-                                                                                                                                                                                                                                                                                                    
 
     def __str__(self):
         return 'XPoint(%s,%s)' % (self.x,self.y)
-                                                                                                                                                                                                                                                                                                    
 
     def getX(self):
         return self.x
-                                                                                                                                                                                                                                                                                                
 
     def getY(self):
         return self.y
-                                                                                                                                                                                                                                                                                                
 
     def __repr__(self):
         return str(self)
@@ -76,11 +72,9 @@ class XPoint:
 
     def setX(self,value):
         self.x=value
-                                                                                                                                                                                                                                                                                                
 
     def setY(self,value):
         self.y=value
-                                                                                                                                                                                                                                                                                                
 
 ##code-section module-footer #fill in your manual code here
 ##/code-section module-footer

@@ -162,7 +162,6 @@ class ArrayField(CompoundField):
         return res
 
     def resize(self, size, instance=None):
-
         oldsize=self.getPhysicalSize()
 
         #only do a physical resize when growing
@@ -181,7 +180,7 @@ class ArrayField(CompoundField):
             self.physicalSize=size
 
         if instance:
-            lf=self.Schema()['size']
+            lf=self.Schema().fields()[0] #field 0 is always size. has to be adressed by index because fields get renamed during nesting
             lf.set(instance,size)
         else:
             self.size=size

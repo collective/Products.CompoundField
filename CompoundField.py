@@ -24,7 +24,7 @@ from Acquisition import aq_base
 
 from Products.CMFCore.utils import getToolByName
 
-from Products.Archetypes.Field import ObjectField,encode,decode
+from Products.Archetypes.Field import ObjectField, encode, decode
 from Products.Archetypes.Registry import registerField
 from Products.Archetypes.utils import DisplayList
 from Products.Archetypes import config as atconfig
@@ -128,6 +128,7 @@ class CompoundField(ObjectField):
 
     def get(self, instance, **kwargs):
         res={}
+        
         for f in self.Schema().fields():
             res[f.old_name]=f.get(instance)
             
@@ -145,23 +146,25 @@ class CompoundField(ObjectField):
         self.schema = schema
         self.calcFieldNames()
 
-    def calcFieldNames(self, path=[]):
+    def calcFieldNames(self, path = [], force_prefix = False):
         ''' prefixes the field names with the parent field name '''
-        
         _fields = self.Schema()._fields
         
         for f in self.Schema().fields():
-            old_name = f.getName()
+            if not getattr(f, 'prefixed', False) or force_prefix:
+                # We re-prefix fields if called recursively (the force_prefix parameter),
+                # since the parent fields may have changed name.
+                if not getattr(f, 'prefixed', False):
+                    # only set old_name the first time we prefix a field - old_name
+                    # is the identifier we want to use in all prefixings of a field.
+                    f.old_name =  f.getName()
+                    f.prefixed = 1
+                f.__name__ = config.COMPOUND_FIELD_SEPERATOR.join(
+                    [getattr(field, 'old_name', field.getName()) for field in path + [self] + [f]])
+                #del _fields[old_name]
+                _fields[f.__name__] = f
             if ICompoundField.isImplementedBy(f):
-                f.calcFieldNames(path=path+[self])
-                
-            if not getattr(f,'prefixed',False):
-                f.old_name = f.getName()
-                f.prefixed = 1
-            
-            f.__name__ = config.COMPOUND_FIELD_SEPERATOR.join([getattr(field,'old_name',field.getName()) for field in path+[self]+[f]])
-            #del _fields[old_name]
-            _fields[f.__name__]=f
+                f.calcFieldNames(path = path + [self], force_prefix = True)
             
     def getAccessor(self,instance):
         ''' hook to post-generate the accessors for the subfields

@@ -53,7 +53,7 @@ class testCompoundField(CompoundFieldTestCase):
     pointdict_set={'x':(1,),'y':(2,)}
     
     boxdict_set= {
-              'point1':
+              'p1':
                 (
                   { 'x':
                      ('1',),
@@ -62,7 +62,7 @@ class testCompoundField(CompoundFieldTestCase):
                   },
                 
                 ),
-              'point2':
+              'p2':
                 (
                   { 'x':
                      (3,),
@@ -75,7 +75,7 @@ class testCompoundField(CompoundFieldTestCase):
 
     #what comes out from widget.process_form
     boxdict_process_form= {
-              'point1':
+              'p1':
                 (
                   { 'x':
                      ('1',{}),
@@ -84,7 +84,7 @@ class testCompoundField(CompoundFieldTestCase):
                   },{}
                 
                 ),
-              'point2':
+              'p2':
                 (
                   { 'x':
                      ('3',{}),
@@ -99,7 +99,7 @@ class testCompoundField(CompoundFieldTestCase):
     
     #this gets returned by field.getRaw(
     boxdict_getraw= {
-              'point1':
+              'p1':
                 (
                   { 'x':
                      (1,{}),
@@ -108,7 +108,7 @@ class testCompoundField(CompoundFieldTestCase):
                   },{}
                 
                 ),
-              'point2':
+              'p2':
                 (
                   { 'x':
                      (3,{}),
@@ -125,11 +125,11 @@ class testCompoundField(CompoundFieldTestCase):
     pointdict_get={'x':1,'y':2}
     
     boxdict_get= {
-              'point1':
+              'p1':
                 {'x':1,
                  'y':2
                 },
-              'point2':
+              'p2':
                 { 'x':3,
                   'y':4
                   }
@@ -150,8 +150,9 @@ class testCompoundField(CompoundFieldTestCase):
         o=self.folder.cft
         o.update(box=self.boxdict_set)
         r=o.getBox()
-        self.assertEqual({'x':1,'y':2},r['point1'])
-        self.assertEqual({'x':3,'y':4},r['point2'])
+        
+        self.assertEqual(XPoint(1,2),r.p1)
+        self.assertEqual(XPoint(3,4),r.p2)
  
     def test_simpleCompoundField(self):
         """
@@ -204,10 +205,10 @@ class testCompoundField(CompoundFieldTestCase):
         #print field.widget.getName()
         
         form={
-            'box|point1|x':'1',
-            'box|point1|y':'2',
-            'box|point2|x':'3',
-            'box|point2|y':'4',
+            'box|p1|x':'1',
+            'box|p1|y':'2',
+            'box|p2|x':'3',
+            'box|p2|y':'4',
             }
             
         result = field.widget.process_form(instance, field, form,
@@ -221,10 +222,10 @@ class testCompoundField(CompoundFieldTestCase):
         instance=self.folder.cft1
         
         form={
-            'box|point1|x':'1',
-            'box|point1|y':'2',
-            'box|point2|x':'3',
-            'box|point2|y':'4',
+            'box|p1|x':'1',
+            'box|p1|y':'2',
+            'box|p2|x':'3',
+            'box|p2|y':'4',
             'point|x':'1',
             'point|y':'2',
             'point2|x':'1',
@@ -236,9 +237,8 @@ class testCompoundField(CompoundFieldTestCase):
         #print instance.getBox()
         #print instance.getPoint()
         self.assertEqual(instance.getPoint(),self.pointdict_get)
-        #import pdb;pdb.set_trace()
         self.assertEqual(instance.getPoint2(),XPoint(1,2))
-        self.assertEqual(instance.getBox(),self.boxdict_get)
+        self.assertEqual(instance.getRawBox(),self.boxdict_get)
     # Manually created methods
 
 def test_suite():

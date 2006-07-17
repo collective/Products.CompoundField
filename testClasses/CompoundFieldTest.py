@@ -54,24 +54,6 @@ CompoundFieldTest_schema = BaseSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
-
-schema['box'].setSchema(Schema((
-            CompoundField(
-                'point1',
-                schema=Schema(
-                    (IntegerField('x'),
-                    IntegerField('y')
-                    
-                    ))),
-                    
-            CompoundField(
-                'point2',
-                schema=Schema(
-                    (IntegerField('x'),
-                    IntegerField('y')
-                    
-                    ))),
-            )))
 ##/code-section after-schema
 
 class CompoundFieldTest(BaseContent):
