@@ -8,13 +8,15 @@ from Products.CompoundField.ICompoundField import ICompoundField
 
 from Products.Marshall import utils
 
-
+from Products.Archetypes.debug import log
 
 class CompoundAttribute(SchemaAttribute):
-    def processXmlValue(self, context, value, node):
+    def processXmlValue(self, context, value):
         """ callback to process text nodes
         """
-        value = self.parseXmlNode(context, node)
+        # text value is normally irrelevant in compound field
+        # import pdb; pdb.set_trace()
+        value = self.parseXmlNode(context, context.node)
         if not value:
             return
         data = context.getDataFor( self.namespace.xmlns )
@@ -26,28 +28,30 @@ class CompoundAttribute(SchemaAttribute):
 
         tagname, namespace = utils.fixtag(node.tag, context.ns_map)
         
-        if tagname=='compound':
+        if tagname == 'compound':
             return self.parseCompound(context,node)
-        elif tagname=='array':
+        elif tagname == 'array':
             return self.parseArray(context,node)
-        elif tagname=='field':
+        elif tagname == 'field':
             return node.text and node.text.strip()
 
     def parseCompound(self,context,node):
         res={}
         for n in node:
-            id=n.attrib['id']
-            value=self.parseXmlNode(context, n)
-            res[id]=value
-            
+            name = n.attrib.get('name', None)
+            if name is None:
+               name = n.attrib.get('id', None)
+               log("compoundfield %s: 'id' attribute is deprecated, use 'name' instead" % name)
+            value = self.parseXmlNode(context, n)
+            res[name] = value
         return res
     
-    def parseArray(self,context,node):
+    def parseArray(self, context, node):
         res=[]
         for item in node:
             #import pdb;pdb.set_trace()
-            n=item[0]
-            value=self.parseXmlNode(context, n)
+            n = item[0]
+            value = self.parseXmlNode(context, n)
             res.append(value)
             
         return res
@@ -58,8 +62,8 @@ class CompoundAttribute(SchemaAttribute):
         if not data.has_key(self.name):
             return
         
-        field=instance.Schema()[self.name]
-        value=data[self.name]
+        field = instance.Schema()[self.name]
+        value = data[self.name]
         field.getMutator(instance)(value)
         
     
@@ -68,17 +72,16 @@ class CompoundAttribute(SchemaAttribute):
 
 class CompoundFieldNS(XmlNamespace):
     xmlns="http://plone.org/ns/archetypes/compoundfield"
-    attributeClass=CompoundAttribute
-    attributes=[]
+    attributeClass = CompoundAttribute
+    attributes = []
     
     
     def getATFields(self):
         return ['array','compound']
     
     def serialize(self, dom, parent_node, instance, options ):
-        import pdb;pdb.set_trace() 
+        # import pdb;pdb.set_trace() 
         exclude_attrs = options.get('atns_exclude', () )
-            
         for attribute in self.getAttributes( instance, exclude_attrs):
             attribute.serialize( dom, parent_node, instance, options )
 
@@ -100,11 +103,14 @@ class CompoundFieldNS(XmlNamespace):
         elif tagname in ('compound','array'):
             # basic at field specified, find the matching attribute
             # and annotate the data node with it
-            schema_name = data_node.attrib.get('id')
+            schema_name = data_node.attrib.get('name', None)
+            if schema_name is None:
+                schema_name = data_node.attrib.get('id',)
+                log("field %s: 'id' attribute is deprecated, use 'name' instead" % schema_name)
 
-            assert schema_name, "No Schema Field Specified"
+            assert schema_name, "No field name specified in cf:[array|compound] element"
             #print "field", schema_name
-            self.last_schema_id = schema_name            
+            self.last_schema_id = schema_name
             attribute = self.getAttributeByName(schema_name, context)
             if attribute is None:
                 #print "na", schema_name
@@ -120,7 +126,7 @@ class CompoundFieldNS(XmlNamespace):
             if not context.instance.Schema().has_key( schema_name ):
                 return
                 raise AssertionError, \
-                      "invalid attribute %s"%(schema_name)
+                      "invalid attribute %s" % (schema_name)
         
         attribute = self.attributeClass( schema_name )
         attribute.setNamespace( self )
