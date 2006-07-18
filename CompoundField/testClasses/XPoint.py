@@ -50,31 +50,37 @@ class XPoint:
 
     def init_attributes(self):
         #attributes
-        self.x=None 
-        self.y=None 
-                        
+        self.x=None
+        self.y=None
 
-    def __eq__(self,other):
-        return self.x==other.x and self.y==other.y
-
-    def __str__(self):
-        return 'XPoint(%s,%s)' % (self.x,self.y)
-
-    def getX(self):
-        return self.x
-
-    def getY(self):
-        return self.y
-
-    def __repr__(self):
-        return str(self)
-                            
 
     def setX(self,value):
         self.x=value
 
+
+    def __str__(self):
+        return 'XPoint(%s,%s)' % (self.x,self.y)
+
+
+    def getX(self):
+        return self.x
+
+
+    def getY(self):
+        return self.y
+
+
+    def __repr__(self):
+        return str(self)
+
+
+    def __eq__(self,other):
+        return self.x==other.x and self.y==other.y
+
+
     def setY(self,value):
         self.y=value
+
 
 ##code-section module-footer #fill in your manual code here
 ##/code-section module-footer

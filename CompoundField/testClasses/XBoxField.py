@@ -93,13 +93,13 @@ class XBoxField(CompoundField):
 
     def getRaw(self, instance, **kwargs):
         return CompoundField.getRaw(self,instance,**kwargs)
-                        
+
     def set(self, instance, value, **kwargs):
         return CompoundField.set(self,instance,value,**kwargs)
-                        
+
     def get(self, instance, **kwargs):
         return CompoundField.get(self,instance,**kwargs)
-                        
+
 
 registerField(XBoxField,
               title='XBoxField',

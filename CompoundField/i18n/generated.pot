@@ -61,65 +61,77 @@ msgstr ""
 #. Default: "Box"
 #. Box
 #: testClasses/CompoundFieldTest.py
+#: testClasses\CompoundFieldTest.py
 msgid "CompoundField_label_box"
 msgstr ""
 
 #. Default: "Boxes"
 #: testClasses/ArrayFieldTest.py
+#: testClasses\ArrayFieldTest.py
 msgid "CompoundField_label_boxes"
 msgstr ""
 
 #. Default: "Names"
 #: testClasses/ArrayFieldTest.py
+#: testClasses\ArrayFieldTest.py
 msgid "CompoundField_label_names"
 msgstr ""
 
 #. Default: "P1"
 #: testClasses/XBoxField.py
+#: testClasses\XBoxField.py
 msgid "CompoundField_label_p1"
 msgstr ""
 
 #. Default: "P2"
 #: testClasses/XBoxField.py
+#: testClasses\XBoxField.py
 msgid "CompoundField_label_p2"
 msgstr ""
 
 #. Default: "Point"
 #. Point
 #: testClasses/CompoundFieldTest.py
+#: testClasses\CompoundFieldTest.py
 msgid "CompoundField_label_point"
 msgstr ""
 
 #. Default: "Point2"
 #. Point2
 #: testClasses/CompoundFieldTest.py
+#: testClasses\CompoundFieldTest.py
 msgid "CompoundField_label_point2"
 msgstr ""
 
 #. Default: "Points"
 #: testClasses/ArrayFieldTest.py
+#: testClasses\ArrayFieldTest.py
 msgid "CompoundField_label_points"
 msgstr ""
 
 #. Default: "Points1"
 #: testClasses/ArrayFieldTest.py
+#: testClasses\ArrayFieldTest.py
 msgid "CompoundField_label_points1"
 msgstr ""
 
 #. Default: "Polypoints"
 #: testClasses/XPolygonField.py
+#: testClasses\XPolygonField.py
 msgid "CompoundField_label_polypoints"
 msgstr ""
 
 #. Default: "X"
 #. X
 #: testClasses/XPointField.py
+#: testClasses\XPointField.py
 msgid "CompoundField_label_x"
 msgstr ""
 
 #. Default: "Y"
 #. Y
 #: testClasses/XPointField.py
+#: testClasses\XPointField.py
 msgid "CompoundField_label_y"
 msgstr ""
 

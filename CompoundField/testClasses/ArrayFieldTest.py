@@ -40,17 +40,23 @@ ArrayField(            StringField(
                 )
             ),
         
-        ),ArrayField(            XPointField(
+        ),
+
+ArrayField(            XPointField(
                 name='points',
             
             ),
         
-        ),ArrayField(            XBoxField(
+        ),
+
+ArrayField(            XBoxField(
                 name='boxes',
             
             ),
         
-        ),    XPolygonField(
+        ),
+
+    XPolygonField(
         name='points1',
     
     ),
@@ -117,7 +123,7 @@ class ArrayFieldTest(BaseContent):
     def testset(self, value):
         import pdb;pdb.set_trace()
         self.Schema()['names'].fields()[1].set(self,value)
-        
+
 
 
 registerType(ArrayFieldTest, PROJECTNAME)

@@ -65,7 +65,7 @@ class CompoundWidget(TypesWidget):
         for f in field.Schema().fields():
             fname=getattr(f,'old_name',field.getName())
             value[fname]=f.widget.process_form(instance,f,form,empty_marker)
-            
+
         return value, {}
 
 

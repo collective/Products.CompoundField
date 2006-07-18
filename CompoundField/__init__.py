@@ -58,12 +58,12 @@ DirectoryView.registerDirectory('skins/CompoundField',
 try:
     from Products.Marshall.handlers.atxml import registerNamespace
     from Products.CompoundField.cfns import CompoundFieldNS
-    registerNamespace( CompoundFieldNS ) 
+    registerNamespace( CompoundFieldNS )
     HAS_MARSHALLER=True
 
 except ImportError:
     HAS_MARSHALLER=False
-    
+
 
 
 ##/code-section custom-init-head
@@ -74,7 +74,7 @@ def initialize(context):
     ##/code-section custom-init-top
 
     # imports packages and types for registration
-    #import testClasses
+    import testClasses
 
     import CompoundField
     import CompoundWidget

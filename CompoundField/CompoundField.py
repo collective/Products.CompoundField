@@ -24,7 +24,7 @@ from Acquisition import aq_base
 
 from Products.CMFCore.utils import getToolByName
 
-from Products.Archetypes.Field import ObjectField, encode, decode
+from Products.Archetypes.Field import ObjectField,encode,decode
 from Products.Archetypes.Registry import registerField
 from Products.Archetypes.utils import DisplayList
 from Products.Archetypes import config as atconfig
@@ -92,7 +92,7 @@ class CompoundField(ObjectField):
         res={}
         for f in self.Schema().fields():
             res[f.old_name]=(f.getRaw(instance,schema=self.schema))
-                
+
         return res
 
     def set(self, instance, value, **kwargs):
@@ -100,17 +100,17 @@ class CompoundField(ObjectField):
         #import pdb;pdb.set_trace()
         if not value:
             return
-        
+
         if type(value) in types.StringTypes:
             #if the value comes as string eval it to a dict
             # XXX attention: use restricted environment instead!
             # this is a potential security hole.
             value = eval(value)
-        
+
         if getattr(self, 'value_class', None):
             if isinstance(value, self.value_class):
                 value = self.valueClass2Raw(value)
-        
+
         for f in self.Schema().fields():
             if value.has_key(f.old_name):
                 v = value[f.old_name]
@@ -119,7 +119,7 @@ class CompoundField(ObjectField):
                     kw=v[1]
                 else:
                     kw={}
-                    
+
                 if v:
                     if isarray or (type(v) in ListTypes and len(v) ==1):
                         f.set(instance, v[0], **kw)
@@ -128,13 +128,13 @@ class CompoundField(ObjectField):
 
     def get(self, instance, **kwargs):
         res={}
-        
+
         for f in self.Schema().fields():
             res[f.old_name]=f.get(instance)
-            
+
         if getattr(self,'value_class',None):
             res=self.raw2ValueClass(res)
-        
+
         return res
 
     def raw2ValueClass(self,dict):
@@ -149,16 +149,16 @@ class CompoundField(ObjectField):
     def calcFieldNames(self, path = [], force_prefix = False):
         ''' prefixes the field names with the parent field name '''
         _fields = self.Schema()._fields
-        
+
         for f in self.Schema().fields():
             if not getattr(f, 'prefixed', False) or force_prefix:
-                # calcFieldNames are often called several times for the same 
-                # field, e.g. when copying a schema. We do not want to perform 
+                # calcFieldNames are often called several times for the same
+                # field, e.g. when copying a schema. We do not want to perform
                 # prefixing everytime this method is called. We only want to
-                # prefix field names in two cases: 
+                # prefix field names in two cases:
                 # a) The first time we process a field
-                # b) If calcFieldNames is called recursively on subfields, to 
-                # apply the correct parent field names to the prefixing of a 
+                # b) If calcFieldNames is called recursively on subfields, to
+                # apply the correct parent field names to the prefixing of a
                 # subfield. In this case we set the paramter force_prefix.
                 if not getattr(f, 'prefixed', False):
                     # only set old_name the first time we prefix a field - old_name
@@ -171,35 +171,35 @@ class CompoundField(ObjectField):
                 _fields[f.__name__] = f
             if ICompoundField.isImplementedBy(f):
                 f.calcFieldNames(path = path + [self], force_prefix = True)
-            
+
     def getAccessor(self,instance):
         ''' hook to post-generate the accessors for the subfields
             its a little bit hacky, because we need a special ClassGen here
         '''
-        
+
         if not getattr(self,'already_bootstrapped',False):
             fields=self.getFields()
             ClassGen.generateMethods(instance.__class__,self.Schema())
             self.already_bootstrapped=True
         return ObjectField.getAccessor(self,instance)
 
-    def __init__(self, name=None, schema=None, **kwargs):
-        ObjectField.__init__(self,name,**kwargs)
-            
-        if not schema:
-            schema=self.schema.copy()
-            
-        self.setSchema(schema)
-
-    def getFields(self,):
-        return self.Schema().fields()
-
     def valueClass2Raw(self,value):
         res={}
         for k in value.__dict__:
             res[k]=(getattr(value,k),)
-            
+
         return res
+
+    def getFields(self,):
+        return self.Schema().fields()
+
+    def __init__(self, name=None, schema=None, **kwargs):
+        ObjectField.__init__(self,name,**kwargs)
+
+        if not schema:
+            schema=self.schema.copy()
+
+        self.setSchema(schema)
 
 
 registerField(CompoundField,

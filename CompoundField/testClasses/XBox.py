@@ -50,21 +50,21 @@ class XBox:
 
     def getP1(self):
         return self.p1
-                        
+
 
     def init_attributes(self):
         #attributes
-        self.p1=None 
-        self.p1=None 
-                        
+        self.p1=None
+        self.p1=None
+
 
     def setP1(self,value):
         self.p1=value
-                        
+
 
     def __str__(self):
         return "(%s,%s)" %(self.p1,self.p2)
-    __repr__=__str__                         
+    __repr__=__str__
 
 ##code-section module-footer #fill in your manual code here
 ##/code-section module-footer
