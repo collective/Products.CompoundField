@@ -59,4 +59,6 @@ Licence
 Todo
 
   - Improve UI of Widgets
+  - make default size of ArrayField a Field property
+  
 
