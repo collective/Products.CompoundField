@@ -152,11 +152,17 @@ class CompoundField(ObjectField):
         
         for f in self.Schema().fields():
             if not getattr(f, 'prefixed', False) or force_prefix:
-                # We re-prefix fields if called recursively (the force_prefix parameter),
-                # since the parent fields may have changed name.
+                # calcFieldNames are often called several times for the same 
+                # field, e.g. when copying a schema. We do not want to perform 
+                # prefixing everytime this method is called. We only want to
+                # prefix field names in two cases: 
+                # a) The first time we process a field
+                # b) If calcFieldNames is called recursively on subfields, to 
+                # apply the correct parent field names to the prefixing of a 
+                # subfield. In this case we set the paramter force_prefix.
                 if not getattr(f, 'prefixed', False):
                     # only set old_name the first time we prefix a field - old_name
-                    # is the identifier we want to use in all prefixings of a field.
+                    # is the original field name, that we want to use in all prefixings of a field.
                     f.old_name =  f.getName()
                     f.prefixed = 1
                 f.__name__ = config.COMPOUND_FIELD_SEPERATOR.join(
