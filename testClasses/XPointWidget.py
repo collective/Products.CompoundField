@@ -35,7 +35,7 @@ from Products.CompoundField.CompoundWidget import CompoundWidget
 
 ##/code-section module-header
 
-
+from Products.CompoundField.CompoundWidget import CompoundWidget
 
 class XPointWidget(CompoundWidget):
     """
@@ -43,13 +43,11 @@ class XPointWidget(CompoundWidget):
     ##code-section class-header #fill in your manual code here
     ##/code-section class-header
 
-    __implements__ = (getattr(TypesWidget,'__implements__',()),)
+    __implements__ = (getattr(TypesWidget,'__implements__',()),) + (getattr(CompoundWidget,'__implements__',()),)
 
-    _properties = TypesWidget._properties.copy()
+    _properties = CompoundWidget._properties.copy()
     _properties.update({
         'macro' : 'XPointWidget',
-        'size' : '30',
-        'maxlength' : '255',
         ##code-section widget-properties #fill in your manual code here
         ##/code-section widget-properties
 

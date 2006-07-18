@@ -28,9 +28,9 @@ class ICompoundField(Base):
 
     def Schema():
         """
-        
+
         """
-        
+
 
 # end of class ICompoundField
 

@@ -47,11 +47,11 @@ class testCompoundField(CompoundFieldTestCase):
     """
 
     ##code-section class-header_testCompoundField #fill in your manual code here
-    
+
     #this can be passed to field.set()
-    
+
     pointdict_set={'x':(1,),'y':(2,)}
-    
+
     boxdict_set= {
               'p1':
                 (
@@ -60,7 +60,7 @@ class testCompoundField(CompoundFieldTestCase):
                     'y':
                      (2,)
                   },
-                
+
                 ),
               'p2':
                 (
@@ -69,7 +69,7 @@ class testCompoundField(CompoundFieldTestCase):
                     'y':
                      (4,)
                   },
-                  
+
                 )
             }
 
@@ -82,7 +82,7 @@ class testCompoundField(CompoundFieldTestCase):
                     'y':
                      ('2',{})
                   },{}
-                
+
                 ),
               'p2':
                 (
@@ -91,12 +91,12 @@ class testCompoundField(CompoundFieldTestCase):
                     'y':
                      ('4',{})
                   },{}
-                  
+
                 )
             }
 
     pointdict_process_form={'x':('1',{}),'y':('2',{})}
-    
+
     #this gets returned by field.getRaw(
     boxdict_getraw= {
               'p1':
@@ -106,7 +106,7 @@ class testCompoundField(CompoundFieldTestCase):
                     'y':
                      (2,{})
                   },{}
-                
+
                 ),
               'p2':
                 (
@@ -115,7 +115,7 @@ class testCompoundField(CompoundFieldTestCase):
                     'y':
                      (4,{})
                   },{}
-                  
+
                 )
             }
 
@@ -123,7 +123,7 @@ class testCompoundField(CompoundFieldTestCase):
 
     #these come from field.get()
     pointdict_get={'x':1,'y':2}
-    
+
     boxdict_get= {
               'p1':
                 {'x':1,
@@ -134,7 +134,7 @@ class testCompoundField(CompoundFieldTestCase):
                   'y':4
                   }
               }
-            
+
     ##/code-section class-header_testCompoundField
 
     def afterSetUp(self):
@@ -146,18 +146,18 @@ class testCompoundField(CompoundFieldTestCase):
     def test_nestedCompoundField(self):
         """
         """
-        
+
         o=self.folder.cft
         o.update(box=self.boxdict_set)
         r=o.getBox()
-        
+
         self.assertEqual(XPoint(1,2),r.p1)
         self.assertEqual(XPoint(3,4),r.p2)
- 
+
     def test_simpleCompoundField(self):
         """
         """
-        
+
         o=self.folder.cft
         o.update(point=self.pointdict_set,point2=self.pointdict_set)
         r=o.getPoint()
@@ -178,49 +178,49 @@ class testCompoundField(CompoundFieldTestCase):
 
         o.update(point2=XPoint(-1,0))
         self.assertEqual(o.getPoint2(),XPoint(-1,0))
-        
+
     def test_simpleCompoundWidget(self):
         """
         """
         instance=self.folder.cft
         field=instance.Schema()['point']
         #print field.widget.getName()
-        
+
         form={
             'point|x':'1',
             'point|y':'2',
             }
-            
+
         result = field.widget.process_form(instance, field, form,
                                          empty_marker=[])
         self.assertEqual(result[0],self.pointdict_process_form)
 
         self.assertEqual(instance.Schema()['point2'].value_class,XPoint)
- 
+
     def test_nestedCompoundWidget(self):
         """
         """
         instance=self.folder.cft
         field=instance.Schema()['box']
         #print field.widget.getName()
-        
+
         form={
             'box|p1|x':'1',
             'box|p1|y':'2',
             'box|p2|x':'3',
             'box|p2|y':'4',
             }
-            
+
         result = field.widget.process_form(instance, field, form,
                                          empty_marker=[])
- 
+
         self.assertEqual(result[0],self.boxdict_process_form)
-    
+
     # Manually created methods
 
     def test_nestedCompoundFieldFull(self):
         instance=self.folder.cft1
-        
+
         form={
             'box|p1|x':'1',
             'box|p1|y':'2',
@@ -230,9 +230,9 @@ class testCompoundField(CompoundFieldTestCase):
             'point|y':'2',
             'point2|x':'1',
             'point2|y':'2',
-            
+
             }
-            
+
         result = instance.processForm(values=form)
         #print instance.getBox()
         #print instance.getPoint()

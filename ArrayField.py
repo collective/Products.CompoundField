@@ -130,13 +130,29 @@ class ArrayField(CompoundField):
         else:
             return self.size
 
-    def __init__(self,field,size=5,*a,**kw):
+    def resize(self, size, instance=None):
+        oldsize=self.getPhysicalSize()
 
-        self.args=a
-        self.kwargs=kw
-        self.field=field
-        CompoundField.__init__(self,self.field.getName(),*self.args,**self.kwargs)
-        self.resize(size)
+        #only do a physical resize when growing
+        if size>oldsize:
+            self.already_bootstrapped=False
+            schema=Schema(())
+            schema.addField(IntegerField('size'))
+            fn=self.field.getName()
+
+            for i in range(size):
+                f1=self.field.copy()
+                f1.__name__='%s:%03d' % (fn,i)
+                schema.addField(f1)
+
+            self.setSchema(schema=schema)
+            self.physicalSize=size
+
+        if instance:
+            lf=self.Schema().fields()[0] #field 0 is always size. has to be adressed by index because fields get renamed during nesting
+            lf.set(instance,size)
+        else:
+            self.size=size
 
     def getPhysicalSize(self):
         """ returns the physical amount of subfields"""
@@ -161,29 +177,13 @@ class ArrayField(CompoundField):
 
         return res
 
-    def resize(self, size, instance=None):
-        oldsize=self.getPhysicalSize()
+    def __init__(self,field,size=5,*a,**kw):
 
-        #only do a physical resize when growing
-        if size>oldsize:
-            self.already_bootstrapped=False
-            schema=Schema(())
-            schema.addField(IntegerField('size'))
-            fn=self.field.getName()
-
-            for i in range(size):
-                f1=self.field.copy()
-                f1.__name__='%s:%03d' % (fn,i)
-                schema.addField(f1)
-
-            self.setSchema(schema=schema)
-            self.physicalSize=size
-
-        if instance:
-            lf=self.Schema().fields()[0] #field 0 is always size. has to be adressed by index because fields get renamed during nesting
-            lf.set(instance,size)
-        else:
-            self.size=size
+        self.args=a
+        self.kwargs=kw
+        self.field=field
+        CompoundField.__init__(self,self.field.getName(),*self.args,**self.kwargs)
+        self.resize(size)
 
 
 registerField(ArrayField,
