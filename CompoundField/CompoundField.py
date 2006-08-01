@@ -169,8 +169,8 @@ class CompoundField(ObjectField):
                     [getattr(field, 'old_name', field.getName()) for field in path + [self] + [f]])
                 #del _fields[old_name]
                 _fields[f.__name__] = f
-            if ICompoundField.isImplementedBy(f):
-                f.calcFieldNames(path = path + [self], force_prefix = True)
+                if ICompoundField.isImplementedBy(f):
+                    f.calcFieldNames(path = path + [self], force_prefix = True)
 
     def getAccessor(self,instance):
         ''' hook to post-generate the accessors for the subfields
@@ -183,16 +183,6 @@ class CompoundField(ObjectField):
             self.already_bootstrapped=True
         return ObjectField.getAccessor(self,instance)
 
-    def valueClass2Raw(self,value):
-        res={}
-        for k in value.__dict__:
-            res[k]=(getattr(value,k),)
-
-        return res
-
-    def getFields(self,):
-        return self.Schema().fields()
-
     def __init__(self, name=None, schema=None, **kwargs):
         ObjectField.__init__(self,name,**kwargs)
 
@@ -200,6 +190,16 @@ class CompoundField(ObjectField):
             schema=self.schema.copy()
 
         self.setSchema(schema)
+
+    def getFields(self,):
+        return self.Schema().fields()
+
+    def valueClass2Raw(self,value):
+        res={}
+        for k in value.__dict__:
+            res[k]=(getattr(value,k),)
+
+        return res
 
 
 registerField(CompoundField,

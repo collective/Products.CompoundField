@@ -52,6 +52,11 @@ msgstr ""
 msgid "CompoundField_help_y"
 msgstr ""
 
+#. Default: "Arrayofstring"
+#: testClasses\NestedArrayField.py
+msgid "CompoundField_label_arrayOfString"
+msgstr ""
+
 #. Default: "Attribut_1"
 #. Attribut_1
 #: testClasses/XPointField.py
@@ -75,6 +80,11 @@ msgstr ""
 #: testClasses/ArrayFieldTest.py
 #: testClasses\ArrayFieldTest.py
 msgid "CompoundField_label_names"
+msgstr ""
+
+#. Default: "Nestedarray"
+#: testClasses\NestedArrayFieldTest.py
+msgid "CompoundField_label_nestedArray"
 msgstr ""
 
 #. Default: "P1"
@@ -119,6 +129,23 @@ msgstr ""
 #: testClasses/XPolygonField.py
 #: testClasses\XPolygonField.py
 msgid "CompoundField_label_polypoints"
+msgstr ""
+
+#. Default: "Simplecompound"
+#: testClasses\NestedArrayFieldTest.py
+msgid "CompoundField_label_simpleCompound"
+msgstr ""
+
+#. Default: "Simplecompoundarray"
+#: testClasses\NestedArrayFieldTest.py
+msgid "CompoundField_label_simpleCompoundArray"
+msgstr ""
+
+#. Default: "Simplestring"
+#: testClasses\NestedArrayField.py
+#: testClasses\CompoundTest.py
+#: testClasses\SimpleCompoundTestField.py
+msgid "CompoundField_label_simpleString"
 msgstr ""
 
 #. Default: "X"

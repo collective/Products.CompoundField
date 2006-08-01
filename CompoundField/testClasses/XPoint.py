@@ -54,8 +54,8 @@ class XPoint:
         self.y=None
 
 
-    def setX(self,value):
-        self.x=value
+    def __eq__(self,other):
+        return self.x==other.x and self.y==other.y
 
 
     def __str__(self):
@@ -74,8 +74,8 @@ class XPoint:
         return str(self)
 
 
-    def __eq__(self,other):
-        return self.x==other.x and self.y==other.y
+    def setX(self,value):
+        self.x=value
 
 
     def setY(self,value):
