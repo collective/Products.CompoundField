@@ -1,0 +1,29 @@
+>>> from Products.CompoundField import config
+>>> from Products.CompoundField.testClasses.NestedArrayFieldTest import NestedArrayFieldTest
+>>> from Products.CompoundField.ArrayField import ArrayField
+
+Nested ArrayFields (Arrays of arrays). 
+
+>>> res=self.folder.invokeFactory('NestedArrayFieldTest','myobj')
+>>> myobj=self.folder.myobj
+
+The NestedArrayFieldTest content type has a field 'nestedArray' that is an array of 
+NestedArrayFields. NestedArrayField is a CompoundField with an array of strings. Check
+the naming of the subfields and size field at all levels:
+
+>>> myobj.Schema()['nestedArray']
+<Field nestedArray(arrayfield:rw)>
+
+>>> myobj.Schema()['nestedArray'].Schema().fields()
+[<Field nestedArray|size(integer:rw)>, <Field nestedArray|nestedArray:000(nestedarrayfield:rw)>,...
+
+>>> myobj.Schema()['nestedArray'].Schema()['nestedArray|nestedArray:000'].Schema().fields()
+[<Field nestedArray|nestedArray:000|arrayOfString(arrayfield:rw)>]
+
+>>> myobj.Schema()['nestedArray'].Schema()['nestedArray|nestedArray:000'].Schema()['nestedArray|nestedArray:000|arrayOfString'].Schema().fields()
+[<Field nestedArray|nestedArray:000|arrayOfString|size(integer:rw)>, <Field nestedArray|nestedArray:000|arrayOfString|arrayOfString:000(string:rw)>, ...
+
+
+
+>>> #self.interact( locals() )
+

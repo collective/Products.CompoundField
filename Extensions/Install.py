@@ -85,6 +85,7 @@ def install(self):
         "XPoint",
         "ArrayFieldTest",
         "XBox",
+        "NestedArrayFieldTest",
         ] + factory_tool.getFactoryTypes().keys()
     factory_tool.manage_setPortalFactoryTypes(listOfTypeIds=factory_types)
 
