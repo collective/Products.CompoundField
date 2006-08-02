@@ -19,7 +19,6 @@ __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
-from Products.CompoundField.testClasses.SimpleCompoundTestField import SimpleCompoundTestField
 from Products.CompoundField.testClasses.NestedArrayField import NestedArrayField
 from Products.CompoundField.ArrayField import ArrayField
 from Products.CompoundField.config import *
@@ -35,11 +34,6 @@ ArrayField(            NestedArrayField(
             ),
         
         ),
-
-    SimpleCompoundTestField(
-        name='simpleCompoundArray',
-    
-    ),
 
 ),
 )
