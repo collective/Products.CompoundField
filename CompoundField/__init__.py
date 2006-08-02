@@ -71,6 +71,8 @@ except ImportError:
 
 def initialize(context):
     ##code-section custom-init-top #fill in your manual code here
+    from AccessControl import allow_module
+    allow_module('Products.CompoundField.utils')
     ##/code-section custom-init-top
 
     # imports packages and types for registration
@@ -80,6 +82,7 @@ def initialize(context):
     import CompoundWidget
     import ArrayField
     import ArrayWidget
+    import EnhancedArrayWidget
     import ICompoundField
     import IArrayField
 

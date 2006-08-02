@@ -9,6 +9,9 @@ CompoundField
  ArrayField -- field containing one field severals times.
 
  It also provide basic widgets for both fields.
+ 
+ EnhancedArrayWidget is an improved ArrayWidget, using Javascript to expand and shrink
+ the array client side. 
 
 
 Dependencies
@@ -32,6 +35,8 @@ Dependencies
                     phil@bluedynamics.com
 
   Jens Klein -- idea, concept; jens@bluedynamics.com 
+  
+  Sune Broendum Woeller -- EnhancedArrayWidget; sune[AT]woeller.dk
 
 
 Copyright
@@ -60,5 +65,7 @@ Todo
 
   - Improve UI of Widgets
   - make default size of ArrayField a Field property
+  - Handle different COMPOUND_FIELD_SEPERATORs in EnhancedArrayWidget
+  - Fix bug with Arrays of Arrays (Do we want to support this at all?)
   
 
