@@ -182,6 +182,13 @@ class ArrayField(CompoundField):
         if instance:
             lf=self.Schema().fields()[0] #field 0 is always size. has to be adressed by index because fields get renamed during nesting
             lf.set(instance,size)
+            # We need to force a bootstrapping of the accessors by calling
+            # getAccessor. There was a strange bug:
+            # After a restart the content of an array field with a size
+            # greater than default was not shown until after
+            # a reload. Apparently the accessors was accessed
+            # before the resize triggered by getSize().
+            self.getAccessor(instance)
         else:
             self.size=size
 
