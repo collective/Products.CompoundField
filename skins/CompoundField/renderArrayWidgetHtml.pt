@@ -1,0 +1,8 @@
+<metal:block use-macro="here/global_defines/macros/defines" />
+<tal:block tal:define="widget nocall:options/widget;
+        field options/field;
+        mode options/mode;
+        errors python:{};
+">
+    <input metal:use-macro="widget" />
+</tal:block>
