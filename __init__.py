@@ -39,9 +39,14 @@ except ImportError:
 
 from Globals import package_home
 from Products.CMFCore import utils as cmfutils
-from Products.CMFCore import CMFCorePermissions
+from Products.CMFCore import permissions as CMFCorePermissions
 from Products.CMFCore import DirectoryView
-from Products.CMFPlone.PloneUtilities import ToolInit
+
+try:
+    from Products.CMFPlone.utils import ToolInit
+except ImportError:
+    from Products.CMFPlone.PloneUtilities import ToolInit
+    
 from Products.Archetypes.atapi import *
 from Products.Archetypes import listTypes
 from Products.Archetypes.utils import capitalize
