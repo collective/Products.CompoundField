@@ -82,13 +82,10 @@ class ArrayField(CompoundField):
 
     schema=schema
 
-    security.declarePrivate('set')
-    security.declarePrivate('get')
-
-
     def getRaw(self, instance, **kwargs):
         return CompoundField.getRaw(self,instance,**kwargs)
 
+    security.declarePrivate('set')
     def set(self, instance, value, **kwargs):
         #print 'Arrayfield:set: %s' % value
         #import pdb;pdb.set_trace()
@@ -112,6 +109,7 @@ class ArrayField(CompoundField):
             f.set(instance,value[i],**kwargs)
             i+=1
 
+    security.declarePrivate('get')
     def get(self, instance, **kwargs):
         res=[]
         for f in self.Schema().fields()[1:self.getSize(instance)+1]:

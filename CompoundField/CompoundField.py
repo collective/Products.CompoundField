@@ -58,7 +58,6 @@ class CompoundField(ObjectField):
     """
     ##code-section class-header #fill in your manual code here
     security  = ClassSecurityInfo()
-    security.declarePublic('getFields')
     schema=Schema(())
     ##/code-section class-header
 
@@ -77,11 +76,6 @@ class CompoundField(ObjectField):
 
     security  = ClassSecurityInfo()
 
-
-    security.declarePrivate('set')
-    security.declarePrivate('get')
-
-
     #from Interface ICompoundField:
     def Schema(self,):
         """Returns the Schemata for the CompoundField
@@ -95,6 +89,7 @@ class CompoundField(ObjectField):
 
         return res
 
+    security.declarePrivate('set')
     def set(self, instance, value, **kwargs):
         #print 'COMPOUNDFIELD:SET:',value
         #import pdb;pdb.set_trace()
@@ -127,6 +122,7 @@ class CompoundField(ObjectField):
                     else:
                         f.set(instance, v, **kw)
 
+    security.declarePrivate('get')
     def get(self, instance, **kwargs):
         res={}
         for f in self.Schema().fields():
@@ -176,13 +172,14 @@ class CompoundField(ObjectField):
         return ObjectField.getAccessor(self,instance)
 
     def __init__(self, name=None, schema=None, **kwargs):
-        ObjectField.__init__(self,name,**kwargs)
+        ObjectField.__init__(self, name, **kwargs)
 
         if not schema:
             schema=self.schema.copy()
 
         self.setSchema(schema)
 
+    security.declarePublic('getFields')
     def getFields(self,):
         return self.Schema().fields()
 
