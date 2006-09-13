@@ -63,8 +63,6 @@ STYLESHEETS = []
 JAVASCRIPTS = []
 
 ##code-section config-bottom #fill in your manual code here
-COMPOUND_FIELD_SEPERATOR='@@'
-ARRAY_FIELD_SEPERATOR='$'
 ##/code-section config-bottom
 
 

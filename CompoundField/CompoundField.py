@@ -68,7 +68,8 @@ class CompoundField(ObjectField):
     _properties = ObjectField._properties.copy()
     _properties.update({
         'type': 'compoundfield',
-        'widget':CompoundWidget,
+        'widget': CompoundWidget,
+        'separator': '@@',
         ##code-section field-properties #fill in your manual code here
         ##/code-section field-properties
 
@@ -159,7 +160,7 @@ class CompoundField(ObjectField):
                 f.old_name = f.getName()
                 f.prefixed = 1
 
-            f.__name__ = config.COMPOUND_FIELD_SEPERATOR.join([getattr(field,'old_name',field.getName()) for field in path+[self]+[f]])
+            f.__name__ = self.separator.join([getattr(field,'old_name',field.getName()) for field in path+[self]+[f]])
             #del _fields[old_name]
             _fields[f.__name__]=f
 
