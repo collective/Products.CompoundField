@@ -71,7 +71,8 @@ class ArrayField(CompoundField):
     _properties = CompoundField._properties.copy()
     _properties.update({
         'type': 'arrayfield',
-        'widget':ArrayWidget,
+        'widget': ArrayWidget,
+        'separator': '$'
         ##code-section field-properties #fill in your manual code here
         ##/code-section field-properties
 
@@ -157,6 +158,8 @@ class ArrayField(CompoundField):
         del cdict['widget']
         del cdict['schema']
         del cdict['field']
+        if cdict.has_key('kwargs'):
+            del cdict['kwargs']
         properties = deepcopy(cdict)
         properties['widget'] = widget.copy()
         res=self.__class__(self.field,**properties)
@@ -164,20 +167,54 @@ class ArrayField(CompoundField):
 
         return res
 
+    def fieldCopy(self, field):
+        """Replacement of field.copy() for Zope < 2.8
+
+        The code from Archetypes.Fields.py copy() adapted for us.
+        """
+        cdict = dict(vars(field))
+        # Widget and schema must be copied separatedly
+        widget = cdict['widget']
+        del cdict['widget']
+        schema = None
+        if cdict.has_key('schema'):
+            schema = cdict['schema']
+            del cdict['schema']
+
+        properties = deepcopy(cdict)
+
+        properties['widget'] = widget.copy()
+        if schema:
+            # This one must fail too, but we never know...
+            try:
+                properties['schema'] = schema.copy()
+            except TypeError:
+                c = Schemata()
+                for subfield in schema.fields():
+                    c.addField(self.fieldCopy(subfield))
+                properties['schema'] = c
+
+        return field.__class__(self.field.getName(), **properties)
+
     def resize(self, size, instance=None):
 
         oldsize=self.getPhysicalSize()
 
         #only do a physical resize when growing
-        if size>oldsize:
-            self.already_bootstrapped=False
-            schema=Schema(())
+        if size > oldsize:
+            self.already_bootstrapped = False
+            schema = Schema(())
             schema.addField(IntegerField('size'))
-            fn=self.field.getName()
+            fn = self.field.getName()
 
             for i in range(size):
-                f1=self.field.copy()
-                f1.__name__='%s%s%03d' % (fn, config.ARRAY_FIELD_SEPERATOR, i)
+                try:
+                    f1 = self.field.copy()
+                except TypeError:
+                    # Zope < 2.8 fallback
+                    f1 = self.fieldCopy(self.field)
+
+                f1.__name__ = '%s%s%03d' % (fn, self.separator, i)
                 schema.addField(f1)
 
             self.setSchema(schema=schema)
