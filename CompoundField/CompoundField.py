@@ -48,6 +48,7 @@ ListTypes = (types.TupleType, types.ListType)
 ##/code-section module-header
 
 from Products.CompoundField.ICompoundField import ICompoundField
+from Products.CompoundField.IArrayField import IArrayField
 from Products.CompoundField.CompoundWidget import CompoundWidget
 
 
@@ -110,7 +111,9 @@ class CompoundField(ObjectField):
         for f in self.Schema().fields():
             if value.has_key(f.old_name):
                 v = value[f.old_name]
-                isarray = type(v) in ListTypes and len(v)==2 and type(v[1]) == types.DictType
+                isarray = type(v) in ListTypes and \
+                          len(v)==2 and \
+                          type(v[1]) == types.DictType
                 if v and isarray:
                     kw=v[1]
                 else:
@@ -124,14 +127,29 @@ class CompoundField(ObjectField):
 
     security.declarePrivate('get')
     def get(self, instance, **kwargs):
+        """ get
+
+        Why it is private ?
+        why it returns a dictionnary ?
+        """
         res={}
-        for f in self.Schema().fields():
+        for f in self.getFields():
             res[f.old_name]=f.get(instance)
 
         if getattr(self,'value_class',None):
             res=self.raw2ValueClass(res)
 
         return res
+
+    security.declarePublic('getField')
+    def getField(self, fieldname):
+        """Return internal compound field
+        """
+        for field in self.getFields():
+            if field.old_name == fieldname:
+                return field
+
+        return None
 
     def raw2ValueClass(self,dict):
         res=self.value_class()
@@ -143,7 +161,7 @@ class CompoundField(ObjectField):
         self.calcFieldNames()
 
     def calcFieldNames(self, path=[]):
-        ''' prefixes the field names with the parent field name '''
+        """ prefixes the field names with the parent field name """
 
         _fields = self.Schema()._fields
 
@@ -152,18 +170,19 @@ class CompoundField(ObjectField):
             if ICompoundField.isImplementedBy(f):
                 f.calcFieldNames(path=path+[self])
 
-            if not getattr(f,'prefixed',False):
+            if not getattr(f, 'prefixed', False):
                 f.old_name = f.getName()
-                f.prefixed = 1
+                f.prefixed = True
 
-            f.__name__ = self.separator.join([getattr(field,'old_name',field.getName()) for field in path+[self]+[f]])
+            f.__name__ = self.separator.join([getattr(field, 'old_name', field.getName())
+                                              for field in path+[self]+[f]])
             #del _fields[old_name]
             _fields[f.__name__]=f
 
-    def getAccessor(self,instance):
-        ''' hook to post-generate the accessors for the subfields
+    def getAccessor(self, instance):
+        """ hook to post-generate the accessors for the subfields
             its a little bit hacky, because we need a special ClassGen here
-        '''
+        """
 
         if not getattr(self,'already_bootstrapped',False):
             fields=self.getFields()
@@ -189,7 +208,6 @@ class CompoundField(ObjectField):
             res[k]=(getattr(value,k),)
 
         return res
-
 
 registerField(CompoundField,
               title='CompoundField',
