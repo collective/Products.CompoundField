@@ -64,8 +64,8 @@ class ArrayField(CompoundField):
     ##/code-section class-header
 
     __implements__ = (getattr(CompoundField,'__implements__',()),) + \
-                   (getattr(CompoundField,'__implements__',()),) + \
-                   (IArrayField,)
+                     (getattr(CompoundField,'__implements__',()),) + \
+                     (IArrayField,)
 
 
     _properties = CompoundField._properties.copy()
@@ -112,25 +112,14 @@ class ArrayField(CompoundField):
     security.declarePrivate('get')
     def get(self, instance, **kwargs):
         res=[]
-        for f in self.Schema().fields()[1:self.getSize(instance)+1]:
+        for f in self.Schema().fields()[1:]:
             res.append(f.get(instance))
 
         return res
 
-    def getSize(self,instance=None):
-        if instance:
-            lf=self.Schema().fields()[0] #field 0 is always size. has to be adressed by index because fields get renamed during nesting
-
-            size=lf.get(instance)
-            if size is None:
-                size=self.size
-
-            if size > self.getPhysicalSize():
-                self.resize(size,instance)
-
-            return size
-        else:
-            return self.size
+    def getSize(self, instance=None):
+        self.size = self.getPhysicalSize()
+        return self.size
 
     def __init__(self,field,size=5,*a,**kw):
 
@@ -142,7 +131,7 @@ class ArrayField(CompoundField):
 
     def getPhysicalSize(self):
         """ returns the physical amount of subfields"""
-        return getattr(self,'physicalSize',0)
+        return getattr(self, 'physicalSize', 0)
 
     def copy(self):
         """
@@ -195,15 +184,19 @@ class ArrayField(CompoundField):
         return field.__class__(self.field.getName(), **properties)
 
     def resize(self, size, instance=None):
-
         oldsize=self.getPhysicalSize()
 
+        if size == oldsize:
+            return
+
         #only do a physical resize when growing
-        if size > oldsize:
+        else:
+
             self.already_bootstrapped = False
             schema = Schema(())
             schema.addField(IntegerField('size'))
-            fn = self.field.getName()
+
+            fieldname = self.field.getName()
 
             for i in range(size):
                 try:
@@ -212,17 +205,21 @@ class ArrayField(CompoundField):
                     # Zope < 2.8 fallback
                     f1 = self.fieldCopy(self.field)
 
-                f1.__name__ = '%s%s%03d' % (fn, self.separator, i)
+                f1.__name__ = '%s%s%03d' % (fieldname, self.separator, i)
                 schema.addField(f1)
 
             self.setSchema(schema=schema)
-            self.physicalSize=size
+            self.physicalSize = size
+
 
         if instance:
-            lf=self.Schema()['size']
-            lf.set(instance,size)
+            # field 0 is always size. has to be adressed by index because fields
+            # get renamed during nesting
+            field = self.Schema().fields()[0]
+            field.set(instance, size)
         else:
-            self.size=size
+            self.size = size
+
 
 
 registerField(ArrayField,
