@@ -6,8 +6,13 @@
   <head><title></title></head>
   <body>
     <!-- String Widgets -->
-    <metal:view_macro define-macro="view"
-		      tal:replace="structure accessor" />
+    <metal:view_macro define-macro="view" >
+    <table class="listing vertical">
+        <tr tal:repeat="f python:field.getFields()">
+            <td tal:content="f/widget/label"/><td><span metal:use-macro="python:here.widget(f.getName(),field=f,mode='view')"  /></td>
+        </tr>
+    </table>
+    </metal:view_macro>
     <metal:define define-macro="edit">
         <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
             <div metal:fill-slot="widget_body">

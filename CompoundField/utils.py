@@ -1,6 +1,7 @@
 """
 """
 from Products.CompoundField.config import *
+from Acquisition import ExplicitAcquisitionWrapper
 
 def getCompoundFieldSeperator():
     """ For access to COMPOUND_FIELD_SEPERATOR in the skin.
@@ -24,4 +25,4 @@ def getNestedField(context, field_name):
         full_name = prefix + COMPOUND_FIELD_SEPERATOR + f_name
         field = f_schema.get( full_name )
         prefix = full_name
-    return field
+    return ExplicitAcquisitionWrapper(field, context)
