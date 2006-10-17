@@ -10,9 +10,13 @@
 
       <tal:block tal:define="fsize python:field.getSize(here)+1;ssize python:field.getSize(here)-1">
         <fieldset>
-          <tal:block tal:repeat="f python:field.getFields()[1:fsize]">
-            <input metal:use-macro="python:here.widget(f.getName(), field=f, mode='view')" />
-          </tal:block>
+          <table class="listing vertical">
+          <tr tal:repeat="f python:field.getFields()[1:fsize]">
+            <td>
+                <span metal:use-macro="python:here.widget(f.getName(), field=f, mode='view')" />
+            </td>
+          </tr>
+          </table>
         </fieldset>
       </tal:block>
 
