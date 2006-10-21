@@ -86,7 +86,7 @@ class XPointField(CompoundField):
     _properties = CompoundField._properties.copy()
     _properties.update({
         'type': 'xpointfield',
-        'widget':XPointWidget,
+        #'widget':XPointWidget,
         'value_class':XPoint,
         ##code-section field-properties #fill in your manual code here
         ##/code-section field-properties
