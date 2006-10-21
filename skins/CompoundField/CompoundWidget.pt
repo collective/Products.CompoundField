@@ -9,7 +9,7 @@
     <metal:view_macro define-macro="view" >
     <table class="listing vertical">
         <tr tal:repeat="f python:field.getFields()">
-            <td tal:content="f/widget/label"/><td><span metal:use-macro="python:here.widget(f.getName(),field=f,mode='view')"  /></td>
+            <th tal:content="f/widget/label"/><td><span metal:use-macro="python:here.widget(f.getName(),field=f,mode='view')"  /></td>
         </tr>
     </table>
     </metal:view_macro>
