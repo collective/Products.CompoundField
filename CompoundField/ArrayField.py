@@ -118,7 +118,7 @@ class ArrayField(CompoundField):
     def getSize(self,instance=None):
         if instance:
             lf=self.Schema().fields()[0] #field 0 is always size. has to be adressed by index because fields get renamed during nesting
-
+            
             size=lf.get(instance)
             if size is None:
                 size=self.size
@@ -165,13 +165,13 @@ class ArrayField(CompoundField):
         oldsize=self.getPhysicalSize()
 
         #only do a physical resize when growing
-        if size>oldsize:
+        if size>oldsize or size==0 and oldsize==0:
             self.already_bootstrapped=False
             schema=Schema(())
             schema.addField(IntegerField('size'))
             fn=self.field.getName()
 
-            for i in range(size):
+            for i in range(max(size,1)):
                 f1=self.field.copy()
                 f1.__name__='%s:%03d' % (fn,i)
                 schema.addField(f1)
