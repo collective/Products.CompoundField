@@ -98,11 +98,17 @@ class EnhancedArrayWidget(ArrayWidget):
         # We require the widget to contain a least one element when created, to
         # have something to render.
         # (Remember that size is element 0)
-        firstSubField = field.getFields()[1]
-        widget = firstSubField.widget
-        subfield_name = firstSubField.getName()
-        accessor = firstSubField.getAccessor(wrapped)
-
+        if len(field.getFields()) >1:
+            firstSubField = field.getFields()[1]
+            widget = firstSubField.widget
+            subfield_name = firstSubField.getName()
+            accessor = firstSubField.getAccessor(wrapped)
+        else:
+            firstSubField=None
+            widget=None
+            subfield_name=''
+            accessor=None
+            
         wrapped_widget = (WidgetWrapper(
             field_name=subfield_name,
             mode='edit',
