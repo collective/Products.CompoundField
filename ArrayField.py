@@ -96,13 +96,13 @@ class ArrayField(CompoundField):
             value=eval(value)
 
         if type(value)==DictType:
-            return CompoundField.set(self,instance,value,**kwargs)
+            return CompoundField.set(self, instance, value, **kwargs)
 
         if not value:
             return
-        i=0
+        i = 0
         for f in self.Schema().fields()[1:self.getSize(instance)+1]:
-            if i>=len(value):
+            if i >= len(value):
                 break
 
             f.set(instance,value[i],**kwargs)
@@ -117,20 +117,20 @@ class ArrayField(CompoundField):
 
     def getSize(self,instance=None):
         if instance:
-            lf=self.Schema().fields()[0] #field 0 is always size. has to be adressed by index because fields get renamed during nesting
+            lf = self.Schema().fields()[0] #field 0 is always size. has to be adressed by index because fields get renamed during nesting
             
-            size=lf.get(instance)
+            size = lf.get(instance)
             if size is None:
-                size=self.size
+                size = self.size
 
             if size > self.getPhysicalSize():
-                self.resize(size,instance)
+                self.resize(size, instance)
 
             return size
         else:
             return self.size
 
-    def __init__(self,field,size=5,*a,**kw):
+    def __init__(self, field, size=5, *a, **kw):
 
         self.args=a
         self.kwargs=kw
