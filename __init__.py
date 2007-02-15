@@ -2,8 +2,9 @@
 #
 # File: CompoundField.py
 #
-# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.5.0 svn/devel
+# Copyright (c) 2007 by eduplone Open Source Business Network EEIG (2005-2006),
+# BlueDynamics Alliance
+# Generator: ArchGenXML Version 1.5.2
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
@@ -28,32 +29,30 @@ __docformat__ = 'plaintext'
 #   - To register a customisation policy, create a file CustomizationPolicy.py
 #       with a method register(context) to register the policy.
 
-from zLOG import LOG, INFO, DEBUG
-
-LOG('CompoundField', DEBUG, 'Installing Product')
+import logging
+logger = logging.getLogger('CompoundField')
+logger.info('Installing Product')
 
 try:
     import CustomizationPolicy
 except ImportError:
     CustomizationPolicy = None
 
+import os, os.path
 from Globals import package_home
 from Products.CMFCore import utils as cmfutils
-from Products.CMFCore import permissions as CMFCorePermissions
-from Products.CMFCore import DirectoryView
 
-try:
-    from Products.CMFPlone.utils import ToolInit
-except ImportError:
-    from Products.CMFPlone.PloneUtilities import ToolInit
-    
+try: # New CMF
+    from Products.CMFCore import permissions as CMFCorePermissions 
+except: # Old CMF
+    from Products.CMFCore import CMFCorePermissions
+
+from Products.CMFCore import DirectoryView
+from Products.CMFPlone.utils import ToolInit
 from Products.Archetypes.atapi import *
 from Products.Archetypes import listTypes
 from Products.Archetypes.utils import capitalize
-
-import os, os.path
-
-from Products.CompoundField.config import *
+from config import *
 
 DirectoryView.registerDirectory('skins', product_globals)
 DirectoryView.registerDirectory('skins/CompoundField',

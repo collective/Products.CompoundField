@@ -2,8 +2,9 @@
 #
 # File: XPointField.py
 #
-# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.5.0 svn/devel
+# Copyright (c) 2007 by eduplone Open Source Business Network EEIG (2005-2006),
+# BlueDynamics Alliance
+# Generator: ArchGenXML Version 1.5.2
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
@@ -52,7 +53,7 @@ schema = Schema((
 
     IntegerField(
         name='x',
-        widget=IntegerWidget(
+        widget=IntegerField._properties['widget'](
             label='X',
             label_msgid='CompoundField_label_x',
             i18n_domain='CompoundField',
@@ -61,7 +62,7 @@ schema = Schema((
 
     IntegerField(
         name='y',
-        widget=IntegerWidget(
+        widget=IntegerField._properties['widget'](
             label='Y',
             label_msgid='CompoundField_label_y',
             i18n_domain='CompoundField',
@@ -86,7 +87,7 @@ class XPointField(CompoundField):
     _properties = CompoundField._properties.copy()
     _properties.update({
         'type': 'xpointfield',
-        #'widget':XPointWidget,
+        'widget':XPointWidget,
         'value_class':XPoint,
         ##code-section field-properties #fill in your manual code here
         ##/code-section field-properties

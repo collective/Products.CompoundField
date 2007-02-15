@@ -2,8 +2,9 @@
 #
 # File: ArrayFieldTest.py
 #
-# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.5.0 svn/devel
+# Copyright (c) 2007 by eduplone Open Source Business Network EEIG (2005-2006),
+# BlueDynamics Alliance
+# Generator: ArchGenXML Version 1.5.2
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
@@ -31,7 +32,8 @@ from Products.CompoundField.config import *
 
 schema = Schema((
 
-ArrayField(            StringField(
+    ArrayField(
+        StringField(
                 name='names',
                 widget=StringWidget(
                     label='Names',
@@ -40,25 +42,39 @@ ArrayField(            StringField(
                 )
             ),
         
-        ),
+    ),
 
-ArrayField(            XPointField(
+    ArrayField(
+        XPointField(
                 name='points',
-            
+                widget=XPointField._properties['widget'](
+                    label='Points',
+                    label_msgid='CompoundField_label_points',
+                    i18n_domain='CompoundField',
+                )
             ),
         
-        ),
+    ),
 
-ArrayField(            XBoxField(
+    ArrayField(
+        XBoxField(
                 name='boxes',
-            
+                widget=XBoxField._properties['widget'](
+                    label='Boxes',
+                    label_msgid='CompoundField_label_boxes',
+                    i18n_domain='CompoundField',
+                )
             ),
         
-        ),
+    ),
 
     XPolygonField(
         name='points1',
-    
+        widget=XPolygonField._properties['widget'](
+            label='Points1',
+            label_msgid='CompoundField_label_points1',
+            i18n_domain='CompoundField',
+        )
     ),
 
 ),

@@ -2,8 +2,9 @@
 #
 # File: XBoxField.py
 #
-# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.5.0 svn/devel
+# Copyright (c) 2007 by eduplone Open Source Business Network EEIG (2005-2006),
+# BlueDynamics Alliance
+# Generator: ArchGenXML Version 1.5.2
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
@@ -51,12 +52,20 @@ schema = Schema((
 
     XPointField(
         name='p1',
-    
+        widget=XPointField._properties['widget'](
+            label='P1',
+            label_msgid='CompoundField_label_p1',
+            i18n_domain='CompoundField',
+        )
     ),
 
     XPointField(
         name='p2',
-    
+        widget=XPointField._properties['widget'](
+            label='P2',
+            label_msgid='CompoundField_label_p2',
+            i18n_domain='CompoundField',
+        )
     ),
 
 ),

@@ -2,8 +2,9 @@
 #
 # File: EnhancedArrayWidget.py
 #
-# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.5.0 svn/devel
+# Copyright (c) 2007 by eduplone Open Source Business Network EEIG (2005-2006),
+# BlueDynamics Alliance
+# Generator: ArchGenXML Version 1.5.2
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
@@ -57,6 +58,7 @@ class EnhancedArrayWidget(ArrayWidget):
 
     security = ClassSecurityInfo()
 
+
     def process_form(self, instance, field, form, empty_marker=None,
                      emptyReturnsMarker=False):
         #import pdb;pdb.set_trace()
@@ -108,7 +110,7 @@ class EnhancedArrayWidget(ArrayWidget):
             widget=None
             subfield_name=''
             accessor=None
-            
+
         wrapped_widget = (WidgetWrapper(
             field_name=subfield_name,
             mode='edit',
@@ -140,7 +142,7 @@ class EnhancedArrayWidget(ArrayWidget):
         # hide the script-tags from the browser
         html = html.replace('<script>', "<scr' + \n 'ipt>")
         html = html.replace('</script>', "</scr' + \n 'ipt>")
-        
+
         seperator = config.COMPOUND_FIELD_SEPERATOR
         #from Products.zdb import set_trace; set_trace()
 
@@ -163,7 +165,6 @@ class EnhancedArrayWidget(ArrayWidget):
         html = FIELD_NAME_INDEX_REGEX.sub(match_handler, html, 0)
         return html
 
-
     def splitArrayFieldName(self, field_name):
         # Split an array field name in name part and index part.
         # We split at the last ':'.
@@ -171,6 +172,7 @@ class EnhancedArrayWidget(ArrayWidget):
         fname = field_name[0:split_point]
         index = field_name[split_point+1:]
         return (fname, index)
+
 
 registerWidget(EnhancedArrayWidget,
                title='EnhancedArrayWidget',

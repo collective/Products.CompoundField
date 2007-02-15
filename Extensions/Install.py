@@ -2,8 +2,9 @@
 #
 # File: Install.py
 #
-# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.5.0 svn/devel
+# Copyright (c) 2007 by eduplone Open Source Business Network EEIG (2005-2006),
+# BlueDynamics Alliance
+# Generator: ArchGenXML Version 1.5.2
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
@@ -35,7 +36,7 @@ from Products.Archetypes.atapi import listTypes
 from Products.CompoundField.config import PROJECTNAME
 from Products.CompoundField.config import product_globals as GLOBALS
 
-def install(self):
+def install(self, reinstall=False):
     """ External Method to install CompoundField """
     out = StringIO()
     print >> out, "Installation log of %s:" % PROJECTNAME
@@ -78,10 +79,12 @@ def install(self):
         print >>out,'no workflow install'
 
 
+
     # enable portal_factory for given types
     factory_tool = getToolByName(self,'portal_factory')
     factory_types=[
         "CompoundFieldTest",
+        "compound",
         "XPoint",
         "ArrayFieldTest",
         "XBox",
@@ -101,7 +104,7 @@ def install(self):
             'media': 'all',
             'enabled': True}
             defaults.update(stylesheet)
-            portal_css.manage_addStylesheet(**defaults)
+            portal_css.registerStylesheet(**defaults)
     except:
         # No portal_css registry
         pass
@@ -130,7 +133,10 @@ def install(self):
 
     if install:
         print >>out,'Custom Install:'
-        res = install(self)
+        try:
+            res = install(self, reinstall)
+        except TypeError:
+            res = install(self)
         if res:
             print >>out,res
         else:
@@ -139,8 +145,10 @@ def install(self):
         print >>out,'no custom install'
     return out.getvalue()
 
-def uninstall(self):
+def uninstall(self, reinstall=False):
     out = StringIO()
+
+
 
     # try to call a workflow uninstall method
     # in 'InstallWorkflows.py' method 'uninstallWorkflows'
@@ -168,7 +176,10 @@ def uninstall(self):
 
     if uninstall:
         print >>out,'Custom Uninstall:'
-        res = uninstall(self)
+        try:
+            res = uninstall(self, reinstall)
+        except TypeError:
+            res = uninstall(self)
         if res:
             print >>out,res
         else:
