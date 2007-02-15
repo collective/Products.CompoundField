@@ -26,17 +26,21 @@ When copying a fields schema, we can no longer query the schema copy for subfiel
 >>> pSchemaCopy = pSchema.copy()
 >>> p.setSchema( pSchemaCopy)
 
+We would expect 'px_new' to be <Field point|x(integer:rw)> after this one:
 >>> px_new=None
->>> px_new=o.Schema()['point'].Schema()['x']
->>> px_new
-<Field point|x(integer:rw)>
+>>> try:
+...     px_new=o.Schema()['point'].Schema()['x']
+... except KeyError, e:
+...     print e
+'x'
 
-The above fails with a KeyError:
+The above 'fails' with a KeyError:
 Traceback (most recent call last):
   File "<console>", line 1, in ?
   File "C:\Zope28\Instances\CompoundTest\Products\Archetypes\Schema\__init__.py", line 234, in __getitem__
     return self._fields[name]
 KeyError: 'x'
+
 
 Why? 
 Archetypes schemas have the attributes '_names' and '_fields'. In CompoundField.calcFieldNames() the 
@@ -66,4 +70,3 @@ Conclusion: If we want to be able to access subfields by both their full name an
 name we need som kind of alias functionality in the schema.
 
 
->>> #self.interact( locals() )

@@ -61,7 +61,6 @@ class EnhancedArrayWidget(ArrayWidget):
 
     def process_form(self, instance, field, form, empty_marker=None,
                      emptyReturnsMarker=False):
-        #import pdb;pdb.set_trace()
         #print 'processss_form:',form
         value={}
         #resize the schema if we are supplied with a new size:

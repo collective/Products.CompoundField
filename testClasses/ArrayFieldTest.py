@@ -137,7 +137,6 @@ class ArrayFieldTest(BaseContent):
     # Manually created methods
 
     def testset(self, value):
-        import pdb;pdb.set_trace()
         self.Schema()['names'].fields()[1].set(self,value)
 
 

@@ -15,7 +15,6 @@ class CompoundAttribute(SchemaAttribute):
         """ callback to process text nodes
         """
         # text value is normally irrelevant in compound field
-        # import pdb; pdb.set_trace()
         value = self.parseXmlNode(context, context.node)
         if not value:
             return
@@ -49,7 +48,6 @@ class CompoundAttribute(SchemaAttribute):
     def parseArray(self, context, node):
         res=[]
         for item in node:
-            #import pdb;pdb.set_trace()
             n = item[0]
             value = self.parseXmlNode(context, n)
             res.append(value)
@@ -80,7 +78,6 @@ class CompoundFieldNS(XmlNamespace):
         return ['array','compound']
     
     def serialize(self, dom, parent_node, instance, options ):
-        # import pdb;pdb.set_trace() 
         exclude_attrs = options.get('atns_exclude', () )
         for attribute in self.getAttributes( instance, exclude_attrs):
             attribute.serialize( dom, parent_node, instance, options )
@@ -121,7 +118,6 @@ class CompoundFieldNS(XmlNamespace):
         return False
     
     def getAttributeByName(self, schema_name, context=None):
-        #import pdb;pdb.set_trace()
         if context is not None: # and schema_name not in self.at_fields:
             if not context.instance.Schema().has_key( schema_name ):
                 return

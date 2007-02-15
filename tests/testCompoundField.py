@@ -159,26 +159,26 @@ class testCompoundField(CompoundFieldTestCase):
         """
         """
 
-        o=self.folder.cft
-        o.update(point=self.pointdict_set,point2=self.pointdict_set)
-        r=o.getPoint()
+        ob=self.folder.cft
+        ob.update(point=self.pointdict_set,point2=self.pointdict_set)
+        r=ob.getPoint()
         self.assertEqual(1,r['x'])
         self.assertEqual(2,r['y'])
         self.assertEqual(r,self.pointdict_get)
 
-        p2=o.getPoint2()
+        p2=ob.getPoint2()
         self.assertEqual(p2,XPoint(1,2))
 
         #test the field accessor
-        p=o.Schema()['point']
-        px=o.Schema()['point'].Schema()['x']
-        assert p.getAccessor(o),'field p has no accessor'
-        assert px.getAccessor(o),'field px has no accessor'
-        self.assertEqual(px.getAccessor(o)(),1)
-        self.assertEqual(px.getEditAccessor(o)(),1)
+        pnt=ob.Schema()['point']
+        pntx=ob.Schema()['point'].Schema()['point|x']
+        assert pnt.getAccessor(ob), 'field pnt has no accessor'
+        assert pntx.getAccessor(ob), 'field pntx has no accessor'
+        self.assertEqual(pntx.getAccessor(ob)(),1)
+        self.assertEqual(pntx.getEditAccessor(ob)(),1)
 
-        o.update(point2=XPoint(-1,0))
-        self.assertEqual(o.getPoint2(),XPoint(-1,0))
+        ob.update(point2=XPoint(-1,0))
+        self.assertEqual(ob.getPoint2(),XPoint(-1,0))
 
     def test_simpleCompoundWidget(self):
         """
