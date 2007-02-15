@@ -2,8 +2,9 @@
 #
 # File: CompoundFieldTest.py
 #
-# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.5.0 svn/devel
+# Copyright (c) 2007 by eduplone Open Source Business Network EEIG (2005-2006),
+# BlueDynamics Alliance
+# Generator: ArchGenXML Version 1.5.2
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
@@ -31,17 +32,30 @@ schema = Schema((
 
     CompoundField(
         name='point',
+        widget=CompoundField._properties['widget'](
+            label='Point',
+            label_msgid='CompoundField_label_point',
+            i18n_domain='CompoundField',
+        ),
         schema=Schema((IntegerField('x'),IntegerField('y')))
     ),
 
     XBoxField(
         name='box',
-    
+        widget=XBoxField._properties['widget'](
+            label='Box',
+            label_msgid='CompoundField_label_box',
+            i18n_domain='CompoundField',
+        )
     ),
 
     XPointField(
         name='point2',
-    
+        widget=XPointField._properties['widget'](
+            label='Point2',
+            label_msgid='CompoundField_label_point2',
+            i18n_domain='CompoundField',
+        )
     ),
 
 ),

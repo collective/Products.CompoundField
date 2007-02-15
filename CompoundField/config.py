@@ -2,8 +2,9 @@
 #
 # File: CompoundField.py
 #
-# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.5.0 svn/devel
+# Copyright (c) 2007 by eduplone Open Source Business Network EEIG (2005-2006),
+# BlueDynamics Alliance
+# Generator: ArchGenXML Version 1.5.2
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
@@ -27,7 +28,12 @@ __docformat__ = 'plaintext'
 # AppConfig.py in your product's root directory. This will be included
 # in this file if found.
 
-from Products.CMFCore.CMFCorePermissions import setDefaultRoles
+try: # New CMF
+    from Products.CMFCore.permissions import setDefaultRoles 
+except ImportError: # Old CMF
+    from Products.CMFCore.CMFCorePermissions import setDefaultRoles
+
+
 ##code-section config-head #fill in your manual code here
 ##/code-section config-head
 

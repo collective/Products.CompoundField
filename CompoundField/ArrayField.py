@@ -2,8 +2,9 @@
 #
 # File: ArrayField.py
 #
-# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.5.0 svn/devel
+# Copyright (c) 2007 by eduplone Open Source Business Network EEIG (2005-2006),
+# BlueDynamics Alliance
+# Generator: ArchGenXML Version 1.5.2
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
@@ -118,7 +119,7 @@ class ArrayField(CompoundField):
     def getSize(self,instance=None):
         if instance:
             lf = self.Schema().fields()[0] #field 0 is always size. has to be adressed by index because fields get renamed during nesting
-            
+
             size = lf.get(instance)
             if size is None:
                 size = self.size

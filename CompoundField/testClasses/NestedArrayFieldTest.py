@@ -2,8 +2,9 @@
 #
 # File: NestedArrayFieldTest.py
 #
-# Copyright (c) 2006 by eduplone Open Source Business Network EEIG
-# Generator: ArchGenXML Version 1.5.0 svn/devel
+# Copyright (c) 2007 by eduplone Open Source Business Network EEIG (2005-2006),
+# BlueDynamics Alliance
+# Generator: ArchGenXML Version 1.5.2
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
@@ -28,12 +29,17 @@ from Products.CompoundField.config import *
 
 schema = Schema((
 
-ArrayField(            NestedArrayField(
+    ArrayField(
+        NestedArrayField(
                 name='nestedArray',
-            
+                widget=NestedArrayField._properties['widget'](
+                    label='Nestedarray',
+                    label_msgid='CompoundField_label_nestedArray',
+                    i18n_domain='CompoundField',
+                )
             ),
         
-        ),
+    ),
 
 ),
 )
