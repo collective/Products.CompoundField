@@ -86,16 +86,16 @@ class ArrayField(CompoundField):
 
 
     def getRaw(self, instance, **kwargs):
-        return CompoundField.getRaw(self,instance,**kwargs)
+        return CompoundField.getRaw(self, instance, **kwargs)
 
     def set(self, instance, value, **kwargs):
-        #print 'Arrayfield:set: %s' % value
-        #import pdb;pdb.set_trace()
-        if type(value) in (type(''),type(u'')):
-            #if the value comes as string eval it to a dict
-            value=eval(value)
 
-        if type(value)==DictType:
+        # keep evial eval for BBB, but: its a security hole
+        if config.EVIL_EVAL and type(value) in (type(''),type(u'')):
+            #if the value comes as string eval it to a dict
+            value = eval(value)
+
+        if type(value) == DictType:
             return CompoundField.set(self, instance, value, **kwargs)
 
         if not value:

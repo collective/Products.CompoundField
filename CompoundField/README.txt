@@ -16,11 +16,11 @@ CompoundField
 
 Dependencies
 
-  - Zope 2.8.4+
+  - Zope 2.9.5+
 
-  - Plone 2.1.+
+  - Plone 2.5.+
 
-  - Archetypes 1.3.>=4 
+  - Archetypes 1.4+
 
 
  Documentation
@@ -41,9 +41,10 @@ Dependencies
 
 Copyright
 
-  eduplone Open Source Business Network EEIG, Austria, 2005
+  eduplone Open Source Business Network EEIG, Austria, 2005-2006
+  BlueDynamics Alliance, Austria, 2007
 
-  This code was created for the ZUCCARO project. 
+  This code was initially created for the ZUCCARO project. 
   ZUCCARO (Zope-based Universally Configurable Classes for Academic 
   Research Online) is a database framework for the Humanities developed 
   by the Bibliotheca Hertziana, Max Planck Institute for Art History
