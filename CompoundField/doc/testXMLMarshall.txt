@@ -49,5 +49,4 @@ lets demarshall it
 >>> msh = ATXMLMarshaller() 
 >>> msh.demarshall(array,arraybuf)
 
->>> import pdb;pdb.set_trace()
 

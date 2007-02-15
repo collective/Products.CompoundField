@@ -97,8 +97,6 @@ class CompoundField(ObjectField):
         return res
 
     def set(self, instance, value, **kwargs):
-        #print 'COMPOUNDFIELD:SET:',value
-        #import pdb;pdb.set_trace()
         if not value:
             return
 

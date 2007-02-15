@@ -60,7 +60,6 @@ class CompoundWidget(TypesWidget):
 
     def process_form(self, instance, field, form, empty_marker=None,
                      emptyReturnsMarker=False):
-        #import pdb;pdb.set_trace()
         #print 'processss_form:',form
         value={}
         for f in field.Schema().fields():
