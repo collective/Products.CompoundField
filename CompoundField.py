@@ -101,7 +101,8 @@ class CompoundField(ObjectField):
         if not value:
             return
 
-        if type(value) in types.StringTypes:
+        # keep evial eval for BBB, but: its a security hole
+        if config.EVIL_EVAL and type(value) in types.StringTypes:
             #if the value comes as string eval it to a dict
             # XXX attention: use restricted environment instead!
             # this is a potential security hole.
