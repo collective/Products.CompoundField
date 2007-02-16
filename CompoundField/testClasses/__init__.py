@@ -28,7 +28,6 @@ __docformat__ = 'plaintext'
 
 # Classes
 import CompoundFieldTest
-import compound
 import XPointField
 import XPoint
 import ArrayFieldTest

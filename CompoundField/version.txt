@@ -1,1 +1,1 @@
-1.0-beta3 development build 30
+1.0-beta4 development build 32

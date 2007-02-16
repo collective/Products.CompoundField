@@ -84,7 +84,6 @@ def install(self, reinstall=False):
     factory_tool = getToolByName(self,'portal_factory')
     factory_types=[
         "CompoundFieldTest",
-        "compound",
         "XPoint",
         "ArrayFieldTest",
         "XBox",
