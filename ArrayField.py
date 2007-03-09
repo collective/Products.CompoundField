@@ -2,9 +2,9 @@
 #
 # File: ArrayField.py
 #
-# Copyright (c) 2007 by eduplone Open Source Business Network EEIG (2005-2006),
-# BlueDynamics Alliance
-# Generator: ArchGenXML Version 1.5.2
+# Copyright (c) 2007 by BlueDynamics Alliance, 2005-2006 by eduplone Open
+# Source Business Network EEIG
+# Generator: ArchGenXML Version 1.5.3 dev/svn
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
@@ -18,14 +18,10 @@ __author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
 <jens.klein@jensquadrat.com>"""
 __docformat__ = 'plaintext'
 
-#ArrayField
-
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
-
 from Products.CMFCore.utils import getToolByName
-
-from Products.Archetypes.Field import ObjectField,encode,decode
+from Products.Archetypes.Field import ObjectField, encode, decode
 from Products.Archetypes.Registry import registerField
 from Products.Archetypes.utils import DisplayList
 from Products.Archetypes import config as atconfig
@@ -36,28 +32,24 @@ try:
     from Products.generator import i18n
 except ImportError:
     from Products.Archetypes.generator import i18n
-
 from Products.CompoundField import config
-
-##code-section module-header #fill in your manual code here
-from Products.Archetypes.Schema import Schema
-from types import DictType
-from copy import deepcopy
-##/code-section module-header
-
 from Products.CompoundField.CompoundField import CompoundField
 from Products.CompoundField.IArrayField import IArrayField
 from Products.CompoundField.ArrayWidget import ArrayWidget
 
 
 from Products.CompoundField.CompoundField import CompoundField
-######CompoundField
 schema = Schema((
 
 ),
 )
 
 
+##code-section module-header #fill in your manual code here
+from Products.Archetypes.Schema import Schema
+from types import DictType
+from copy import deepcopy
+##/code-section module-header
 
 
 class ArrayField(CompoundField):
@@ -72,26 +64,29 @@ class ArrayField(CompoundField):
     _properties = CompoundField._properties.copy()
     _properties.update({
         'type': 'arrayfield',
-        'widget':ArrayWidget,
+        'widget': ArrayWidget,
         ##code-section field-properties #fill in your manual code here
+        'autoresize': False,
         ##/code-section field-properties
 
         })
-
+        
+    schema = schema
     security  = ClassSecurityInfo()
+    ##code-section security-declarations #fill in your manual code here
+    ##/code-section security-declarations
 
-    schema=schema
-
-    security.declarePrivate('set')
     security.declarePrivate('get')
-
+    security.declarePrivate('getRaw')
+    security.declarePrivate('set')
 
     def getRaw(self, instance, **kwargs):
         return CompoundField.getRaw(self, instance, **kwargs)
 
     def set(self, instance, value, **kwargs):
-
+        """sets value and distribute to subfields"""
         # keep evial eval for BBB, but: its a security hole
+        # disabled by default
         if config.EVIL_EVAL and type(value) in (type(''),type(u'')):
             #if the value comes as string eval it to a dict
             value = eval(value)
@@ -102,12 +97,16 @@ class ArrayField(CompoundField):
         if not value:
             return
         i = 0
-        for f in self.Schema().fields()[1:self.getSize(instance)+1]:
+        fields = self.Schema().fields()[1:self.getSize(instance)+1]
+        if self.autoresize and len(fields) != len(value):
+            self.resize(len(value))
+            fields = self.Schema().fields()[1:self.getSize(instance)+1]
+        for f in fields:
             if i >= len(value):
                 break
 
-            f.set(instance,value[i],**kwargs)
-            i+=1
+            f.set(instance, value[i], **kwargs)
+            i += 1
 
     def get(self, instance, **kwargs):
         res=[]
@@ -116,7 +115,7 @@ class ArrayField(CompoundField):
 
         return res
 
-    def getSize(self,instance=None):
+    def getSize(self, instance=None):
         if instance:
             lf = self.Schema().fields()[0] #field 0 is always size. has to be adressed by index because fields get renamed during nesting
 
