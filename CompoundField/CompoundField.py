@@ -2,9 +2,9 @@
 #
 # File: CompoundField.py
 #
-# Copyright (c) 2007 by eduplone Open Source Business Network EEIG (2005-2006),
-# BlueDynamics Alliance
-# Generator: ArchGenXML Version 1.5.2
+# Copyright (c) 2007 by BlueDynamics Alliance, 2005-2006 by eduplone Open
+# Source Business Network EEIG
+# Generator: ArchGenXML Version 1.5.3 dev/svn
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
@@ -18,14 +18,10 @@ __author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
 <jens.klein@jensquadrat.com>"""
 __docformat__ = 'plaintext'
 
-#CompoundField
-
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
-
 from Products.CMFCore.utils import getToolByName
-
-from Products.Archetypes.Field import ObjectField,encode,decode
+from Products.Archetypes.Field import ObjectField, encode, decode
 from Products.Archetypes.Registry import registerField
 from Products.Archetypes.utils import DisplayList
 from Products.Archetypes import config as atconfig
@@ -36,8 +32,10 @@ try:
     from Products.generator import i18n
 except ImportError:
     from Products.Archetypes.generator import i18n
-
 from Products.CompoundField import config
+from Products.CompoundField.ICompoundField import ICompoundField
+from Products.CompoundField.CompoundWidget import CompoundWidget
+
 
 ##code-section module-header #fill in your manual code here
 import types
@@ -48,11 +46,6 @@ ListTypes = (types.TupleType, types.ListType)
 #uugh, we need a special generator for the subfields
 
 ##/code-section module-header
-
-from Products.CompoundField.ICompoundField import ICompoundField
-from Products.CompoundField.CompoundWidget import CompoundWidget
-
-
 
 
 class CompoundField(ObjectField):
@@ -70,18 +63,19 @@ class CompoundField(ObjectField):
     _properties = ObjectField._properties.copy()
     _properties.update({
         'type': 'compoundfield',
-        'widget':CompoundWidget,
+        'widget': CompoundWidget,
         ##code-section field-properties #fill in your manual code here
         ##/code-section field-properties
 
         })
-
+        
     security  = ClassSecurityInfo()
+    ##code-section security-declarations #fill in your manual code here
+    ##/code-section security-declarations
 
-
-    security.declarePrivate('set')
     security.declarePrivate('get')
-
+    security.declarePrivate('getRaw')
+    security.declarePrivate('set')
 
     #from Interface ICompoundField:
     def Schema(self,):
@@ -92,15 +86,16 @@ class CompoundField(ObjectField):
     def getRaw(self, instance, **kwargs):
         res={}
         for f in self.Schema().fields():
-            res[f.old_name]=(f.getRaw(instance,schema=self.schema))
+            res[f.old_name] = (f.getRaw(instance, schema=self.schema))
 
         return res
 
-    def set(self, instance, value, **kwargs):
+    def set(self, instance, value, **kwargs):        
         if not value:
             return
 
-        # keep evial eval for BBB, but: its a security hole
+        # keep evil eval for BBB, but: its a security hole
+        # disabled by default
         if config.EVIL_EVAL and type(value) in types.StringTypes:
             #if the value comes as string eval it to a dict
             # XXX attention: use restricted environment instead!
@@ -183,6 +178,16 @@ class CompoundField(ObjectField):
             self.already_bootstrapped=True
         return ObjectField.getAccessor(self,instance)
 
+    def valueClass2Raw(self,value):
+        res={}
+        for k in value.__dict__:
+            res[k]=(getattr(value,k),)
+
+        return res
+
+    def getFields(self,):
+        return self.Schema().fields()
+
     def __init__(self, name=None, schema=None, **kwargs):
         ObjectField.__init__(self,name,**kwargs)
 
@@ -190,16 +195,6 @@ class CompoundField(ObjectField):
             schema=self.schema.copy()
 
         self.setSchema(schema)
-
-    def getFields(self,):
-        return self.Schema().fields()
-
-    def valueClass2Raw(self,value):
-        res={}
-        for k in value.__dict__:
-            res[k]=(getattr(value,k),)
-
-        return res
 
 
 registerField(CompoundField,

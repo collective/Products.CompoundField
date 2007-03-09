@@ -2,9 +2,9 @@
 #
 # File: XBoxField.py
 #
-# Copyright (c) 2007 by eduplone Open Source Business Network EEIG (2005-2006),
-# BlueDynamics Alliance
-# Generator: ArchGenXML Version 1.5.2
+# Copyright (c) 2007 by BlueDynamics Alliance, 2005-2006 by eduplone Open
+# Source Business Network EEIG
+# Generator: ArchGenXML Version 1.5.3 dev/svn
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
@@ -18,14 +18,10 @@ __author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
 <jens.klein@jensquadrat.com>"""
 __docformat__ = 'plaintext'
 
-#XBoxField
-
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
-
 from Products.CMFCore.utils import getToolByName
-
-from Products.Archetypes.Field import ObjectField,encode,decode
+from Products.Archetypes.Field import ObjectField, encode, decode
 from Products.Archetypes.Registry import registerField
 from Products.Archetypes.utils import DisplayList
 from Products.Archetypes import config as atconfig
@@ -36,18 +32,12 @@ try:
     from Products.generator import i18n
 except ImportError:
     from Products.Archetypes.generator import i18n
-
 from Products.CompoundField import config
-
-##code-section module-header #fill in your manual code here
-##/code-section module-header
-
 from Products.CompoundField.testClasses.XPointField import XPointField
 from Products.CompoundField.testClasses.XBox import XBox
 
 
 from Products.CompoundField.CompoundField import CompoundField
-######CompoundField
 schema = Schema((
 
     XPointField(
@@ -72,6 +62,8 @@ schema = Schema((
 )
 
 
+##code-section module-header #fill in your manual code here
+##/code-section module-header
 
 
 class XBoxField(CompoundField):
@@ -86,19 +78,20 @@ class XBoxField(CompoundField):
     _properties = CompoundField._properties.copy()
     _properties.update({
         'type': 'xboxfield',
-        'value_class':XBox,
+        'value_class': XBox,
         ##code-section field-properties #fill in your manual code here
         ##/code-section field-properties
 
         })
-
+        
+    schema = schema
     security  = ClassSecurityInfo()
+    ##code-section security-declarations #fill in your manual code here
+    ##/code-section security-declarations
 
-    schema=schema
-
-    security.declarePrivate('set')
     security.declarePrivate('get')
-
+    security.declarePrivate('getRaw')
+    security.declarePrivate('set')
 
     def getRaw(self, instance, **kwargs):
         return CompoundField.getRaw(self,instance,**kwargs)
