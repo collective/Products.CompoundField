@@ -1,1 +1,1 @@
-1.0-beta post4 dev/svn build 36
+1.0-beta post5 dev/svn build 36
