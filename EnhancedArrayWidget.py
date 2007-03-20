@@ -147,21 +147,34 @@ class EnhancedArrayWidget(ArrayWidget):
 
         # Replace the index (000) of the subfield_name in any html attribute with
         # a marker, we easier can replace with the new index in the javascript code.
-        (fname, index) = self.splitArrayFieldName(subfield_name)
-        if seperator == '|':
-            fname = fname.replace('|', '\|')
-        FIELD_NAME_INDEX_REGEX = re.compile(
-            r'=\\"' +  # beginning of attribute
-            r'([^"]*-)*' + # optional 'archetype-field-name-'
-            r'(' + fname + r':)(' + index + ')' + # the prefixed field name and index
-            r'(\|[^"]+)*' + # optional sub field names
-            r'(_[^"]*)*\\"' # optional text after the field name
-            )
 
-        def match_handler(mo):
-            g = mo.group
-            return '="' + (g(1) or '') + (g(2) or '') + '__WIDGET_INDEX_MARKER__' + (g(4) or '') + (g(5) or '') + '"'
-        html = FIELD_NAME_INDEX_REGEX.sub(match_handler, html, 0)
+
+# problem with regex when trying to alter zero indexes (000) with index marker
+# when using compound fields inside enhanced array widget. altered the regex
+# with string.replace() call.
+
+
+
+##        (fname, index) = self.splitArrayFieldName(subfield_name)
+##        if seperator == '|':
+##            fname = fname.replace('|', '\|')
+##            
+##        FIELD_NAME_INDEX_REGEX = re.compile(
+##            r'=\\"' +  # beginning of attribute
+##            r'([^"]*-)*' + # optional 'archetype-field-name-'
+##            r'(' + fname + r':)(' + index + ')' + # the prefixed field name and index
+##            r'(\|[^"]+)*' + # optional sub field names
+##            r'(_[^"]*)*\\"' # optional text after the field name
+##            )
+##
+##        def match_handler(mo):
+##            g = mo.group
+##            return '="' + (g(1) or '') + (g(2) or '') + '__WIDGET_INDEX_MARKER__' + (g(4) or '') + (g(5) or '') + '"'
+        
+        #html = FIELD_NAME_INDEX_REGEX.sub(match_handler, html, 0)
+        
+        html = html.replace(':000', ':__WIDGET_INDEX_MARKER__')
+        
         return html
 
     def splitArrayFieldName(self, field_name):
