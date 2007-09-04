@@ -125,7 +125,7 @@ class CompoundField(ObjectField):
         res={}
 
         for f in self.Schema().fields():
-            res[f.old_name]=f.get(instance)
+            res[f.old_name]=f.get(instance,**kwargs)
 
         if getattr(self,'value_class',None):
             res=self.raw2ValueClass(res)
@@ -195,7 +195,6 @@ class CompoundField(ObjectField):
             schema=self.schema.copy()
 
         self.setSchema(schema)
-
 
 registerField(CompoundField,
               title='CompoundField',
