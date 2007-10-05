@@ -111,7 +111,7 @@ class ArrayField(CompoundField):
     def get(self, instance, **kwargs):
         res=[]
         for f in self.Schema().fields()[1:self.getSize(instance)+1]:
-            res.append(f.get(instance))
+            res.append(f.get(instance, **kwargs))
 
         return res
 
