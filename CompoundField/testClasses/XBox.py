@@ -15,7 +15,7 @@
 #
 
 __author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
-<jens.klein@jensquadrat.com>"""
+<jens@bluedynamics.com>"""
 __docformat__ = 'plaintext'
 
 ##code-section module-header #fill in your manual code here
