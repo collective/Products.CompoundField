@@ -15,7 +15,7 @@
 #
 
 __author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
-<jens.klein@jensquadrat.com>"""
+<jens@bluedynamics.com>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
@@ -41,6 +41,7 @@ from Products.CompoundField.CompoundWidget import CompoundWidget
 import types
 from Products.Archetypes.Schema import *
 from Products.CompoundField import ClassGen
+from Products.CompoundField.validators import CompoundValidator
 ListTypes = (types.TupleType, types.ListType)
 
 #uugh, we need a special generator for the subfields
@@ -64,6 +65,7 @@ class CompoundField(ObjectField):
     _properties.update({
         'type': 'compoundfield',
         'widget': CompoundWidget,
+        'validators': CompoundValidator(),
         ##code-section field-properties #fill in your manual code here
         ##/code-section field-properties
 
