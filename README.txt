@@ -18,9 +18,9 @@ Dependencies
 
   - Zope 2.9.5+
 
-  - Plone 2.5.+
+  - Plone 2.5.+ or 3.0.+
 
-  - Archetypes 1.4+
+  - Archetypes 1.4.+ or 1.5.+
 
 
  Documentation
@@ -38,6 +38,7 @@ Dependencies
   
   Sune Broendum Woeller -- EnhancedArrayWidget; sune[AT]woeller.dk
 
+  Eric Brehault -- validator; <ebrehault@gmail.com>
 
 Copyright
 
@@ -64,8 +65,9 @@ Licence
 
 Todo
 
-  - Improve UI of Widgets
-  - Handle different COMPOUND_FIELD_SEPERATORs in EnhancedArrayWidget
+  - Improve UI of Widgets (contributions are welcome!)
+  - Handle different COMPOUND_FIELD_SEPERATORs in EnhancedArrayWidget 
+    (is it needed?)
   - Fix bug with Arrays of Arrays (Do we want to support this at all?)
   
 
