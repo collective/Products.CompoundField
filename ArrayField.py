@@ -47,6 +47,7 @@ schema = Schema((
 
 ##code-section module-header #fill in your manual code here
 from Products.Archetypes.Schema import Schema
+from Products.CompoundField.validators import ArrayValidator
 from types import DictType
 from copy import deepcopy
 ##/code-section module-header
@@ -66,6 +67,7 @@ class ArrayField(CompoundField):
         'type': 'arrayfield',
         'widget': ArrayWidget,
         ##code-section field-properties #fill in your manual code here
+        'validators': ArrayValidator(),
         'autoresize': False,
         ##/code-section field-properties
 

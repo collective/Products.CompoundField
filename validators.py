@@ -8,10 +8,12 @@
 # German Free Software License
 # The License may be obtained under <http://www.d-fsl.org>.
 #
-__author__ = """Eric BREHAULT <ebrehault@gmail.com>"""
+__author__ = """Eric BREHAULT <ebrehault@gmail.com>,
+                Jens Klein <jens@bluedynamics.com>"""
 __docformat__ = 'plaintext'
 
 from Products.validation.interfaces.IValidator import IValidator
+from Products.CMFPlone.utils import safeToInt
 
 _marker = []
 
@@ -25,15 +27,19 @@ class CompoundValidator:
     
     def __init__(self,errormsg=None):
         self.errormsg=errormsg
+        
+    def _getSubfields(self, field, form):
+        return field.Schema().fields()
 
-    def __call__(self, value, instance, errors, field, REQUEST=None, *args, **kwargs):
+    def __call__(self, value, instance, errors, field, REQUEST=None, 
+                 *args, **kwargs):
         failure = None
         if REQUEST:
             form = REQUEST.form
         else:
             form = None
-            
-        for f in field.Schema().fields():
+        
+        for f in self._getSubfields(field, form):
             if form:
                 widget = f.widget
                 result = widget.process_form(instance, f, form, empty_marker=_marker)
@@ -56,3 +62,15 @@ class CompoundValidator:
             if res:
                 errors[f.getName()] = res
         return errors
+    
+    
+class ArrayValidator(CompoundValidator):
+    """"""
+    name = 'arrayfieldvalidator'
+
+    def _getSubfields(self, field, form):
+        sizeFieldName = field.Schema().fields()[0].getName()        
+        size = safeToInt(form.get(sizeFieldName, 0))
+        fields = field.Schema().fields()
+        return fields[:-size]
+
