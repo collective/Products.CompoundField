@@ -85,7 +85,7 @@ class ArrayField(CompoundField):
 
     def set(self, instance, value, **kwargs):
         """sets value and distribute to subfields"""
-        # keep evial eval for BBB, but: its a security hole
+        # keep evil eval for BBB, but: its a security hole
         # disabled by default
         if config.EVIL_EVAL and type(value) in (type(''),type(u'')):
             #if the value comes as string eval it to a dict
@@ -131,11 +131,11 @@ class ArrayField(CompoundField):
             return self.size
 
     def __init__(self, field, size=5, *a, **kw):
-
-        self.args=a
-        self.kwargs=kw
-        self.field=field
-        CompoundField.__init__(self,self.field.getName(),*self.args,**self.kwargs)
+        self.args = a
+        self.kwargs = kw
+        self.field = field
+        CompoundField.__init__(self, self.field.getName(), 
+                               *self.args, **self.kwargs)
         self.resize(size)
 
     def getPhysicalSize(self):
