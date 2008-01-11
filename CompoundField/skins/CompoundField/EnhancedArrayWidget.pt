@@ -55,10 +55,7 @@
                   }
                   function addElemFromHtml(parentElementId, content){
                       parentElement = document.getElementById(parentElementId);
-                      rng = document.createRange();
-                      rng.setStartBefore(parentElement);
-                      htmlFrag = rng.createContextualFragment(content);
-                      parentElement.appendChild(htmlFrag);
+                      parentElement.innerHTML += content
                   }
                   function removeArrayElement${fieldnamePostfix}() {
                       var nextIndex = 0;
