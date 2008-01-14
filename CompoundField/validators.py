@@ -72,5 +72,8 @@ class ArrayValidator(CompoundValidator):
         sizeFieldName = field.Schema().fields()[0].getName()        
         size = safeToInt(form.get(sizeFieldName, 0))
         fields = field.Schema().fields()
-        return fields[:-size]
+        print len(fields), fields
+        fields = fields[1:1+size]
+        print size, fields
+        return fields
 
