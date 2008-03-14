@@ -16,7 +16,7 @@ CompoundField
 
 Dependencies
 
-  - Zope 2.9.5+
+  - Zope 2.9.5+, Zope 2.10.x
 
   - Plone 2.5.+ or 3.0.+
 
@@ -43,7 +43,7 @@ Dependencies
 Copyright
 
   eduplone Open Source Business Network EEIG, Austria, 2005-2006
-  BlueDynamics Alliance, Austria, 2007
+  BlueDynamics Alliance, Austria, 2007-2008
 
   This code was initially created for the ZUCCARO project. 
   ZUCCARO (Zope-based Universally Configurable Classes for Academic 
