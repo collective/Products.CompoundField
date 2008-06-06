@@ -25,28 +25,25 @@ class CompoundValidator:
 
     name = 'compoundfieldvalidator'
     
-    def __init__(self,errormsg=None):
-        self.errormsg=errormsg
+    def __init__(self, errormsg=None):
+        self.errormsg = errormsg
         
     def _getSubfields(self, field, form):
         return field.Schema().fields()
 
     def __call__(self, value, instance, errors, field, REQUEST=None, 
                  *args, **kwargs):
-        failure = None
-        if REQUEST:
-            form = REQUEST.form
-        else:
-            form = None
+        form = REQUEST and REQUEST.form or None
         
-        for f in self._getSubfields(field, form):
+        for field in self._getSubfields(field, form):
+            result = None
             if form:
-                widget = f.widget
-                result = widget.process_form(instance, f, form, empty_marker=_marker)
-            else:
-                result = None
+                widget = field.widget
+                result = widget.process_form(instance, field, form, 
+                                             empty_marker=_marker)
             if result is None or result is _marker:
-                accessor = f.getEditAccessor(instance) or f.getAccessor(instance)
+                accessor = field.getEditAccessor(instance) or \
+                           field.getAccessor(instance)
                 if accessor is not None:
                     value = accessor()
                 else:
@@ -55,12 +52,12 @@ class CompoundValidator:
             else:
                 value = result[0]
 
-            res = f.validate(instance=instance,
+            res = field.validate(instance=instance,
                                  value=value,
                                  errors=errors,
                                  REQUEST=REQUEST)
             if res:
-                errors[f.getName()] = res
+                errors[field.getName()] = res
         return errors
     
     
