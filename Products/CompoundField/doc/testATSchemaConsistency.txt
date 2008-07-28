@@ -1,0 +1,72 @@
+>>> from Products.CompoundField import config
+>>> from Products.CompoundField.testClasses.CompoundFieldTest import CompoundFieldTest
+
+This (failing) test explores some problems with the way CompoundField manipulates the schema of fields.
+Currently it is not possible to copy a schema of a field withouth loosing the possibility to
+access a subfield by its original (un-prefixed) name. 
+
+First we repeat some stuff from testCompoundField.test_simpleCompoundField():
+
+>>> pt=self.portal.portal_types
+>>> pt.constructContent('CompoundFieldTest',self.folder,'schematest')
+'schematest'
+>>> o=self.folder.schematest
+>>> p=o.Schema()['point']
+>>> p
+<Field point(compoundfield:rw)>
+>>> px=o.Schema()['point'].Schema()['x']
+>>> px
+<Field point|x(integer:rw)>
+
+
+When copying a fields schema, we can no longer query the schema copy for subfields by their simple name.
+(The following also causes a test in testCompoundField.test_simpleCompoundField() to fail.)
+
+>>> pSchema = o.Schema()['point'].Schema()
+>>> pSchemaCopy = pSchema.copy()
+>>> p.setSchema( pSchemaCopy)
+
+We would expect 'px_new' to be <Field point|x(integer:rw)> after this one:
+>>> px_new=None
+>>> try:
+...     px_new=o.Schema()['point'].Schema()['x']
+... except KeyError, e:
+...     print e
+'x'
+
+The above 'fails' with a KeyError:
+Traceback (most recent call last):
+  File "<console>", line 1, in ?
+  File "C:\Zope28\Instances\CompoundTest\Products\Archetypes\Schema\__init__.py", line 234, in __getitem__
+    return self._fields[name]
+KeyError: 'x'
+
+
+Why? 
+Archetypes schemas have the attributes '_names' and '_fields'. In CompoundField.calcFieldNames() the 
+'_fields' attribute of a fields schema are manipulated by inserting the fields under their new (prefixed) names. 
+The entry in '_fields' under the old (un-prefixed) name is kept at this time. But when copying a schema only the entries
+in '_fields' that also are present in '_names' are kept in the schema: schema.copy() copies the fields returned
+by schema.fields(). fields() iterates over '_names': 
+return [self._fields[name] for name in self._names]
+
+You can see the problem here:
+
+>>> pSchema._fields
+{'y': <Field point|y(integer:rw)>, 'x': <Field point|x(integer:rw)>, 'point|y': <Field point|y(integer:rw)>, 'point|x': <Field point|x(integer:rw)>}
+>>> pSchema._names
+['x', 'y']
+>>> pSchemaCopy._fields
+{'point|y': <Field point|y(integer:rw)>, 'point|x': <Field point|x(integer:rw)>}
+>>> pSchemaCopy._names
+['point|x', 'point|y']
+
+
+Lets say we in calcFieldNames() try to manipulate '_names' also by keeping both the original and the new field name 
+there. But that would mean we would get the same field listed twice when calling schema.fields() and 
+two seperate copies of the same field when copying a schema. 
+
+Conclusion: If we want to be able to access subfields by both their full name and their original (un-prefixed) 
+name we need som kind of alias functionality in the schema.
+
+

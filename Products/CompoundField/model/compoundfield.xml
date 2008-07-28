@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ims:metadata xmlns:xmp="adobe:ns:meta" xmlns:at="http://plone.org/ns/archetypes/"
+    xmlns:cf="http://plone.org/ns/archetypes/compoundfield"
+    xmlns:arg="http://zuccaro.biblhertz.it/xsd/arguments.xsd"
+    xmlns:rel="http://zuccaro.biblhertz.it/xsd/xmlforest.xsd"
+    xmlns:zuc="ns://zuccaro.biblhertz.it/export" xmlns:fm="http://www.filemaker.com/fmpdsoresult"
+    xmlns:ims="http://www.imsglobal.org/xsd/imscp_v1p1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cmf="http://cmf.zope.org/namespaces/default/"
+    xsi:SchemaLocation="http://www.imsglobal.org/xsd/imscp_v1p1 imscp_v1p2.xsd"
+    identifier="it.biblhertz.zuccaro.lineamenta.fm.export.1">
+    <cmf:type>Sheet</cmf:type>
+    <dc:creator>gropp</dc:creator>
+    <xmp:CreateDate>2005-01-11T12:00:00Z</xmp:CreateDate>
+    <xmp:ModifyDate>2005-05-17T12:00:00Z</xmp:ModifyDate>
+    <cf:compound id="size">
+        <at:field id="x_min"> 281 </at:field>
+        <at:field id="y_min"> 405 </at:field>
+    </cf:compound>
+    <cf:array id="points">
+        <cf:item>
+            <cf:compound>
+                <at:field id="x"> 10 </at:field>
+                <at:field id="y"> 20 </at:field>
+            </cf:compound>
+        </cf:item>
+        <cf:item>
+            <cf:compound>
+                <at:field id="x"> 10 </at:field>
+                <at:field id="y"> 20 </at:field>
+            </cf:compound>
+        </cf:item>
+        <cf:item>
+            <cf:compound>
+                <at:field id="x"> 10 </at:field>
+                <at:field id="y"> 20 </at:field>
+            </cf:compound>
+        </cf:item>
+    </cf:array>
+    <cf:array id="list">
+        <cf:item>
+            <at:field>bla1</at:field>
+        </cf:item>
+        <cf:item>
+            <at:field>bla2</at:field>
+        </cf:item>
+        <cf:item>
+            <at:field>bla3</at:field>
+        </cf:item>
+        <cf:item>
+            <at:field>bla4</at:field>
+        </cf:item>
+        <cf:item>
+            <at:field>bla5</at:field>
+        </cf:item>
+    </cf:array>
+    <cf:array id="list_of_linesfields">
+        <cf:item>
+            <at:field>bla1</at:field>
+            <at:field>bla1</at:field>
+            <at:field>bla1</at:field>
+            <at:field>bla1</at:field>
+            <at:field>bla1</at:field>
+            <at:field>bla1</at:field>
+        </cf:item>
+        <cf:item>
+            <at:field>bla2</at:field>
+            <at:field>bla2</at:field>
+            <at:field>bla2</at:field>
+            <at:field>bla2</at:field>
+            <at:field>bla2</at:field>
+            <at:field>bla2</at:field>
+        </cf:item>
+    </cf:array>
+    <cf:compound id="poly">
+        <at:field id="closed">1</at:field>
+        <cf:array id="points">
+            <cf:item>
+                <cf:compound>
+                    <at:field id="x"> 10 </at:field>
+                    <at:field id="y"> 20 </at:field>
+                </cf:compound>
+            </cf:item>
+            <cf:item>
+                <cf:compound>
+                    <at:field id="x"> 10 </at:field>
+                    <at:field id="y"> 20 </at:field>
+                </cf:compound>
+            </cf:item>
+            <cf:item>
+                <cf:compound>
+                    <at:field id="x"> 10 </at:field>
+                    <at:field id="y"> 20 </at:field>
+                </cf:compound>
+            </cf:item>
+        </cf:array>
+    </cf:compound>
+    <cmf:workflow_history>
+        <cmf:workflow id="ZuccaroWorkflow">
+            <cmf:history>
+                <cmf:var id="action" type="str" value="modified"/>
+                <cmf:var id="review_state" type="str" value="internal"/>
+                <cmf:var id="comments" type="str" value=""/>
+                <cmf:var id="actor" type="str" value="Admin"/>
+                <cmf:var id="time" type="date" value="2005-05-17T12:00:00Z"/>
+            </cmf:history>
+        </cmf:workflow>
+    </cmf:workflow_history>
+</ims:metadata>

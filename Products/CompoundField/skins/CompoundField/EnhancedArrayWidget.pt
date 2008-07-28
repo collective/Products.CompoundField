@@ -1,0 +1,111 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="plone">
+  <head><title></title></head>
+  <body>
+
+    <metal:view_macro define-macro="view">
+
+      <tal:block tal:define="fsize python:field.getSize(here)+1;ssize python:field.getSize(here)-1">
+        <fieldset>
+          <table class="listing vertical">
+          <tr tal:repeat="f python:field.getFields()[1:fsize]">
+            <td>
+                <span metal:use-macro="python:here.widget(f.getName(), field=f, mode='view')" />
+            </td>
+          </tr>
+          </table>
+        </fieldset>
+      </tal:block>
+
+    </metal:view_macro>
+
+    <metal:edit_macro define-macro="edit">
+      <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
+        <div metal:fill-slot="widget_body">
+
+          <tal:block tal:define="actualSize python:field.getSize(here);
+                                 fsize python:actualSize+1;ssize python:actualSize-1;
+                                 targetElemId python:'archetypes-fieldname-array-fieldset-' + field.getName();
+                                 fieldName python:field.getName();
+                                 fieldnamePostfix python:fieldName.replace('|','_').replace(':','_');
+                                 fields python:field.getFields();
+                                 sizeFieldName python:fields[0].getName();
+                                 subFieldNamePart python:field.widget.splitArrayFieldName(fields[1].getName())[0];">
+            <script type="text/javascript"
+               tal:define="arrayWidgetHtml python:field.widget.getSubFieldWidgetHtml(here, fieldName);
+                           "
+               tal:content="structure string:
+                   function addArrayElement${fieldnamePostfix}() {
+                      var targetElemId = '${targetElemId}';
+                      var widgetHtml = '${arrayWidgetHtml}';
+                      var widgetHtml2 = '';
+                      var nextIndex = 0;
+                      var nextIndexString = '';
+                      arraySizeElem = document.getElementById('${sizeFieldName}');
+                      nextIndex = arraySizeElem.value;
+                      arraySizeElem.value = (nextIndex -1) + 2;
+                      for (count = 1; count <= 3 - nextIndex.length; count++)
+                        {nextIndexString += '0'}
+                      nextIndexString += nextIndex;
+                      widgetHtml2 = widgetHtml.replace(/__WIDGET_INDEX_MARKER__/g, nextIndexString);
+                      addElemFromHtml(targetElemId, widgetHtml2);
+                  }
+                  function addElemFromHtml(parentElementId, content){
+                      parentElement = document.getElementById(parentElementId);
+                      //parentElement.innerHTML += content
+                      jQuery(parentElement).append(content);
+                  }
+                  function removeArrayElement${fieldnamePostfix}() {
+                      var nextIndex = 0;
+                      var nextIndexString = '';
+                      var elemIdRemove = 'archetypes-fieldname-${subFieldNamePart}';
+                      arraySizeElem = document.getElementById('${sizeFieldName}');
+                      nextIndex = arraySizeElem.value - 1;
+                      arraySizeElem.value = nextIndex;
+                      for (count = 1; count <= 3 - nextIndex.toString().length; count++)
+                        {nextIndexString += '0'}
+                      nextIndexString += nextIndex;
+                      elemIdRemove += ':' + nextIndexString
+                      parentElement = document.getElementById('${targetElemId}');
+                      childElement = document.getElementById(elemIdRemove);
+                      parentElement.removeChild(childElement);
+                  }
+            ">
+              dummy
+            </script>         
+            <fieldset tal:attributes="id targetElemId">
+              <tal:block tal:repeat="f python:fields[1:fsize]">
+                <input metal:use-macro="python:here.widget(f.getName(), field=f, mode='edit')" />
+              </tal:block>
+            </fieldset>
+            <script type="text/javascript" 
+                    tal:content="structure string: document.write('<input class=\'context\' type=\'button\' onclick=\'addArrayElement${fieldnamePostfix}()\' value=\'+\'/>');">dummy</script>
+            <script type="text/javascript" 
+                    tal:content="structure string: document.write('<input class=\'context\' type=\'button\' onclick=\'removeArrayElement${fieldnamePostfix}()\' value=\'-\'/>');">dummy</script>
+            <input type=hidden id='' value='0' name=''
+                tal:attributes="id sizeFieldName;
+                                name sizeFieldName;
+                                value actualSize;" />
+            <noscript>
+                <a tal:attributes="href string:${here/absolute_url}/arrayfield_resize?fieldname=${field/getName}&size=$fsize" >+</a>
+                <a tal:attributes="href string:${here/absolute_url}/arrayfield_resize?fieldname=${field/getName}&size=$ssize" >-</a>
+            </noscript>
+          </tal:block>
+
+        </div>
+      </metal:use>
+    </metal:edit_macro>
+
+    <div metal:define-macro="search">
+      <div metal:use-macro="here/widgets/string/macros/edit">
+      </div>
+    </div>
+
+  </body>
+
+</html>
+
+

@@ -1,0 +1,35 @@
+Lets import the necessary modules
+	>>> from Products.CompoundField import config
+	
+	>>> from Products.CompoundField.testClasses.CompoundFieldTest import CompoundFieldTest
+	>>> self.portal.portal_types.CompoundFieldTest.global_allow=1
+
+	>>> res=self.folder.invokeFactory('CompoundFieldTest','myobj')
+	>>> print self.folder.myobj.getId()
+	myobj
+
+Now you can continue with the further tests of your classes here
+
+	>>> fsdirectory=self.getInputDir()
+	>>> import os
+	>>> buf=open(os.path.join(fsdirectory,'compoundtest.xml')).read()
+
+
+lets demarshall it
+	>>> from Products.Marshall.handlers.atxml import ATXMLMarshaller
+	>>> msh = ATXMLMarshaller() 
+	>>> myobj=self.folder.myobj
+	>>> msh.demarshall(myobj,buf)
+
+
+and now lets try the same with an arrayfield
+
+	>>> self.folder.invokeFactory('ArrayFieldTest','array')
+	>>> array=self.folder.array
+	>>> arraybuf=open(os.path.join(fsdirectory,'arraytest.xml')).read()
+
+lets demarshall it
+	>>> msh = ATXMLMarshaller() 
+	>>> msh.demarshall(array,arraybuf)
+
+

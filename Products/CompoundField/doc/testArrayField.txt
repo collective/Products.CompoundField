@@ -1,0 +1,83 @@
+>>> from Products.CompoundField import config
+>>> from Products.CompoundField.testClasses.ArrayFieldTest import ArrayFieldTest
+>>> from Products.CompoundField.ArrayField import ArrayField
+
+ArrayField
+==========
+
+The intention of ArrayField is to allow multiplicity of instance field
+
+
+Lets create an instance of a class that uses ArrayField
+The ArrayField needs similar as the CompoundField to break down the 
+pariclar single fields in order to be able to delegate the set/get 
+calls.
+
+>>> res=self.folder.invokeFactory('ArrayFieldTest','myobj')
+>>> myobj=self.folder.myobj
+>>> new_value=['murz','knurz','woddlewart']
+
+now we assign that to the field
+
+>>> self.folder.myobj.update(names=new_value)
+
+now we try form processing
+
+>>> field=myobj.Schema()['names']
+>>> form={
+...    'names|names:000':'1',
+...    'names|names:001':'2',
+...    'names|names:002':'3',
+...     }
+            
+>>> result = myobj.processForm(values=form)
+>>> myobj.getNames()
+['1', '2', '3', '', '']
+
+after that it should be possible to get ethe some value out of it
+
+>>> myobj.Schema()['names'].Schema().fields()[1].set(myobj,'frunz')
+>>> myobj.getNames()
+['frunz', '2', '3', '', '']
+
+now do a shrink
+
+>>> myobj.Schema()['names'].resize(3,myobj)
+>>> myobj.getNames()
+['frunz', '2', '3']
+
+after the shrink, try the form processing
+
+>>> myobj.processForm(values=form)
+>>> myobj.getNames()
+['1', '2', '3']
+
+
+check the length, if not individually changed for the instance, its the length
+defined with the schema, in our case 5
+
+>>> myobj.Schema()['names'].getSize(myobj)
+3
+
+after the resize it should return the new size
+>>> myobj.Schema()['names'].resize(6,myobj)
+>>> myobj.Schema()['names'].getSize(myobj)
+6
+
+try how processForm works after a grow resize
+
+>>> form={
+...    'names|names:000':'n1',
+...    'names|names:001':'n2',
+...    'names|names:002':'n3',
+...    'names|names:003':'n4',
+...    'names|names:004':'n5',
+...    'names|names:005':'n6',
+...     }
+
+>>> myobj.processForm(values=form)
+>>> myobj.getNames()
+['n1', 'n2', 'n3', 'n4', 'n5', 'n6']
+
+>>> print myobj.getPoints1()
+{'polypoints': [XPoint(...

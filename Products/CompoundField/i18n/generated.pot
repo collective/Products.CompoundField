@@ -1,0 +1,164 @@
+# ArchGenXML generated POT File
+# unknown author <unknown@email.address>, 2005.
+msgid ""
+msgstr ""
+"Project-Id-Version: CompoundField\n"
+"POT-Creation-Date: Sat Jun  4 10:56:56 2005\n"
+"PO-Revision-Date: Sat Jun  4 10:56:56 2005\n"
+"Last-Translator: unknown author <unknown@email.address>\n"
+"Language-Team: unknown author <unknown@email.address>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ascii\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: latin1 utf-8\n"
+"Domain: CompoundField\n"
+
+#. Default: "Enter a value for attribut_1."
+#. Enter a value for attribut_1.
+#: testClasses/XPointField.py
+msgid "CompoundField_help_attribut_1"
+msgstr ""
+
+#. Default: "Enter a value for box."
+#. Enter a value for box.
+#: testClasses/CompoundFieldTest.py
+msgid "CompoundField_help_box"
+msgstr ""
+
+#. Default: "Enter a value for point."
+#. Enter a value for point.
+#: testClasses/CompoundFieldTest.py
+msgid "CompoundField_help_point"
+msgstr ""
+
+#. Default: "Enter a value for point2."
+#. Enter a value for point2.
+#: testClasses/CompoundFieldTest.py
+msgid "CompoundField_help_point2"
+msgstr ""
+
+#. Default: "Enter a value for x."
+#. Enter a value for x.
+#: testClasses/XPointField.py
+msgid "CompoundField_help_x"
+msgstr ""
+
+#. Default: "Enter a value for y."
+#. Enter a value for y.
+#: testClasses/XPointField.py
+msgid "CompoundField_help_y"
+msgstr ""
+
+#. Default: "Arrayofstring"
+#: testClasses\NestedArrayField.py
+msgid "CompoundField_label_arrayOfString"
+msgstr ""
+
+#. Default: "Attribut_1"
+#. Attribut_1
+#: testClasses/XPointField.py
+msgid "CompoundField_label_attribut_1"
+msgstr ""
+
+#. Default: "Box"
+#. Box
+#: testClasses/CompoundFieldTest.py
+#: testClasses\CompoundFieldTest.py
+msgid "CompoundField_label_box"
+msgstr ""
+
+#. Default: "Boxes"
+#: testClasses/ArrayFieldTest.py
+#: testClasses\ArrayFieldTest.py
+msgid "CompoundField_label_boxes"
+msgstr ""
+
+#. Default: "Names"
+#: testClasses/ArrayFieldTest.py
+#: testClasses\ArrayFieldTest.py
+msgid "CompoundField_label_names"
+msgstr ""
+
+#. Default: "Nestedarray"
+#: testClasses\NestedArrayFieldTest.py
+msgid "CompoundField_label_nestedArray"
+msgstr ""
+
+#. Default: "P1"
+#: testClasses/XBoxField.py
+#: testClasses\XBoxField.py
+msgid "CompoundField_label_p1"
+msgstr ""
+
+#. Default: "P2"
+#: testClasses/XBoxField.py
+#: testClasses\XBoxField.py
+msgid "CompoundField_label_p2"
+msgstr ""
+
+#. Default: "Point"
+#. Point
+#: testClasses/CompoundFieldTest.py
+#: testClasses\CompoundFieldTest.py
+msgid "CompoundField_label_point"
+msgstr ""
+
+#. Default: "Point2"
+#. Point2
+#: testClasses/CompoundFieldTest.py
+#: testClasses\CompoundFieldTest.py
+msgid "CompoundField_label_point2"
+msgstr ""
+
+#. Default: "Points"
+#: testClasses/ArrayFieldTest.py
+#: testClasses\ArrayFieldTest.py
+msgid "CompoundField_label_points"
+msgstr ""
+
+#. Default: "Points1"
+#: testClasses/ArrayFieldTest.py
+#: testClasses\ArrayFieldTest.py
+msgid "CompoundField_label_points1"
+msgstr ""
+
+#. Default: "Polypoints"
+#: testClasses/XPolygonField.py
+#: testClasses\XPolygonField.py
+msgid "CompoundField_label_polypoints"
+msgstr ""
+
+#. Default: "Simplecompound"
+#: testClasses\NestedArrayFieldTest.py
+msgid "CompoundField_label_simpleCompound"
+msgstr ""
+
+#. Default: "Simplecompoundarray"
+#: testClasses\NestedArrayFieldTest.py
+msgid "CompoundField_label_simpleCompoundArray"
+msgstr ""
+
+#. Default: "Simplestring"
+#: testClasses\NestedArrayField.py
+#: testClasses\CompoundTest.py
+#: testClasses\SimpleCompoundTestField.py
+msgid "CompoundField_label_simpleString"
+msgstr ""
+
+#. Default: "X"
+#. X
+#: testClasses/XPointField.py
+#: testClasses\XPointField.py
+msgid "CompoundField_label_x"
+msgstr ""
+
+#. Default: "Y"
+#. Y
+#: testClasses/XPointField.py
+#: testClasses\XPointField.py
+msgid "CompoundField_label_y"
+msgstr ""
+

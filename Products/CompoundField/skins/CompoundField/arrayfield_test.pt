@@ -1,0 +1,16 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+      lang="en-US"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<body>
+
+
+<div metal:fill-slot="main">
+<h1 tal:content="here/getNames" />
+<h1 tal:content="python:here.Schema()['names'].get(here)"/>
+<h1 tal:content="python:here.Schema()['names'].getSize(here)"/>
+</div>
+
+</body>
+</html>

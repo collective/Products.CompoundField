@@ -1,0 +1,66 @@
+>>> from Products.CompoundField import config
+>>> from Products.CompoundField.testClasses.NestedArrayFieldTest import NestedArrayFieldTest
+>>> from Products.CompoundField.ArrayField import ArrayField
+
+Nested ArrayFields (Arrays of arrays). 
+
+>>> res=self.folder.invokeFactory('NestedArrayFieldTest','myobj')
+>>> myobj=self.folder.myobj
+
+The NestedArrayFieldTest content type has a field 'nestedArray' that is an array of 
+NestedArrayFields. NestedArrayField is a CompoundField with an array of strings. Check
+the naming of the subfields and size field at all levels:
+
+>>> myobj.Schema()['nestedArray']
+<Field nestedArray(arrayfield:rw)>
+
+>>> myobj.Schema()['nestedArray'].Schema().fields()
+[<Field nestedArray|size(integer:rw)>, <Field nestedArray|nestedArray:000(nestedarrayfield:rw)>,...
+
+>>> myobj.Schema()['nestedArray'].Schema()['nestedArray|nestedArray:000'].Schema().fields()
+[<Field nestedArray|nestedArray:000|arrayOfString(arrayfield:rw)>]
+
+>>> myobj.Schema()['nestedArray'].Schema()['nestedArray|nestedArray:000'].Schema()['nestedArray|nestedArray:000|arrayOfString'].Schema().fields()
+[<Field nestedArray|nestedArray:000|arrayOfString|size(integer:rw)>, <Field nestedArray|nestedArray:000|arrayOfString|arrayOfString:000(string:rw)>, ...
+
+
+
+Test resizing of nested arrays.
+
+Now test resizing of the toplevel array:
+
+before the resize (5 fields):
+>>> myobj.Schema()['nestedArray'].Schema().fields()
+[<Field nestedArray|size(integer:rw)>, <Field nestedArray|nestedArray:000(nestedarrayfield:rw)>, <Field nestedArray|nestedArray:001(nestedarrayfield:rw)>, <Field nestedArray|nestedArray:002(nestedarrayfield:rw)>, <Field nestedArray|nestedArray:003(nestedarrayfield:rw)>, <Field nestedArray|nestedArray:004(nestedarrayfield:rw)>]
+
+We resize to 6:
+>>> myobj.Schema()['nestedArray'].resize(6, myobj)
+>>> myobj.Schema()['nestedArray'].Schema().fields()
+[<Field nestedArray|size(integer:rw)>, <Field nestedArray|nestedArray:000(nestedarrayfield:rw)>, <Field nestedArray|nestedArray:001(nestedarrayfield:rw)>, <Field nestedArray|nestedArray:002(nestedarrayfield:rw)>, <Field nestedArray|nestedArray:003(nestedarrayfield:rw)>, <Field nestedArray|nestedArray:004(nestedarrayfield:rw)>, <Field nestedArray|nestedArray:005(nestedarrayfield:rw)>]
+
+We have 6 fields, and the naming is correct.
+
+Now try to resize one of the nested arrays. There are 5 fields as default:
+
+>>> subarray0 = myobj.Schema()['nestedArray'].Schema()['nestedArray|nestedArray:000'].Schema()['nestedArray|nestedArray:000|arrayOfString']
+>>> subarray0.Schema().fields()
+[<Field nestedArray|nestedArray:000|arrayOfString|size(integer:rw)>, <Field nestedArray|nestedArray:000|arrayOfString|arrayOfString:000(string:rw)>, <Field nestedArray|nestedArray:000|arrayOfString|arrayOfString:001(string:rw)>, <Field nestedArray|nestedArray:000|arrayOfString|arrayOfString:002(string:rw)>, <Field nestedArray|nestedArray:000|arrayOfString|arrayOfString:003(string:rw)>, <Field nestedArray|nestedArray:000|arrayOfString|arrayOfString:004(string:rw)>]
+
+We have 5 fields and the naming is correct.
+
+Try to resize:
+
+>>> subarray0.resize(6, myobj)
+>>> subarray0.Schema().fields()
+[<Field nestedArray|nestedArray:000|arrayOfString|size(integer:rw)>, <Field nestedArray|nestedArray:000|arrayOfString|arrayOfString:000(string:rw)>, <Field nestedArray|nestedArray:000|arrayOfString|arrayOfString:001(string:rw)>, <Field nestedArray|nestedArray:000|arrayOfString|arrayOfString:002(string:rw)>, <Field nestedArray|nestedArray:000|arrayOfString|arrayOfString:003(string:rw)>, <Field nestedArray|nestedArray:000|arrayOfString|arrayOfString:004(string:rw)>, <Field nestedArray|nestedArray:000|arrayOfString|arrayOfString:005(string:rw)>]
+
+The above fails, the naming is now incorrect. calcFieldNames() are called for a subfield only so the path of the parent fields
+are missing. To fix this we would need to recalculate the field names starting from the topmost field. 
+I tried to implement a property on every subfield, with a weak reference to the root field.
+But weak references have a problem with deepcopy (at least in python 2.3.5) 
+(deepcopy is used to copy the field properties in field.copy()). 
+I tried to manually copy the schema in copy() to be able to control the copying of the weak reference,
+but this gives other problems as described in the test testATSchemaConsistency.
+
+>>> #self.interact( locals() )
+
