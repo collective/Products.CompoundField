@@ -1,18 +1,20 @@
 CompoundField
+=============
 
- This Product includes CompoundField and ArrayField. Both are fields for use 
- within Archetypes Products. 
+This Product includes CompoundField and ArrayField. Both are fields for use 
+within Archetypes Products. 
  
- CompoundField -- field that itself consists of several sub-fields defined in 
- an own Schema. 
+CompoundField 
+    field that itself consists of several sub-fields defined in 
+    an own Schema. 
 
- ArrayField -- field containing one field severals times.
+ArrayField 
+    field containing one field severals times.
 
- It also provide basic widgets for both fields.
+It also provide basic widgets for both fields.
  
- EnhancedArrayWidget is an improved ArrayWidget, using Javascript to expand and shrink
- the array client side. 
-
+EnhancedArrayWidget is an improved ArrayWidget, using Javascript to expand and shrink
+the array client side. 
 
 Dependencies
 

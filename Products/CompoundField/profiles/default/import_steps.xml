@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<import-steps>
+
+ 
+ <import-step 
+    id="CompoundField-Update-RoleMappings" 
+    handler="Products.CompoundField.setuphandlers.updateRoleMappings"
+    title="Update Workflow role mappings for CompoundField"
+    version="2008-07-28T12:23:43.736598">
+   <dependency step="CompoundField-QI-dependencies"/>
+   updates the workflow role mappings for CompoundField
+ </import-step>
+
+ <import-step 
+    id="CompoundField-postInstall" 
+    handler="Products.CompoundField.setuphandlers.postInstall"
+    title="manual coded post-install for CompoundField"
+    version="2008-07-28T12:23:43.736598">
+   <dependency step="CompoundField-QI-dependencies"/>
+   manual coded post-install for CompoundField
+ </import-step>
+
+<!-- ##code-section ADDITIONALSTEPS -->
+<!-- ##/code-section ADDITIONALSTEPS --> 
+
+</import-steps>
+ 

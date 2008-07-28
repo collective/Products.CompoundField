@@ -2,20 +2,15 @@
 #
 # File: CompoundFieldTestCase.py
 #
-# Copyright (c) 2007 by BlueDynamics Alliance, 2005-2006 by eduplone Open
-# Source Business Network EEIG
-# Generator: ArchGenXML Version 1.5.3 dev/svn
+# Copyright (c) 2008 by BlueDynamics Alliance (since 2007), 2005-2006 by
+# eduplone Open Source Business Network EEIG
+# Generator: ArchGenXML Version 2.2 (svn)
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
 #
-# This Program may be used by anyone in accordance with the terms of the 
-# German Free Software License
-# The License may be obtained under <http://www.d-fsl.org>.
-#
 
-__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
-<jens@bluedynamics.com>"""
+__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein <jens@bluedynamics.com>"""
 __docformat__ = 'plaintext'
 
 #
@@ -31,15 +26,13 @@ if __name__ == '__main__':
 
 from Testing import ZopeTestCase
 from Products.PloneTestCase import PloneTestCase
-from Products.CompoundField.config import HAS_PLONE21
 from Products.CompoundField.config import PRODUCT_DEPENDENCIES
 from Products.CompoundField.config import DEPENDENCIES
 
 # Add common dependencies
-if not HAS_PLONE21:
-    DEPENDENCIES.append('Archetypes')
-    PRODUCT_DEPENDENCIES.append('MimetypesRegistry')
-    PRODUCT_DEPENDENCIES.append('PortalTransforms')
+DEPENDENCIES.append('Archetypes')
+PRODUCT_DEPENDENCIES.append('MimetypesRegistry')
+PRODUCT_DEPENDENCIES.append('PortalTransforms')
 PRODUCT_DEPENDENCIES.append('CompoundField')
 
 # Install all (product-) dependencies, install them too
@@ -53,7 +46,6 @@ PRODUCTS += DEPENDENCIES
 PRODUCTS.append('CompoundField')
 
 testcase = PloneTestCase.PloneTestCase
-
 ##code-section module-before-plone-site-setup #fill in your manual code here
 from Globals import package_home
 ##/code-section module-before-plone-site-setup

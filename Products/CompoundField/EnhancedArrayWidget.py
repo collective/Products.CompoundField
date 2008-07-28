@@ -2,16 +2,12 @@
 #
 # File: EnhancedArrayWidget.py
 #
-# Copyright (c) 2007 by BlueDynamics Alliance, 2005-2006 by eduplone Open
-# Source Business Network EEIG
-# Generator: ArchGenXML Version 1.5.3 dev/svn
+# Copyright (c) 2008 by BlueDynamics Alliance (since 2007), 2005-2006 by
+# eduplone Open Source Business Network EEIG
+# Generator: ArchGenXML Version 2.2 (svn)
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
-#
-# This Program may be used by anyone in accordance with the terms of the 
-# German Free Software License
-# The License may be obtained under <http://www.d-fsl.org>.
 #
 
 __author__ = """Sune Broendum Woeller <sune@woeller.dk>"""
@@ -38,7 +34,10 @@ from Products.CompoundField.utils import *
 import re
 ##/code-section module-header
 
+from zope.interface import implements
 from Products.CompoundField.ArrayWidget import ArrayWidget
+from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
+
 
 class EnhancedArrayWidget(ArrayWidget):
     """
@@ -46,7 +45,6 @@ class EnhancedArrayWidget(ArrayWidget):
     ##code-section class-header #fill in your manual code here
     ##/code-section class-header
 
-    __implements__ = (getattr(TypesWidget,'__implements__',()),) + (getattr(ArrayWidget,'__implements__',()),)
 
     _properties = ArrayWidget._properties.copy()
     _properties.update({
@@ -158,7 +156,7 @@ class EnhancedArrayWidget(ArrayWidget):
 ##        (fname, index) = self.splitArrayFieldName(subfield_name)
 ##        if seperator == '|':
 ##            fname = fname.replace('|', '\|')
-##            
+##
 ##        FIELD_NAME_INDEX_REGEX = re.compile(
 ##            r'=\\"' +  # beginning of attribute
 ##            r'([^"]*-)*' + # optional 'archetype-field-name-'
@@ -170,11 +168,11 @@ class EnhancedArrayWidget(ArrayWidget):
 ##        def match_handler(mo):
 ##            g = mo.group
 ##            return '="' + (g(1) or '') + (g(2) or '') + '__WIDGET_INDEX_MARKER__' + (g(4) or '') + (g(5) or '') + '"'
-        
+
         #html = FIELD_NAME_INDEX_REGEX.sub(match_handler, html, 0)
-        
+
         html = html.replace(':000', ':__WIDGET_INDEX_MARKER__')
-        
+
         return html
 
     def splitArrayFieldName(self, field_name):

@@ -2,20 +2,15 @@
 #
 # File: CompoundField.py
 #
-# Copyright (c) 2007 by BlueDynamics Alliance, 2005-2006 by eduplone Open
-# Source Business Network EEIG
-# Generator: ArchGenXML Version 1.5.3 dev/svn
+# Copyright (c) 2008 by BlueDynamics Alliance (since 2007), 2005-2006 by
+# eduplone Open Source Business Network EEIG
+# Generator: ArchGenXML Version 2.2 (svn)
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
 #
-# This Program may be used by anyone in accordance with the terms of the 
-# German Free Software License
-# The License may be obtained under <http://www.d-fsl.org>.
-#
 
-__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
-<jens@bluedynamics.com>"""
+__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein <jens@bluedynamics.com>"""
 __docformat__ = 'plaintext'
 
 
@@ -25,32 +20,28 @@ __docformat__ = 'plaintext'
 # workflow configuration and every content type module.
 #
 # If you wish to perform custom configuration, you may put a file
-# AppConfig.py in your product's root directory. This will be included
-# in this file if found.
+# AppConfig.py in your product's root directory. The items in there
+# will be included (by importing) in this file if found.
 
-try: # New CMF
-    from Products.CMFCore.permissions import setDefaultRoles 
-except ImportError: # Old CMF
-    from Products.CMFCore.CMFCorePermissions import setDefaultRoles
-
-
+from Products.CMFCore.permissions import setDefaultRoles
 ##code-section config-head #fill in your manual code here
 ##/code-section config-head
 
 
 PROJECTNAME = "CompoundField"
 
-# Check for Plone 2.1
-try:
-    from Products.CMFPlone.migrations import v2_1
-except ImportError:
-    HAS_PLONE21 = False
-else:
-    HAS_PLONE21 = True
-
 # Permissions
 DEFAULT_ADD_CONTENT_PERMISSION = "Add portal content"
-setDefaultRoles(DEFAULT_ADD_CONTENT_PERMISSION, ('Manager', 'Owner'))
+setDefaultRoles(DEFAULT_ADD_CONTENT_PERMISSION, ('Manager', 'Owner', 'Contributor'))
+ADD_CONTENT_PERMISSIONS = {
+    'CompoundFieldTest': 'CompoundField: Add CompoundFieldTest',
+    'ArrayFieldTest': 'CompoundField: Add ArrayFieldTest',
+    'NestedArrayFieldTest': 'CompoundField: Add NestedArrayFieldTest',
+}
+
+setDefaultRoles('CompoundField: Add CompoundFieldTest', ('Manager','Owner'))
+setDefaultRoles('CompoundField: Add ArrayFieldTest', ('Manager','Owner'))
+setDefaultRoles('CompoundField: Add NestedArrayFieldTest', ('Manager','Owner'))
 
 product_globals = globals()
 
@@ -62,14 +53,6 @@ DEPENDENCIES = []
 # override in custom configuration
 PRODUCT_DEPENDENCIES = []
 
-# You can overwrite these two in an AppConfig.py:
-# STYLESHEETS = [{'id': 'my_global_stylesheet.css'},
-#                {'id': 'my_contenttype.css',
-#                 'expression': 'python:object.getTypeInfo().getId() == "MyType"'}]
-# You can do the same with JAVASCRIPTS.
-STYLESHEETS = []
-JAVASCRIPTS = []
-
 ##code-section config-bottom #fill in your manual code here
 COMPOUND_FIELD_SEPERATOR='|'
 HAS_MARSHALLER=False
@@ -77,7 +60,7 @@ EVIL_EVAL=False
 ##/code-section config-bottom
 
 
-# Load custom configuration not managed by ArchGenXML
+# Load custom configuration not managed by archgenxml
 try:
     from Products.CompoundField.AppConfig import *
 except ImportError:

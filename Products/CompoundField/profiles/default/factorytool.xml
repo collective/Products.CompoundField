@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<object name="portal_factory" meta_type="Plone Factory Tool">
+ <factorytypes>
+  <type portal_type="CompoundFieldTest"/>
+  <type portal_type="XPoint"/>
+  <type portal_type="ArrayFieldTest"/>
+  <type portal_type="XBox"/>
+  <type portal_type="NestedArrayFieldTest"/>
+ </factorytypes>
+</object>

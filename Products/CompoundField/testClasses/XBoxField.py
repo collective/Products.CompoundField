@@ -2,26 +2,25 @@
 #
 # File: XBoxField.py
 #
-# Copyright (c) 2007 by BlueDynamics Alliance, 2005-2006 by eduplone Open
-# Source Business Network EEIG
-# Generator: ArchGenXML Version 1.5.3 dev/svn
+# Copyright (c) 2008 by BlueDynamics Alliance (since 2007), 2005-2006 by
+# eduplone Open Source Business Network EEIG
+# Generator: ArchGenXML Version 2.2 (svn)
 #            http://plone.org/products/archgenxml
 #
 # German Free Software License (D-FSL)
 #
-# This Program may be used by anyone in accordance with the terms of the 
-# German Free Software License
-# The License may be obtained under <http://www.d-fsl.org>.
-#
 
-__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein
-<jens@bluedynamics.com>"""
+__author__ = """Phil Auersperg <phil@bluedynamics.com>, Jens Klein <jens@bluedynamics.com>"""
 __docformat__ = 'plaintext'
+
+#XBoxField
 
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
+
 from Products.CMFCore.utils import getToolByName
-from Products.Archetypes.Field import ObjectField, encode, decode
+
+from Products.Archetypes.Field import ObjectField,encode,decode
 from Products.Archetypes.Registry import registerField
 from Products.Archetypes.utils import DisplayList
 from Products.Archetypes import config as atconfig
@@ -32,12 +31,21 @@ try:
     from Products.generator import i18n
 except ImportError:
     from Products.Archetypes.generator import i18n
+
 from Products.CompoundField import config
+
+##code-section module-header #fill in your manual code here
+##/code-section module-header
+
+from zope.interface import implements
 from Products.CompoundField.testClasses.XPointField import XPointField
 from Products.CompoundField.testClasses.XBox import XBox
+from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
+
 
 
 from Products.CompoundField.CompoundField import CompoundField
+######CompoundField
 schema = Schema((
 
     XPointField(
@@ -46,24 +54,21 @@ schema = Schema((
             label='P1',
             label_msgid='CompoundField_label_p1',
             i18n_domain='CompoundField',
-        )
+        ),
     ),
-
     XPointField(
         name='p2',
         widget=XPointField._properties['widget'](
             label='P2',
             label_msgid='CompoundField_label_p2',
             i18n_domain='CompoundField',
-        )
+        ),
     ),
 
 ),
 )
 
 
-##code-section module-header #fill in your manual code here
-##/code-section module-header
 
 
 class XBoxField(CompoundField):
@@ -72,26 +77,24 @@ class XBoxField(CompoundField):
     ##code-section class-header #fill in your manual code here
     ##/code-section class-header
 
-    __implements__ = (getattr(CompoundField,'__implements__',()),)
 
 
     _properties = CompoundField._properties.copy()
     _properties.update({
         'type': 'xboxfield',
-        'value_class': XBox,
+        'value_class':XBox,
         ##code-section field-properties #fill in your manual code here
         ##/code-section field-properties
 
         })
-        
-    schema = schema
-    security  = ClassSecurityInfo()
-    ##code-section security-declarations #fill in your manual code here
-    ##/code-section security-declarations
 
-    security.declarePrivate('get')
-    security.declarePrivate('getRaw')
+    security  = ClassSecurityInfo()
+
+    schema=schema
+
     security.declarePrivate('set')
+    security.declarePrivate('get')
+
 
     def getRaw(self, instance, **kwargs):
         return CompoundField.getRaw(self,instance,**kwargs)

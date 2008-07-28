@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# File: testNestedArrayFields.py
+# File: testXMLMarshall.py
 #
 # Copyright (c) 2008 by BlueDynamics Alliance (since 2007), 2005-2006 by
 # eduplone Open Source Business Network EEIG
@@ -26,27 +26,27 @@ if __name__ == '__main__':
 ##/code-section module-header
 
 #
-# Test-cases for class(es) 
+# Test-cases for class(es) CompoundFieldTest
 #
 
 from Testing import ZopeTestCase
 from Products.CompoundField.tests.CompoundFieldTestCase import CompoundFieldTestCase
 
 # Import the tested classes
-from Products.CompoundField.testClasses.NestedArrayFieldTest import NestedArrayFieldTest
+from Products.CompoundField.testClasses.CompoundFieldTest import CompoundFieldTest
 
 
-class testNestedArrayFields(CompoundFieldTestCase):
-    """Test-cases for class(es) ."""
+class testXMLMarshall(CompoundFieldTestCase):
+    """Test-cases for class(es) CompoundFieldTest."""
 
-    ##code-section class-header_testNestedArrayFields #fill in your manual code here
-    ##/code-section class-header_testNestedArrayFields
+    ##code-section class-header_testXMLMarshall #fill in your manual code here
+    ##/code-section class-header_testXMLMarshall
 
     def afterSetUp(self):
         """
         """
         pass
-    # Manually created methods
+
     # Manually created methods
 
 
@@ -58,9 +58,9 @@ def test_suite():
 ##/code-section test-suite-in-between
 
 
-    s = ZopeDocFileSuite('testNestedArrayFields.txt',
+    s = ZopeDocFileSuite('testXMLMarshall.txt',
                          package='Products.CompoundField.doc',
-                         test_class=testNestedArrayFields)
+                         test_class=testXMLMarshall)
     if USELAYER:
         s.layer = PloneSite
     return TestSuite((s,
