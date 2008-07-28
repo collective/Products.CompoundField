@@ -55,7 +55,8 @@
                   }
                   function addElemFromHtml(parentElementId, content){
                       parentElement = document.getElementById(parentElementId);
-                      parentElement.innerHTML += content
+                      //parentElement.innerHTML += content
+                      jQuery(parentElement).append(content);
                   }
                   function removeArrayElement${fieldnamePostfix}() {
                       var nextIndex = 0;
