@@ -4,8 +4,6 @@
   
   <include file="profiles.zcml" />
 
-
-
   <!-- ##code-section configure.zcml -->
   <!-- ##/code-section configure.zcml -->
 

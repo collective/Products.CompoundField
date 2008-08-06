@@ -169,7 +169,7 @@ class CompoundField(ObjectField):
                     [getattr(field, 'old_name', field.getName()) for field in path + [self] + [f]])
                 #del _fields[old_name]
                 _fields[f.__name__] = f
-                if ICompoundField.isImplementedBy(f):
+                if ICompoundField.providedBy(f):
                     f.calcFieldNames(path = path + [self], force_prefix = True)
 
     def getAccessor(self,instance):
