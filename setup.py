@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from xml.dom.minidom import parse
 
 
-mdfile = os.path.join(os.path.dirname(__file__), 'Products', 'Compoundfield', 
+mdfile = os.path.join(os.path.dirname(__file__), 'Products', 'CompoundField', 
                       'profiles', 'default', 'metadata.xml')
 metadata = parse(mdfile)
 assert metadata.documentElement.tagName == "metadata"
