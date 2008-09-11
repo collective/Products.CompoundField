@@ -36,7 +36,7 @@
                                  subFieldNamePart python:field.widget.splitArrayFieldName(fields[1].getName())[0];">
             <script type="text/javascript"
                tal:define="arrayWidgetHtml python:field.widget.getSubFieldWidgetHtml(here, fieldName);
-                           "
+                           fieldSeparator field/fieldSeparator"
                tal:content="structure string:
                    function addArrayElement${fieldnamePostfix}() {
                       var targetElemId = '${targetElemId}';
@@ -68,7 +68,7 @@
                       for (count = 1; count <= 3 - nextIndex.toString().length; count++)
                         {nextIndexString += '0'}
                       nextIndexString += nextIndex;
-                      elemIdRemove += ':' + nextIndexString
+                      elemIdRemove += '${fieldSeparator}' + nextIndexString
                       parentElement = document.getElementById('${targetElemId}');
                       childElement = document.getElementById(elemIdRemove);
                       parentElement.removeChild(childElement);

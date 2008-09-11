@@ -39,6 +39,7 @@ from Products.CompoundField.ArrayWidget import ArrayWidget
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
 
+
 class EnhancedArrayWidget(ArrayWidget):
     """
     """
@@ -171,14 +172,15 @@ class EnhancedArrayWidget(ArrayWidget):
 
         #html = FIELD_NAME_INDEX_REGEX.sub(match_handler, html, 0)
 
-        html = html.replace(':000', ':__WIDGET_INDEX_MARKER__')
+        html = html.replace('%s000' % config.ARRAY_FIELDNAME_SEPARATOR,
+                            '%s__WIDGET_INDEX_MARKER__' % config.ARRAY_FIELDNAME_SEPARATOR)
 
         return html
 
     def splitArrayFieldName(self, field_name):
         # Split an array field name in name part and index part.
-        # We split at the last ':'.
-        split_point = field_name.rfind(':')
+        # We split at the last ARRAY_FIELDNAME_SEPARATOR.
+        split_point = field_name.rfind(config.ARRAY_FIELDNAME_SEPARATOR)
         fname = field_name[0:split_point]
         index = field_name[split_point+1:]
         return (fname, index)

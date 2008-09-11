@@ -104,17 +104,15 @@ class ArrayField(CompoundField):
 
         if not value:
             return
-        i = 0
         fields = self.Schema().fields()[1:self.getSize(instance)+1]
         if self.autoresize and len(fields) != len(value):
             self.resize(len(value))
             fields = self.Schema().fields()[1:self.getSize(instance)+1]
-        for f in fields:
+        for i, f in enumerate(fields):
             if i >= len(value):
                 break
 
             f.set(instance, value[i], **kwargs)
-            i += 1
 
     def get(self, instance, **kwargs):
         res=[]
@@ -181,7 +179,7 @@ class ArrayField(CompoundField):
 
             for i in range(max(size,1)):
                 f1=self.field.copy()
-                f1.__name__='%s:%03d' % (fn,i)
+                f1.__name__='%s%s%03d' % (fn, config.ARRAY_FIELDNAME_SEPARATOR, i)
                 schema.addField(f1)
 
             self.setSchema(schema=schema)
@@ -199,7 +197,9 @@ class ArrayField(CompoundField):
             self.getAccessor(instance)
         else:
             self.size=size
-
+    
+    def fieldSeparator(self):
+        return config.ARRAY_FIELDNAME_SEPARATOR
 
 registerField(ArrayField,
               title='ArrayField',
