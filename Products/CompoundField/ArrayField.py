@@ -200,7 +200,15 @@ class ArrayField(CompoundField):
     
     def fieldSeparator(self):
         return config.ARRAY_FIELDNAME_SEPARATOR
-
+    
+    def validate_required(self, instance, value, errors):
+        request = instance.REQUEST
+        sizekey = '%s%ssize' % (self.getName(), config.COMPOUND_FIELD_SEPERATOR)
+        if sizekey in request and int(request[sizekey]) == 0:
+            return Field.validate_required(self, instance, None, errors)
+        else:
+            return None
+    
 registerField(ArrayField,
               title='ArrayField',
               description='')
