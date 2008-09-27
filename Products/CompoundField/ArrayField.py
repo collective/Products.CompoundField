@@ -106,7 +106,7 @@ class ArrayField(CompoundField):
             return
         fields = self.Schema().fields()[1:self.getSize(instance)+1]
         if self.autoresize and len(fields) != len(value):
-            self.resize(len(value))
+            self.resize(len(value), instance=instance)
             fields = self.Schema().fields()[1:self.getSize(instance)+1]
         for i, f in enumerate(fields):
             if i >= len(value):
