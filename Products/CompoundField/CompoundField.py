@@ -69,7 +69,8 @@ class CompoundField(ObjectField):
     _properties = ObjectField._properties.copy()
     _properties.update({
         'type': 'compoundfield',
-        'widget':CompoundWidget,
+        'widget': CompoundWidget,
+        #'validators': CompoundValidator(),
         ##code-section field-properties #fill in your manual code here
         ##/code-section field-properties
 
@@ -98,7 +99,7 @@ class CompoundField(ObjectField):
     def set(self, instance, value, **kwargs):
         if not value:
             return
-
+            
         # keep evil eval for BBB, but: its a security hole
         # disabled by default
         if config.EVIL_EVAL and type(value) in types.StringTypes:
@@ -120,7 +121,6 @@ class CompoundField(ObjectField):
                 else:
                     kw={}
 
-                if v:
                     if isarray or (type(v) in ListTypes and len(v) ==1):
                         f.set(instance, v[0], **kw)
                     else:
@@ -193,6 +193,10 @@ class CompoundField(ObjectField):
     def getFields(self,):
         return self.Schema().fields()
 
+    def getField(self, key):
+        """ get subfield of @param key"""
+        return self.Schema().get(key)
+    
     def __init__(self, name=None, schema=None, **kwargs):
         ObjectField.__init__(self,name,**kwargs)
 
