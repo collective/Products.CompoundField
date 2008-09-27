@@ -35,15 +35,15 @@ class CompoundValidator:
                  *args, **kwargs):
         form = REQUEST and REQUEST.form or None
         
-        for field in self._getSubfields(field, form):
+        for subfield in self._getSubfields(field, form):
             result = None
             if form:
-                widget = field.widget
-                result = widget.process_form(instance, field, form, 
+                widget = subfield.widget
+                result = widget.process_form(instance, subfield, form, 
                                              empty_marker=_marker)
             if result is None or result is _marker:
-                accessor = field.getEditAccessor(instance) or \
-                           field.getAccessor(instance)
+                accessor = subfield.getEditAccessor(instance) or \
+                           subfield.getAccessor(instance)
                 if accessor is not None:
                     value = accessor()
                 else:
@@ -52,12 +52,12 @@ class CompoundValidator:
             else:
                 value = result[0]
 
-            res = field.validate(instance=instance,
-                                 value=value,
-                                 errors=errors,
-                                 REQUEST=REQUEST)
+            res = subfield.validate(instance=instance,
+                                    value=value,
+                                    errors=errors,
+                                    REQUEST=REQUEST)
             if res:
-                errors[field.getName()] = res
+                errors[subfield.getName()] = res
         return errors
     
     
