@@ -90,10 +90,9 @@ class CompoundField(ObjectField):
         return self.schema
 
     def getRaw(self, instance, **kwargs):
-        res={}
+        res = dict()
         for f in self.Schema().fields():
             res[f.old_name] = (f.getRaw(instance, schema=self.schema))
-
         return res
 
     def set(self, instance, value, **kwargs):
@@ -127,18 +126,15 @@ class CompoundField(ObjectField):
                         f.set(instance, v, **kw)
 
     def get(self, instance, **kwargs):
-        res={}
-
-        for f in self.Schema().fields():
-            res[f.old_name]=f.get(instance,**kwargs)
-
-        if getattr(self,'value_class',None):
-            res=self.raw2ValueClass(res)
-
+        res = dict()
+        for field in self.Schema().fields():
+            res[field.old_name] = field.get(instance,**kwargs)
+        if getattr(self, 'value_class', None):
+            res = self.raw2ValueClass(res)
         return res
 
     def raw2ValueClass(self,dict):
-        res=self.value_class()
+        res = self.value_class()
         res.__dict__.update(dict)
         return res
 
@@ -172,22 +168,20 @@ class CompoundField(ObjectField):
                 if ICompoundField.providedBy(f):
                     f.calcFieldNames(path = path + [self], force_prefix = True)
 
-    def getAccessor(self,instance):
+    def getAccessor(self, instance):
         ''' hook to post-generate the accessors for the subfields
             its a little bit hacky, because we need a special ClassGen here
         '''
-
-        if not getattr(self,'already_bootstrapped',False):
-            fields=self.getFields()
-            ClassGen.generateMethods(instance.__class__,self.Schema())
-            self.already_bootstrapped=True
-        return ObjectField.getAccessor(self,instance)
+        if not getattr(self, 'already_bootstrapped', False):
+            fields = self.getFields()
+            ClassGen.generateMethods(instance.__class__, self.Schema())
+            self.already_bootstrapped = True
+        return ObjectField.getAccessor(self, instance)
 
     def valueClass2Raw(self,value):
-        res={}
+        res = dict()
         for k in value.__dict__:
-            res[k]=(getattr(value,k),)
-
+            res[k]=(getattr(value, k),)
         return res
 
     def getFields(self,):
@@ -198,11 +192,9 @@ class CompoundField(ObjectField):
         return self.Schema().get(key)
     
     def __init__(self, name=None, schema=None, **kwargs):
-        ObjectField.__init__(self,name,**kwargs)
-
+        ObjectField.__init__(self, name, **kwargs)
         if not schema:
-            schema=self.schema.copy()
-
+            schema = self.schema.copy()
         self.setSchema(schema)
 
 
@@ -212,6 +204,3 @@ registerField(CompoundField,
 
 ##code-section module-footer #fill in your manual code here
 ##/code-section module-footer
-
-
-

@@ -8,7 +8,8 @@
 
     <metal:view_macro define-macro="view">
 
-      <tal:block tal:define="fsize python:field.getSize(here)+1;ssize python:field.getSize(here)-1">
+      <tal:block tal:define="fsize python:field.getSize(here)+1;
+                             ssize python:field.getSize(here)-1">
         <fieldset>
           <table class="listing vertical">
           <tr tal:repeat="f python:field.getFields()[1:fsize]">
@@ -27,7 +28,8 @@
         <div metal:fill-slot="widget_body">
 
           <tal:block tal:define="actualSize python:field.getSize(here);
-                                 fsize python:actualSize+1;ssize python:actualSize-1;
+                                 fsize python:actualSize+1;
+                                 ssize python:actualSize-1;
                                  targetElemId python:'archetypes-fieldname-array-fieldset-' + field.getName();
                                  fieldName python:field.getName();
                                  fieldnamePostfix python:fieldName.replace('|','_').replace(':','_');

@@ -58,10 +58,10 @@ class CompoundWidget(TypesWidget):
     def process_form(self, instance, field, form, empty_marker=None,
                      emptyReturnsMarker=False):
         #print 'processss_form:',form
-        value={}
+        value = dict()
         for f in field.Schema().fields():
-            fname=getattr(f,'old_name',field.getName())
-            value[fname]=f.widget.process_form(instance,f,form,empty_marker)
+            fname = getattr(f, 'old_name', field.getName())
+            value[fname] = f.widget.process_form(instance, f, form,empty_marker)
 
         return value, {}
 
