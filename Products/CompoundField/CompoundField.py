@@ -120,7 +120,7 @@ class CompoundField(ObjectField):
                 else:
                     kw={}
 
-                    if isarray or (type(v) in ListTypes and len(v) ==1):
+                    if isarray or (type(v) in ListTypes and len(v) ==1) and f.type != 'datagrid':
                         f.set(instance, v[0], **kw)
                     else:
                         f.set(instance, v, **kw)
