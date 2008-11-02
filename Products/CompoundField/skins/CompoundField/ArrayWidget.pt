@@ -28,13 +28,16 @@
 
           <tal:block tal:define="fsize python:field.getSize(here)+1;ssize python:field.getSize(here)-1">
             <fieldset>
-              <tal:block tal:repeat="f python:field.getFields()[1:fsize]">
-                <input metal:use-macro="python:here.widget(f.getName(), field=f, mode='edit')" />
-              </tal:block>
+              <div>
+	              <tal:block tal:repeat="f python:field.getFields()[1:fsize]">
+	                <input metal:use-macro="python:here.widget(f.getName(), field=f, mode='edit')" />
+	              </tal:block>
+	          </div>
+	          <div class="arraywidget-addremovebuttons">
+	            <a tal:attributes="href string:${here/absolute_url}/arrayfield_resize?fieldname=${field/getName}&size=$fsize" >+</a>
+	            <a tal:attributes="href string:${here/absolute_url}/arrayfield_resize?fieldname=${field/getName}&size=$ssize" >-</a>
+	          </div>
             </fieldset>
-
-            <a tal:attributes="href string:${here/absolute_url}/arrayfield_resize?fieldname=${field/getName}&size=$fsize" >+</a>
-            <a tal:attributes="href string:${here/absolute_url}/arrayfield_resize?fieldname=${field/getName}&size=$ssize" >-</a>
 
           </tal:block>
 

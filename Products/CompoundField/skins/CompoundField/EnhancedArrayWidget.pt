@@ -77,24 +77,31 @@
                   }
             ">
               dummy
-            </script>         
-            <fieldset tal:attributes="id targetElemId">
+            </script> 
+            <fieldset>      
+            <div tal:attributes="id targetElemId">
               <tal:block tal:repeat="f python:fields[1:fsize]">
                 <input metal:use-macro="python:here.widget(f.getName(), field=f, mode='edit')" />
               </tal:block>
+
+              </div>
+              <div class="arraywidget-addremovebuttons" style="margin-top: 12px; text-align: right">
+	             <script type="text/javascript" 
+	                     tal:content="structure string: document.write('<input class=\'context\' type=\'button\' onclick=\'removeArrayElement${fieldnamePostfix}()\' value=\'-\'/>');">dummy</script>
+	             <script type="text/javascript" 
+	                     tal:content="structure string: document.write('<input class=\'context\' type=\'button\' onclick=\'addArrayElement${fieldnamePostfix}()\' value=\'+\'/>');">dummy</script>
+	           
+	             <input type=hidden id='' value='0' name=''
+	                    tal:attributes="id sizeFieldName;
+		                                name sizeFieldName;
+		                                value actualSize;" />
+	            <noscript>
+	                <a tal:attributes="href string:${here/absolute_url}/arrayfield_resize?fieldname=${field/getName}&size=$fsize" >+</a>
+	                <a tal:attributes="href string:${here/absolute_url}/arrayfield_resize?fieldname=${field/getName}&size=$ssize" >-</a>
+	            </noscript>
+              </div>
             </fieldset>
-            <script type="text/javascript" 
-                    tal:content="structure string: document.write('<input class=\'context\' type=\'button\' onclick=\'addArrayElement${fieldnamePostfix}()\' value=\'+\'/>');">dummy</script>
-            <script type="text/javascript" 
-                    tal:content="structure string: document.write('<input class=\'context\' type=\'button\' onclick=\'removeArrayElement${fieldnamePostfix}()\' value=\'-\'/>');">dummy</script>
-            <input type=hidden id='' value='0' name=''
-                tal:attributes="id sizeFieldName;
-                                name sizeFieldName;
-                                value actualSize;" />
-            <noscript>
-                <a tal:attributes="href string:${here/absolute_url}/arrayfield_resize?fieldname=${field/getName}&size=$fsize" >+</a>
-                <a tal:attributes="href string:${here/absolute_url}/arrayfield_resize?fieldname=${field/getName}&size=$ssize" >-</a>
-            </noscript>
+
           </tal:block>
 
         </div>
