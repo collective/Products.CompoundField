@@ -70,7 +70,7 @@ class CompoundField(ObjectField):
     _properties.update({
         'type': 'compoundfield',
         'widget': CompoundWidget,
-        #'validators': CompoundValidator(),
+        'validators': CompoundValidator(),
         ##code-section field-properties #fill in your manual code here
         ##/code-section field-properties
 
