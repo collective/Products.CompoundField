@@ -82,8 +82,19 @@ class EnhancedArrayWidget(ArrayWidget):
         package = _guessPackage(context.__module__)
         type = context.portal_type
 
-        # create a false instance
-        types = atool.listTypes(package, type)
+        # create a false instance 
+        try:
+           types = atool.listTypes(package, type)
+        except KeyError, ex:
+            # Check if type is registered in pkg name w/out .content.XXX suffix
+            # patch see http://plone.org/products/compoundfield/issues/13
+            i = package.rfind('.content.')
+            if i > 0:
+                package = package[:i]
+                types = atool.listTypes(package, type)
+            else:
+                raise ex
+        
         t = types[0]
         instance = t('fake_instance')
         instance._at_is_fake_instance = True
