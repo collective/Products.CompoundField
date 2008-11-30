@@ -119,7 +119,12 @@ class CompoundField(ObjectField):
                     kw=v[1]
                 else:
                     kw={}
-
+                
+                request = instance.REQUEST
+                if (v or \
+                    f.type == 'lines' and \
+                    not ('controller_state' in request and \
+                         request['controller_state'].getErrors())):
                     if isarray or (type(v) in ListTypes and len(v) ==1) and f.type != 'datagrid':
                         f.set(instance, v[0], **kw)
                     else:
