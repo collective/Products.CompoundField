@@ -32,6 +32,7 @@ setup(name='Products.CompoundField',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'Products.Archetypes',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
