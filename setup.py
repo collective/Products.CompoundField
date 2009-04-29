@@ -1,21 +1,15 @@
 import os
-from setuptools import setup, find_packages
-from xml.dom.minidom import parse
+from setuptools import setup
+from setuptools import find_packages
 
-
-mdfile = os.path.join(os.path.dirname(__file__), 'Products', 'CompoundField', 
-                      'profiles', 'default', 'metadata.xml')
-metadata = parse(mdfile)
-assert metadata.documentElement.tagName == "metadata"
-version =  metadata.getElementsByTagName("version")[0].childNodes[0].data
-shortdesc = metadata.getElementsByTagName("description")[0].childNodes[0].data
+version =  '1.2-dev'
+shortdesc = 'Compound- and Array-Field and -Widget for Archetypes'
 readme = open(os.path.join(os.path.dirname(__file__), 'README.txt')).read()
 
 setup(name='Products.CompoundField',
-      version=version.strip(),
-      description=shortdesc.strip(),
+      version=version,
+      description=shortdesc,
       long_description=readme,
-      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",
         "Framework :: Zope2",
