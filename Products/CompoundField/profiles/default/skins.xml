@@ -10,7 +10,7 @@
          meta_type="Filesystem Directory View"
          directory="CompoundField/skins/CompoundField"/>
  
- <skin-path name="Plone Default">
+ <skin-path name="*">
   <layer insert-after="custom" 
          name="CompoundField"/>
  </skin-path>
