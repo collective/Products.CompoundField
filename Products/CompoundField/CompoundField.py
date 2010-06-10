@@ -27,10 +27,6 @@ from Products.Archetypes import config as atconfig
 from Products.Archetypes.Widget import *
 from Products.Archetypes.Field  import *
 from Products.Archetypes.Schema import Schema
-try:
-    from Products.generator import i18n
-except ImportError:
-    from Products.Archetypes.generator import i18n
 
 from Products.CompoundField import config
 
