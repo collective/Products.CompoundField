@@ -14,6 +14,7 @@ __docformat__ = 'plaintext'
 
 from Products.validation.interfaces.IValidator import IValidator
 from Products.CMFPlone.utils import safeToInt
+from zope import interface
 
 _marker = []
 
@@ -21,7 +22,10 @@ class CompoundValidator:
     """ Validator for CompoundField
     """
 
-    __implements__ = (IValidator,)
+    try:
+        __implements__= (IValidator,)
+    except:
+        interface.implements(IValidator)
 
     name = 'compoundfieldvalidator'
     
