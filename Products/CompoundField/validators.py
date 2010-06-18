@@ -22,9 +22,12 @@ class CompoundValidator:
     """ Validator for CompoundField
     """
 
+    # http://plone.org/products/compoundfield/issues/23
     try:
+        # Zope 2 interface (Plone 3 compatible)
         __implements__= (IValidator,)
     except:
+        # Zope 3 interface (Plone 4 compatible)
         interface.implements(IValidator)
 
     name = 'compoundfieldvalidator'
