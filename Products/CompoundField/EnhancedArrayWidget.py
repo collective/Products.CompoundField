@@ -27,7 +27,7 @@ from Products.Archetypes.Widget import TypesWidget
 from Products.CompoundField import config
 
 ##code-section module-header #fill in your manual code here
-from Products.Archetypes.ArchetypeTool import _guessPackage
+#from Products.Archetypes.ArchetypeTool import _guessPackage
 from Products.Archetypes.ArchetypeTool import WidgetWrapper
 from Products.CompoundField import config
 from Products.CompoundField.utils import *
@@ -78,7 +78,7 @@ class EnhancedArrayWidget(ArrayWidget):
         """
         # The following code is adapted from getWidgets in ArchetypeTool
         atool = getToolByName(context, 'archetype_tool')
-        package = _guessPackage(context.__module__)
+        package = None #_guessPackage(context.__module__)
         type = context.portal_type
 
         # create a false instance 
