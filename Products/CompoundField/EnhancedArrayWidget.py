@@ -73,28 +73,36 @@ class EnhancedArrayWidget(ArrayWidget):
 
         return value, {}
 
+    def getTypes(self, context, typepath=None):
+        """
+        Get the types for the content type
+        """
+        atool = getToolByName(context, 'archetype_tool')
+        atool = getattr(atool, "tool", atool) # Plone 4 compatibility
+        portal_type = context.portal_type
+
+        # Initialize the recursion
+        if typepath == None: typepath = context.__module__.split(".")
+
+        # Try the whole recursion again without preceding 'Products.' part
+        if typepath == ["Products"]: typepath = context.__module__.split(".")[1:]
+
+        # End recursion
+        if not typepath: raise KeyError, context.__module__
+
+        try:
+            # Try to find the current portal type's module in all the registered types
+            return atool.listTypes(".".join(typepath), portal_type)
+        except KeyError, ex:
+            # Strip off the last part of the path and try again until the path is empty
+            return self.getTypes(context, typepath[:-1])
+
     def getSubFieldWidgetHtml(self, context, field_name):
         """
+        Get the widget html for a subfield of an ArrayField.
         """
         # The following code is adapted from getWidgets in ArchetypeTool
-        atool = getToolByName(context, 'archetype_tool')
-        package = None #_guessPackage(context.__module__)
-        type = context.portal_type
-
-        # create a false instance 
-        try:
-           types = atool.listTypes(package, type)
-        except KeyError, ex:
-            # Check if type is registered in pkg name w/out .content.XXX suffix
-            # patch see http://plone.org/products/compoundfield/issues/13
-            i = package.rfind('.content.')
-            if i > 0:
-                package = package[:i]
-                types = atool.listTypes(package, type)
-            else:
-                raise ex
-
-        t = types[0]
+        t = self.getTypes(context, context.__module__.split("."))[0]
         instance = t('fake_instance')
         instance._at_is_fake_instance = True
         # XXX _is_fake_instance will go away in AT 1.4
