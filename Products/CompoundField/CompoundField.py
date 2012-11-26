@@ -88,7 +88,10 @@ class CompoundField(ObjectField):
     def getRaw(self, instance, **kwargs):
         res = dict()
         for f in self.Schema().fields():
-            res[f.old_name] = (f.getRaw(instance, schema=self.schema))
+            if hasattr(f,'getRaw'):
+                res[f.old_name] = (f.getRaw(instance, schema=self.schema))
+            else:
+                res[f.old_name] = (f.get(instance, schema=self.schema))
         return res
 
     def set(self, instance, value, **kwargs):
