@@ -1,0 +1,7 @@
+recursive-include Products/CompoundField *
+recursive-include Products/CompoundField/skins *
+global-exclude *.un~
+global-exclude *pyc
+global-exclude *~
+global-include *.mo
+global-include *mo
