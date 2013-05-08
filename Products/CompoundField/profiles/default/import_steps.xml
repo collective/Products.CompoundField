@@ -2,6 +2,7 @@
 <import-steps>
 
  
+ <!--
  <import-step 
     id="CompoundField-Update-RoleMappings" 
     handler="Products.CompoundField.setuphandlers.updateRoleMappings"
@@ -20,6 +21,7 @@
    manual coded post-install for CompoundField
  </import-step>
 
+-->
 <!-- ##code-section ADDITIONALSTEPS -->
 <!-- ##/code-section ADDITIONALSTEPS --> 
 
